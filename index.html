@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./assets/css/style.css"></script>
-    <title>Ordinance RPG</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Dungeon Crawler on Demand!</title>
 </head>
+
 <body>
-    <p id="player"></p>
+    <div id="player-stats">
+        <p>Name: <span id="player-name"></span></p>
+        <p>Level: <span id="player-lvl"></span></p>
+        <p>HP: <span id="player-hp"></span></p>
+        <p>MP: <span id="player-mp"></span></p>
+        <p>EXP: <span id="player-exp"></span></p>
+        <br>
+        <p>STR: <span id="player-str"></span></p>
+        <p>DEX: <span id="player-dex"></span></p>
+        <p>VIT: <span id="player-vit"></span></p>
+        <p>INT: <span id="player-int"></span></p>
+        <br>
+        <p>ATK: <span id="player-atk"></span></p>
+        <p>M.ATK: <span id="player-matk"></span></p>
+        <p>DEF: <span id="player-def"></span></p>
+        <p>M.DEF: <span id="player-mdef"></span></p>
+        <p>HIT: <span id="player-hit"></span></p>
+        <p>EVA: <span id="player-eva"></span></p>
+        <br>
+    </div>
+    <button id="exp">Exp Up</button>
+    <script src="./assets/js/nformatter.js"></script>
     <script src="./assets/js/script.js"></script>
+    
 </body>
 </html>
