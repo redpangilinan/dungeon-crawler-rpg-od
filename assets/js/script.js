@@ -58,6 +58,34 @@ const player = {
     },
 };
 
+// Enemy
+const enemy = {
+    name: 'Enemy',
+    lvl: 1,
+    baseStats: {
+        hp: 100,
+        hpMax: 100,
+        mp: 100,
+        mpMax: 100,
+        str: 10,
+        dex: 10,
+        vit: 10,
+        int: 10
+    },
+    advStats: {
+        atk: 0,
+        mAtk: 0,
+        def: 0,
+        mDef: 0,
+        hit: 0,
+        eva: 0,
+        atkSpd: 1,
+        lifesteal: 0,
+        critRate: 0,
+        critDmg: 0,
+    },
+};
+
 // Gain exp
 exp.addEventListener("click", function () {
     playerExpGain();
@@ -74,7 +102,7 @@ function calculateAdvStats() {
 }
 
 function playerExpGain() {
-    let expGain = 5000000000000;
+    let expGain = 50;
     player.exp.expCurr += expGain;
     player.exp.expCurrLvl += expGain;
 
@@ -118,10 +146,10 @@ function playerLoadStats() {
     playerExpElement.innerHTML = nFormatter(player.exp.expCurr) + "/" + nFormatter(player.exp.expMax) + " (" + playerExpPercentage + "%)";
 
     // Base Stats
-    playerStrElement.innerHTML = nFormatter(player.baseStats.str);
-    playerDexElement.innerHTML = nFormatter(player.baseStats.dex);
-    playerVitElement.innerHTML = nFormatter(player.baseStats.vit);
-    playerIntElement.innerHTML = nFormatter(player.baseStats.int);
+    playerStrElement.innerHTML = player.baseStats.str;
+    playerDexElement.innerHTML = player.baseStats.dex;
+    playerVitElement.innerHTML = player.baseStats.vit;
+    playerIntElement.innerHTML = player.baseStats.int;
 
     // Advanced Stats
     playerAtkElement.innerHTML = nFormatter(player.advStats.atk);
