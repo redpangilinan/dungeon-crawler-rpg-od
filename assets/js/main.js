@@ -16,76 +16,12 @@ const playerEvaElement = document.getElementById('player-eva');
 const exp = document.querySelector('#exp');
 
 window.onload = function () {
+    calculateClassStats();
     calculateAdvStats();
+
+    player.baseStats.hp = player.baseStats.hpMax;
+    player.baseStats.mp = player.baseStats.mpMax;
     playerLoadStats();
-};
-
-// Player
-const player = {
-    name: 'Red',
-    lvl: 1,
-    baseStats: {
-        hp: 100,
-        hpMax: 100,
-        mp: 100,
-        mpMax: 100,
-        str: 10,
-        dex: 10,
-        vit: 10,
-        int: 10
-    },
-    advStats: {
-        atk: 0,
-        mAtk: 0,
-        def: 0,
-        mDef: 0,
-        hit: 0,
-        eva: 0,
-        atkSpd: 1,
-        lifesteal: 0,
-        critRate: 0,
-        critDmg: 0,
-    },
-    exp: {
-        expCurr: 0,
-        expMax: 100,
-        expCurrLvl: 0,
-        expMaxLvl: 100
-    },
-    inventory: [
-
-    ],
-    addToInventory: function (item) {
-        this.inventory.push(item);
-    },
-};
-
-// Enemy
-const enemy = {
-    name: 'Enemy',
-    lvl: 1,
-    baseStats: {
-        hp: 100,
-        hpMax: 100,
-        mp: 100,
-        mpMax: 100,
-        str: 10,
-        dex: 10,
-        vit: 10,
-        int: 10
-    },
-    advStats: {
-        atk: 0,
-        mAtk: 0,
-        def: 0,
-        mDef: 0,
-        hit: 0,
-        eva: 0,
-        atkSpd: 1,
-        lifesteal: 0,
-        critRate: 0,
-        critDmg: 0,
-    },
 };
 
 // Gain exp
@@ -95,44 +31,23 @@ exp.addEventListener("click", function () {
 
 // ========== Const Functions ==========
 const calculateAdvStats = () => {
-    player.advStats.atk = player.baseStats.str * 4;
-    player.advStats.mAtk = player.baseStats.int * 4;
+    player.advStats.atk = player.baseStats.str * 6;
+    player.advStats.mAtk = player.baseStats.int * 6;
     player.advStats.def = player.baseStats.vit * 2;
     player.advStats.mDef = player.baseStats.vit * 2;
-    player.advStats.hit = player.baseStats.dex * 2;
-    player.advStats.eva = player.baseStats.dex * 2;
-}
+    player.advStats.hit = player.baseStats.dex * 3;
+    player.advStats.eva = player.baseStats.dex * 3;
+    player.baseStats.hpMax = player.baseStats.vit * 40;
+    player.baseStats.mpMax = player.baseStats.int * 10;
 
-const playerExpGain = () => {
-    let expGain = 50;
-    player.exp.expCurr += expGain;
-    player.exp.expCurrLvl += expGain;
-
-    while (player.exp.expCurr >= player.exp.expMax) {
-        playerLevelUp();
-    }
-    calculateAdvStats();
-    playerLoadStats();
-}
-
-// Levels up the player
-const playerLevelUp = () => {
-    // Calculates the excess exp and the new exp required to level up
-    let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
-    let excessExp = player.exp.expCurr - player.exp.expMax;
-    player.exp.expCurrLvl = excessExp;
-    player.exp.expMaxLvl = expMaxIncrease;
-
-    // Increase player stats
-    player.lvl++;
-    player.exp.expMax += expMaxIncrease;
-    player.baseStats.hpMax += 50;
-    player.baseStats.hp = player.baseStats.hpMax;
-    player.baseStats.str += 1;
-    player.baseStats.dex += 1;
-    player.baseStats.vit += 1;
-    player.baseStats.int += 1;
-}
+    enemy.advStats.atk = enemy.baseStats.str * 6;
+    enemy.advStats.mAtk = enemy.baseStats.int * 6;
+    enemy.advStats.def = enemy.baseStats.vit * 2;
+    enemy.advStats.mDef = enemy.baseStats.vit * 2;
+    enemy.advStats.hit = enemy.baseStats.dex * 3;
+    enemy.advStats.eva = enemy.baseStats.dex * 3;
+    enemy.baseStats.hpMax = enemy.baseStats.vit * 40;
+};
 
 const playerLoadStats = () => {
     // Shows proper percentage for respective stats
@@ -160,4 +75,4 @@ const playerLoadStats = () => {
     playerMdefElement.innerHTML = nFormatter(player.advStats.mDef);
     playerHitElement.innerHTML = nFormatter(player.advStats.hit);
     playerEvaElement.innerHTML = nFormatter(player.advStats.eva);
-}
+};
