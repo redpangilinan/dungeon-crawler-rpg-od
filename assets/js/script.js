@@ -52,7 +52,9 @@ const player = {
         expCurrLvl: 0,
         expMaxLvl: 100
     },
-    inventory: [],
+    inventory: [
+
+    ],
     addToInventory: function (item) {
         this.inventory.push(item);
     },
@@ -91,8 +93,8 @@ exp.addEventListener("click", function () {
     playerExpGain();
 });
 
-// ========== Functions ==========
-function calculateAdvStats() {
+// ========== Const Functions ==========
+const calculateAdvStats = () => {
     player.advStats.atk = player.baseStats.str * 4;
     player.advStats.mAtk = player.baseStats.int * 4;
     player.advStats.def = player.baseStats.vit * 2;
@@ -101,7 +103,7 @@ function calculateAdvStats() {
     player.advStats.eva = player.baseStats.dex * 2;
 }
 
-function playerExpGain() {
+const playerExpGain = () => {
     let expGain = 50;
     player.exp.expCurr += expGain;
     player.exp.expCurrLvl += expGain;
@@ -114,7 +116,7 @@ function playerExpGain() {
 }
 
 // Levels up the player
-function playerLevelUp() {
+const playerLevelUp = () => {
     // Calculates the excess exp and the new exp required to level up
     let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
     let excessExp = player.exp.expCurr - player.exp.expMax;
@@ -132,7 +134,7 @@ function playerLevelUp() {
     player.baseStats.int += 1;
 }
 
-function playerLoadStats() {
+const playerLoadStats = () => {
     // Shows proper percentage for respective stats
     playerHpPercentage = ((player.baseStats.hp / player.baseStats.hpMax) * 100).toFixed(2);
     playerMpPercentage = ((player.baseStats.mp / player.baseStats.mpMax) * 100).toFixed(2);
