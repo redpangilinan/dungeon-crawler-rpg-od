@@ -64,11 +64,16 @@ const playerLevelUp = () => {
     player.exp.expCurrLvl = excessExp;
     player.exp.expMaxLvl = expMaxIncrease;
 
-    // Increase player stats
+    // Increase player level and maximum exp
     player.lvl++;
     player.exp.expMax += expMaxIncrease;
-    player.baseStats.hp = player.baseStats.hpMax;
+
+    // Calculate stats based on class then apply it to advanced stats then bring player hp and mp to full
     calculateClassStats();
+    calculateAdvStats();
+    player.baseStats.hp = player.baseStats.hpMax;
+    player.baseStats.mp = player.baseStats.mpMax;
+    playerLoadStats();
 };
 
 const calculateClassStats = () => {
