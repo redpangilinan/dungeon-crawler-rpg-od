@@ -18,8 +18,6 @@ const player = {
         mAtk: 0,
         def: 0,
         mDef: 0,
-        hit: 0,
-        eva: 0,
         atkSpd: 1,
         lifesteal: 0,
         critRate: 0,
@@ -45,7 +43,7 @@ const player = {
 };
 
 const playerExpGain = () => {
-    let expGain = 50;
+    let expGain = 5000000;
     player.exp.expCurr += expGain;
     player.exp.expCurrLvl += expGain;
 

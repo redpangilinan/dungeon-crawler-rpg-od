@@ -17,8 +17,6 @@ const enemy = {
         mAtk: 0,
         def: 0,
         mDef: 0,
-        hit: 0,
-        eva: 0,
         atkSpd: 1,
         lifesteal: 0,
         critRate: 0,
