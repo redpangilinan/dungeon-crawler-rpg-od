@@ -11,8 +11,9 @@ const playerAtkElement = document.getElementById('player-atk');
 const playerMatkElement = document.getElementById('player-matk');
 const playerDefElement = document.getElementById('player-def');
 const playerMdefElement = document.getElementById('player-mdef');
-const playerHitElement = document.getElementById('player-hit');
-const playerEvaElement = document.getElementById('player-eva');
+const playerAtkSpdElement = document.getElementById('player-atkspd');
+const playerCrateElement = document.getElementById('player-crate');
+const playerCdmgElement = document.getElementById('player-cdmg');
 const exp = document.querySelector('#exp');
 
 window.onload = function () {
@@ -31,21 +32,23 @@ exp.addEventListener("click", function () {
 
 // ========== Const Functions ==========
 const calculateAdvStats = () => {
-    player.advStats.atk = player.baseStats.str * 6;
-    player.advStats.mAtk = player.baseStats.int * 6;
+    player.advStats.atk = player.baseStats.str * 4;
+    player.advStats.mAtk = player.baseStats.int * 4;
     player.advStats.def = player.baseStats.vit * 2;
     player.advStats.mDef = player.baseStats.vit * 2;
-    player.advStats.hit = player.baseStats.dex * 3;
-    player.advStats.eva = player.baseStats.dex * 3;
+    player.advStats.atkSpd = player.baseStats.dex * 0.03;
+    player.advStats.critRate = player.baseStats.dex * 0.02;
+    player.advStats.critDmg = 50 + (player.baseStats.dex * 0.2);
     player.baseStats.hpMax = player.baseStats.vit * 40;
     player.baseStats.mpMax = player.baseStats.int * 10;
 
-    enemy.advStats.atk = enemy.baseStats.str * 6;
-    enemy.advStats.mAtk = enemy.baseStats.int * 6;
+    enemy.advStats.atk = enemy.baseStats.str * 4;
+    enemy.advStats.mAtk = enemy.baseStats.int * 4;
     enemy.advStats.def = enemy.baseStats.vit * 2;
     enemy.advStats.mDef = enemy.baseStats.vit * 2;
-    enemy.advStats.hit = enemy.baseStats.dex * 3;
-    enemy.advStats.eva = enemy.baseStats.dex * 3;
+    enemy.advStats.atkSpd = enemy.baseStats.dex * 0.03;
+    enemy.advStats.critRate = enemy.baseStats.dex * 0.02;
+    enemy.advStats.critDmg = 50 + (enemy.baseStats.dex * 0.2);
     enemy.baseStats.hpMax = enemy.baseStats.vit * 40;
 };
 
@@ -73,6 +76,7 @@ const playerLoadStats = () => {
     playerMatkElement.innerHTML = nFormatter(player.advStats.mAtk);
     playerDefElement.innerHTML = nFormatter(player.advStats.def);
     playerMdefElement.innerHTML = nFormatter(player.advStats.mDef);
-    playerHitElement.innerHTML = nFormatter(player.advStats.hit);
-    playerEvaElement.innerHTML = nFormatter(player.advStats.eva);
+    playerAtkSpdElement.innerHTML = (player.advStats.atkSpd).toFixed(1);
+    playerCrateElement.innerHTML = (player.advStats.critRate).toFixed(2) + "%";
+    playerCdmgElement.innerHTML = (player.advStats.critDmg).toFixed(2) + "%";
 };
