@@ -3,13 +3,13 @@ const enemy = {
     name: 'Enemy',
     lvl: 1,
     baseStats: {
-        hp: 100,
+        hp: 400,
         hpMax: 100,
         mp: 100,
         mpMax: 100,
-        str: 10,
-        dex: 10,
-        vit: 10,
+        str: 100,
+        dex: 100,
+        vit: 300,
         int: 10
     },
     advStats: {
