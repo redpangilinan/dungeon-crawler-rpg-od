@@ -14,6 +14,9 @@ const playerMdefElement = document.getElementById('player-mdef');
 const playerAtkSpdElement = document.getElementById('player-atkspd');
 const playerCrateElement = document.getElementById('player-crate');
 const playerCdmgElement = document.getElementById('player-cdmg');
+
+const enemyHpElement = document.getElementById('enemy-hp');
+
 const exp = document.querySelector('#exp');
 
 window.onload = function () {
@@ -22,7 +25,10 @@ window.onload = function () {
 
     player.baseStats.hp = player.baseStats.hpMax;
     player.baseStats.mp = player.baseStats.mpMax;
+    enemy.baseStats.hp = enemy.baseStats.hpMax;
+    enemy.baseStats.mp = enemy.baseStats.mpMax;
     playerLoadStats();
+    enemyLoadStats();
 };
 
 // Gain exp
@@ -36,7 +42,7 @@ const calculateAdvStats = () => {
     player.advStats.mAtk = player.baseStats.int * 4;
     player.advStats.def = player.baseStats.vit * 2;
     player.advStats.mDef = player.baseStats.vit * 2;
-    player.advStats.atkSpd = player.baseStats.dex * 0.03;
+    player.advStats.atkSpd = 0.3 + (player.baseStats.dex * 0.005);
     player.advStats.critRate = player.baseStats.dex * 0.02;
     player.advStats.critDmg = 50 + (player.baseStats.dex * 0.2);
     player.baseStats.hpMax = player.baseStats.vit * 40;
@@ -46,7 +52,7 @@ const calculateAdvStats = () => {
     enemy.advStats.mAtk = enemy.baseStats.int * 4;
     enemy.advStats.def = enemy.baseStats.vit * 2;
     enemy.advStats.mDef = enemy.baseStats.vit * 2;
-    enemy.advStats.atkSpd = enemy.baseStats.dex * 0.03;
+    enemy.advStats.atkSpd = 0.3 + (enemy.baseStats.dex * 0.005);
     enemy.advStats.critRate = enemy.baseStats.dex * 0.02;
     enemy.advStats.critDmg = 50 + (enemy.baseStats.dex * 0.2);
     enemy.baseStats.hpMax = enemy.baseStats.vit * 40;
@@ -54,9 +60,9 @@ const calculateAdvStats = () => {
 
 const playerLoadStats = () => {
     // Shows proper percentage for respective stats
-    playerHpPercentage = ((player.baseStats.hp / player.baseStats.hpMax) * 100).toFixed(2);
-    playerMpPercentage = ((player.baseStats.mp / player.baseStats.mpMax) * 100).toFixed(2);
-    playerExpPercentage = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2);
+    let playerHpPercentage = ((player.baseStats.hp / player.baseStats.hpMax) * 100).toFixed(2);
+    let playerMpPercentage = ((player.baseStats.mp / player.baseStats.mpMax) * 100).toFixed(2);
+    let playerExpPercentage = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2);
 
     // Displays the stats of the player
     playerNameElement.innerHTML = player.name;
@@ -79,4 +85,12 @@ const playerLoadStats = () => {
     playerAtkSpdElement.innerHTML = (player.advStats.atkSpd).toFixed(1);
     playerCrateElement.innerHTML = (player.advStats.critRate).toFixed(2) + "%";
     playerCdmgElement.innerHTML = (player.advStats.critDmg).toFixed(2) + "%";
+};
+
+const enemyLoadStats = () => {
+    // Shows proper percentage for respective stats
+    let enemyHpPercentage = ((enemy.baseStats.hp / enemy.baseStats.hpMax) * 100).toFixed(2);
+    let enemyMpPercentage = ((enemy.baseStats.mp / enemy.baseStats.mpMax) * 100).toFixed(2);
+
+    enemyHpElement.innerHTML = nFormatter(enemy.baseStats.hp) + "/" + nFormatter(enemy.baseStats.hpMax) + " (" + enemyHpPercentage + "%)";
 };
