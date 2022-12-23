@@ -24,11 +24,18 @@ const playerAttack = () => {
     let damage = player.advStats.atk * (player.advStats.atk / (player.advStats.atk + enemy.advStats.def));
     // Randomizes the damage by 90% - 110%
     let dmgRange = 0.9 + Math.random() * 0.2;
-    damage = Math.round(damage * dmgRange);
-    action = "Basic Attack";
+    damage = damage * dmgRange;
+    // Check if the attack is a critical hit
+    if (Math.floor(Math.random() * 101) <= player.advStats.critRate) {
+        dmgtype = "crit damage";
+        damage = Math.round(damage * (1+(player.advStats.critDmg/100)));
+    } else {
+        dmgtype = "damage";
+        damage = Math.round(damage);
+    }
 
     enemy.baseStats.hp -= damage;
-    addCombatLog(`${player.name} used ${action} on ${enemy.name} and dealt ${damage} damage.`);
+    addCombatLog(`${player.name} dealt ${damage} ${dmgtype} on ${enemy.name}.`);
 };
 
 const enemyAttack = () => {
@@ -36,11 +43,18 @@ const enemyAttack = () => {
     let damage = enemy.advStats.atk * (enemy.advStats.atk / (enemy.advStats.atk + player.advStats.def));
     // Randomizes the damage by 90% - 110%
     let dmgRange = 0.9 + Math.random() * 0.2;
-    damage = Math.round(damage * dmgRange);
-    action = "Basic Attack";
+    damage = damage * dmgRange;
+    // Check if the attack is a critical hit
+    if (Math.floor(Math.random() * 101) <= enemy.advStats.critRate) {
+        dmgtype = "crit damage";
+        damage = Math.round(damage * (1+(enemy.advStats.critDmg/100)));
+    } else {
+        dmgtype = "damage";
+        damage = Math.round(damage);
+    }
 
     player.baseStats.hp -= damage;
-    addCombatLog(`${enemy.name} used ${action} on ${player.name} and dealt ${damage} damage.`);
+    addCombatLog(`${enemy.name} dealt ${damage} ${dmgtype} on ${player.name}.`);
     playerLoadStats();
 };
 
