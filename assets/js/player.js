@@ -43,7 +43,7 @@ const player = {
 };
 
 const playerExpGain = () => {
-    let expGain = 5000000;
+    let expGain = 500000;
     player.exp.expCurr += expGain;
     player.exp.expCurrLvl += expGain;
 
@@ -56,22 +56,28 @@ const playerExpGain = () => {
 
 // Levels up the player
 const playerLevelUp = () => {
-    // Calculates the excess exp and the new exp required to level up
-    let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
-    let excessExp = player.exp.expCurr - player.exp.expMax;
-    player.exp.expCurrLvl = excessExp;
-    player.exp.expMaxLvl = expMaxIncrease;
-
-    // Increase player level and maximum exp
-    player.lvl++;
-    player.exp.expMax += expMaxIncrease;
-
-    // Calculate stats based on class then apply it to advanced stats then bring player hp and mp to full
-    calculateClassStats();
-    calculateAdvStats();
-    player.baseStats.hp = player.baseStats.hpMax;
-    player.baseStats.mp = player.baseStats.mpMax;
-    playerLoadStats();
+    // Exp increase Formula
+    if (player.lvl < 100) {
+        let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
+        let excessExp = player.exp.expCurr - player.exp.expMax;
+        player.exp.expCurrLvl = excessExp;
+        player.exp.expMaxLvl = expMaxIncrease;
+    
+        // Increase player level and maximum exp
+        player.lvl++;
+        player.exp.expMax += expMaxIncrease;
+    
+        // Calculate stats based on class then apply it to advanced stats then bring player hp and mp to full
+        calculateClassStats();
+        calculateAdvStats();
+        player.baseStats.hp = player.baseStats.hpMax;
+        player.baseStats.mp = player.baseStats.mpMax;
+        playerLoadStats();
+    } else {
+        expMaxIncrease = 0;
+        player.exp.expCurr = player.exp.expMax - 1;
+        player.exp.expCurrLvl = player.exp.expMaxLvl - 1;
+    }
 };
 
 const calculateClassStats = () => {
@@ -86,7 +92,7 @@ const calculateClassStats = () => {
             growth: {
                 str: 3,
                 dex: 1,
-                vit: 2,
+                vit: 3,
                 int: 1
             },
         }; 
@@ -103,7 +109,7 @@ const calculateClassStats = () => {
             growth: {
                 str: 2,
                 dex: 3,
-                vit: 1,
+                vit: 2,
                 int: 1
             },
         }; 
@@ -120,7 +126,7 @@ const calculateClassStats = () => {
             growth: {
                 str: 1,
                 dex: 1,
-                vit: 1,
+                vit: 2,
                 int: 4
             },
         };
