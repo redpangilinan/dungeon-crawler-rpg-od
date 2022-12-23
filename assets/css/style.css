@@ -1,4 +1,26 @@
+@import url('https://fonts.cdnfonts.com/css/super-legend-boy');
+
 * {
     margin: 0;
     padding: 0;
+}
+
+body {
+    font-family: 'Super Legend Boy', sans-serif;
+    font-size: 1rem;
+}
+
+#combatLogBox {
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    margin: 0.5rem;
+    padding: 0 0.5rem;
+    overflow: auto;
+    width: auto;
+    height: 15rem;
+}
+
+#combatLogBox p {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    margin: 0.5rem 0;
+    padding: 0.3rem;
 }
