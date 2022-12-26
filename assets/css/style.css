@@ -83,18 +83,18 @@ body {
     padding: 0.3rem;
 }
 
-#playerInventory {
+.inventorySlots {
     display: flex;
     flex-flow: row wrap;
 }
 
-#playerInventory .items {
+.inventorySlots .items {
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
     padding: 1rem;
     margin: 0.3rem;
 }
 
-#playerInventory .h3 {
+.inventorySlots .h3 {
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
     text-align: center;
 }
