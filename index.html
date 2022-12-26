@@ -27,6 +27,7 @@
         <p>DEF: <span id="player-def"></span></p>
         <p>M.DEF: <span id="player-mdef"></span></p>
         <p>ATK.SPD: <span id="player-atkspd"></span></p>
+        <p>CTR: <span id="player-ctr"></span></p>
         <p>C.RATE: <span id="player-crate"></span></p>
         <p>C.DMG: <span id="player-cdmg"></span></p>
         <br>
@@ -36,12 +37,16 @@
     </div>
     <button id="exp">Exp Up</button>
     <button onclick="startCombat()">Start Battle</button>
+    <button onclick="createEquipment()">Generate Weapon</button>
+    <h1>Inventory</h1>
+    <div id="playerInventory"></div>
     <div id="combatLogBox"></div>
     
     <script src="./assets/js/nformatter.js"></script>
     <script src="./assets/js/player.js"></script>
     <script src="./assets/js/enemy.js"></script>
     <script src="./assets/js/combat.js"></script>
+    <script src="./assets/js/equipment.js"></script>
     <script src="./assets/js/main.js"></script>
 </body>
 </html>
