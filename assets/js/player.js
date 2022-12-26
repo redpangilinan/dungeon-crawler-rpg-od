@@ -2,7 +2,7 @@
 const player = {
     name: 'Red',
     lvl: 1,
-    class: "Warrior",
+    trait: "Keen",
     baseStats: {
         hp: null,
         hpMax: null,
@@ -19,7 +19,10 @@ const player = {
         def: 0,
         mDef: 0,
         atkSpd: 1,
+        castTimeReduction: 0,
         lifesteal: 0,
+        mLifesteal: 0,
+        reflect: 0,
         critRate: 0,
         critDmg: 0,
     },
@@ -29,28 +32,19 @@ const player = {
         expCurrLvl: 0,
         expMaxLvl: 100
     },
-    equipment: {
-        rightHand: null,
-        leftHand: null,
-        head: null,
-        body: null,
-        arms: null,
-        legs: null,
-        accessory1: null,
-        accessory2: null
-    },
+    equipment: [],
     inventory: [],
 };
 
 const playerExpGain = () => {
-    let expGain = 500000;
+    let expGain = 1000000;
     player.exp.expCurr += expGain;
     player.exp.expCurrLvl += expGain;
 
     while (player.exp.expCurr >= player.exp.expMax) {
         playerLevelUp();
     }
-    calculateAdvStats();
+    
     playerLoadStats();
 };
 
@@ -62,13 +56,13 @@ const playerLevelUp = () => {
         let excessExp = player.exp.expCurr - player.exp.expMax;
         player.exp.expCurrLvl = excessExp;
         player.exp.expMaxLvl = expMaxIncrease;
-    
+
         // Increase player level and maximum exp
         player.lvl++;
         player.exp.expMax += expMaxIncrease;
-    
-        // Calculate stats based on class then apply it to advanced stats then bring player hp and mp to full
-        calculateClassStats();
+
+        // Calculate stats based on trait then apply it to advanced stats then bring player hp and mp to full
+        calculateTraitStats();
         calculateAdvStats();
         player.baseStats.hp = player.baseStats.hpMax;
         player.baseStats.mp = player.baseStats.mpMax;
@@ -80,9 +74,9 @@ const playerLevelUp = () => {
     }
 };
 
-const calculateClassStats = () => {
-    if (player.class == "Warrior") {
-        let classStats = {
+const calculateTraitStats = () => {
+    if (player.trait == "Brute") {
+        let traitStats = {
             base: {
                 str: 15,
                 dex: 8,
@@ -95,11 +89,11 @@ const calculateClassStats = () => {
                 vit: 3,
                 int: 1
             },
-        }; 
-        setStats(classStats);
+        };
+        setStats(traitStats);
     }
-    if (player.class == "Rogue") {
-        let classStats = {
+    if (player.trait == "Keen") {
+        let traitStats = {
             base: {
                 str: 10,
                 dex: 14,
@@ -112,11 +106,11 @@ const calculateClassStats = () => {
                 vit: 2,
                 int: 1
             },
-        }; 
-        setStats(classStats);
+        };
+        setStats(traitStats);
     }
-    if (player.class == "Mage") {
-        let classStats = {
+    if (player.trait == "Intelligent") {
+        let traitStats = {
             base: {
                 str: 5,
                 dex: 8,
@@ -130,13 +124,57 @@ const calculateClassStats = () => {
                 int: 4
             },
         };
-        setStats(classStats);
+        setStats(traitStats);
     }
 };
 
-const setStats = (classStats) => {
-    player.baseStats.str = classStats.base.str + (player.lvl * classStats.growth.str);
-    player.baseStats.dex = classStats.base.dex + (player.lvl * classStats.growth.dex);
-    player.baseStats.vit = classStats.base.vit + (player.lvl * classStats.growth.vit);
-    player.baseStats.int = classStats.base.int + (player.lvl * classStats.growth.int);
+const setStats = (traitStats) => {
+    player.baseStats.str = traitStats.base.str + (player.lvl * traitStats.growth.str);
+    player.baseStats.dex = traitStats.base.dex + (player.lvl * traitStats.growth.dex);
+    player.baseStats.vit = traitStats.base.vit + (player.lvl * traitStats.growth.vit);
+    player.baseStats.int = traitStats.base.int + (player.lvl * traitStats.growth.int);
+}
+
+// Show inventory
+const showInventory = () => {
+    let itemDiv = null;
+    for (let i = 0; i < player.inventory.length; i++) {
+        const item = JSON.parse(player.inventory[i]);
+
+        // Create an equip button for the item
+        const button = document.createElement('button');
+        button.innerHTML = 'Equip';
+        button.addEventListener('click', function () {
+            // Add the stats from the item to the player
+            for (let j = 0; j < item.stats.length; j++) {
+                const stat = item.stats[j];
+                const statKeys = Object.keys(stat);
+                for (let k = 0; k < statKeys.length; k++) {
+                    player.advStats[statKeys[k]] += stat[statKeys[k]];
+                    player.baseStats[statKeys[k]] += stat[statKeys[k]];
+                }
+            }
+            playerLoadStats();
+        });
+
+        // Create an element to display the item's name and stats
+        itemDiv = document.createElement('div');
+        itemDiv.className = "items";
+        itemDiv.innerHTML = `
+          <h3>${item.category}</h3>
+          <p>Type: ${item.type}</p>
+          <p>Rarity: ${item.rarity}</p>
+          <ul>
+            ${item.stats.map(stat => {
+            return `<li>${Object.keys(stat)[0]}: ${stat[Object.keys(stat)[0]]}</li>`;
+        }).join('')}
+          </ul>
+        `;
+
+        // Append the equip button and item details to the itemDiv
+        itemDiv.appendChild(button);
+    }
+    // Append the itemDiv to the DOM
+    let playerInventoryList = document.getElementById("playerInventory");
+    playerInventoryList.appendChild(itemDiv);
 }
