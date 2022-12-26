@@ -12,6 +12,7 @@ const playerMatkElement = document.getElementById('player-matk');
 const playerDefElement = document.getElementById('player-def');
 const playerMdefElement = document.getElementById('player-mdef');
 const playerAtkSpdElement = document.getElementById('player-atkspd');
+const playerCTRElement = document.getElementById('player-ctr');
 const playerCrateElement = document.getElementById('player-crate');
 const playerCdmgElement = document.getElementById('player-cdmg');
 
@@ -20,7 +21,7 @@ const enemyHpElement = document.getElementById('enemy-hp');
 const exp = document.querySelector('#exp');
 
 window.onload = function () {
-    calculateClassStats();
+    calculateTraitStats();
     calculateAdvStats();
 
     player.baseStats.hp = player.baseStats.hpMax;
@@ -29,6 +30,7 @@ window.onload = function () {
     enemy.baseStats.mp = enemy.baseStats.mpMax;
     playerLoadStats();
     enemyLoadStats();
+    showInventory();
 };
 
 // Gain exp
@@ -40,9 +42,10 @@ exp.addEventListener("click", function () {
 const calculateAdvStats = () => {
     player.advStats.atk = player.baseStats.str * 4;
     player.advStats.mAtk = player.baseStats.int * 4;
-    player.advStats.def = player.baseStats.vit * 2;
+    player.advStats.def = (player.baseStats.vit * 2) + (player.baseStats.str * 1);
     player.advStats.mDef = player.baseStats.vit * 2;
     player.advStats.atkSpd = 0.3 + (player.baseStats.dex * 0.005);
+    player.advStats.castTimeReduction = player.baseStats.int * 0.03;
     player.advStats.critRate = player.baseStats.dex * 0.02;
     player.advStats.critDmg = 50 + (player.baseStats.dex * 0.2);
     player.baseStats.hpMax = player.baseStats.vit * 40;
@@ -50,12 +53,15 @@ const calculateAdvStats = () => {
 
     enemy.advStats.atk = enemy.baseStats.str * 4;
     enemy.advStats.mAtk = enemy.baseStats.int * 4;
+    enemy.advStats.def = (enemy.baseStats.vit * 1) + (enemy.baseStats.str * 1);
     enemy.advStats.def = enemy.baseStats.vit * 2;
     enemy.advStats.mDef = enemy.baseStats.vit * 2;
     enemy.advStats.atkSpd = 0.3 + (enemy.baseStats.dex * 0.005);
+    enemy.advStats.castTimeReduction = enemy.baseStats.int * 0.03;
     enemy.advStats.critRate = enemy.baseStats.dex * 0.02;
     enemy.advStats.critDmg = 50 + (enemy.baseStats.dex * 0.2);
     enemy.baseStats.hpMax = enemy.baseStats.vit * 40;
+    enemy.baseStats.mpMax = enemy.baseStats.int * 10;
 };
 
 const playerLoadStats = () => {
@@ -83,6 +89,7 @@ const playerLoadStats = () => {
     playerDefElement.innerHTML = nFormatter(player.advStats.def);
     playerMdefElement.innerHTML = nFormatter(player.advStats.mDef);
     playerAtkSpdElement.innerHTML = (player.advStats.atkSpd).toFixed(1);
+    playerCTRElement.innerHTML = (player.advStats.castTimeReduction).toFixed(2) + "%";
     playerCrateElement.innerHTML = (player.advStats.critRate).toFixed(2) + "%";
     playerCdmgElement.innerHTML = (player.advStats.critDmg).toFixed(2) + "%";
 };
