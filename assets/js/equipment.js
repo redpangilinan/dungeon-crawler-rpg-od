@@ -105,4 +105,5 @@ const createEquipment = () => {
     }
     player.inventory.push(JSON.stringify(equipment));
     showInventory();
-}
+    showEquipment();
+};
