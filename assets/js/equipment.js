@@ -33,26 +33,29 @@ const createEquipment = () => {
     }
 
     // Generate random equipment rarity
-    const rarities = ["Common", "Uncommon", "Rare", "Epic", "Legendary"];
+    const rarities = ["Common", "Uncommon", "Rare", "Epic", "Legendary", "Mythical"];
     equipment.rarity = rarities[Math.floor(Math.random() * rarities.length)];
 
     // Determine number of times to loop based on equipment rarity
     let loopCount;
     switch (equipment.rarity) {
         case "Common":
-            loopCount = 2;
-            break;
-        case "Uncommon":
             loopCount = 3;
             break;
-        case "Rare":
+        case "Uncommon":
             loopCount = 4;
             break;
-        case "Epic":
+        case "Rare":
             loopCount = 5;
             break;
-        case "Legendary":
+        case "Epic":
             loopCount = 6;
+            break;
+        case "Legendary":
+            loopCount = 7;
+            break;
+        case "Mythical":
+            loopCount = 8;
             break;
     }
 
@@ -103,7 +106,7 @@ const createEquipment = () => {
             equipment.stats.push({ [statType]: statValue });
         }
     }
-    player.inventory.push(JSON.stringify(equipment));
+    player.inventory.equipment.push(JSON.stringify(equipment));
     showInventory();
     showEquipment();
 };
