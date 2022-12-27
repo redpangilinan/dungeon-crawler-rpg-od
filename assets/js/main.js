@@ -39,16 +39,16 @@ exp.addEventListener("click", function () {
 
 // ========== Const Functions ==========
 const calculateAdvStats = () => {
-    player.baseStats.hpMax = (player.baseStats.vit * 40) + player.equipmentStats.hp;
-    player.baseStats.mpMax = (player.baseStats.int * 10) + player.equipmentStats.mp;
-    player.advStats.atk = (player.baseStats.str * 4) + player.equipmentStats.atk;
-    player.advStats.mAtk = (player.baseStats.int * 4) + player.equipmentStats.mAtk;
-    player.advStats.def = (player.baseStats.vit * 2) + (player.baseStats.str * 1) + player.equipmentStats.def;
-    player.advStats.mDef = (player.baseStats.vit * 2) + player.equipmentStats.mDef;
-    player.advStats.atkSpd = (0.3 + (player.baseStats.dex * 0.005)) + player.equipmentStats.atkSpd;
-    player.advStats.castTimeReduction = (player.baseStats.int * 0.03) + player.equipmentStats.castTimeReduction;
-    player.advStats.critRate = (player.baseStats.dex * 0.02) + player.equipmentStats.critRate;
-    player.advStats.critDmg = (50 + (player.baseStats.dex * 0.2)) + player.equipmentStats.critDmg;
+    player.baseStats.hpMax = (player.baseStats.vit * 40) + player.equippedStats.hp;
+    player.baseStats.mpMax = (player.baseStats.int * 10) + player.equippedStats.mp;
+    player.advStats.atk = (player.baseStats.str * 4) + player.equippedStats.atk;
+    player.advStats.mAtk = (player.baseStats.int * 4) + player.equippedStats.mAtk;
+    player.advStats.def = (player.baseStats.vit * 2) + (player.baseStats.str * 1) + player.equippedStats.def;
+    player.advStats.mDef = (player.baseStats.vit * 2) + player.equippedStats.mDef;
+    player.advStats.atkSpd = (0.3 + (player.baseStats.dex * 0.005)) + player.equippedStats.atkSpd;
+    player.advStats.castTimeReduction = (player.baseStats.int * 0.03) + player.equippedStats.castTimeReduction;
+    player.advStats.critRate = (player.baseStats.dex * 0.02) + player.equippedStats.critRate;
+    player.advStats.critDmg = (50 + (player.baseStats.dex * 0.2)) + player.equippedStats.critDmg;
     
     enemy.advStats.atk = enemy.baseStats.str * 4;
     enemy.advStats.mAtk = enemy.baseStats.int * 4;

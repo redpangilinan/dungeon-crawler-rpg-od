@@ -18,7 +18,7 @@ const player = {
         mAtk: 0,
         def: 0,
         mDef: 0,
-        atkSpd: 1,
+        atkSpd: 0,
         castTimeReduction: 0,
         lifesteal: 0,
         mLifesteal: 0,
@@ -26,7 +26,7 @@ const player = {
         critRate: 0,
         critDmg: 0,
     },
-    equipmentStats: {
+    equippedStats: {
         hp: 0,
         mp: 0,
         str: 0,
@@ -51,8 +51,14 @@ const player = {
         expCurrLvl: 0,
         expMaxLvl: 100
     },
-    equipment: [],
-    inventory: [],
+    inventory: {
+        consumables: [],
+        equipment: []
+    },
+    equipped: [],
+    gold: 0,
+    playtime: 0,
+    savedata: false
 };
 
 const playerExpGain = () => {
@@ -147,10 +153,10 @@ const calculateTraitStats = () => {
 };
 
 const setStats = (traitStats) => {
-    player.baseStats.str = traitStats.base.str + (player.lvl * traitStats.growth.str) + player.equipmentStats.str;
-    player.baseStats.dex = traitStats.base.dex + (player.lvl * traitStats.growth.dex) + player.equipmentStats.dex;
-    player.baseStats.vit = traitStats.base.vit + (player.lvl * traitStats.growth.vit) + player.equipmentStats.vit;
-    player.baseStats.int = traitStats.base.int + (player.lvl * traitStats.growth.int) + player.equipmentStats.int;
+    player.baseStats.str = traitStats.base.str + (player.lvl * traitStats.growth.str) + player.equippedStats.str;
+    player.baseStats.dex = traitStats.base.dex + (player.lvl * traitStats.growth.dex) + player.equippedStats.dex;
+    player.baseStats.vit = traitStats.base.vit + (player.lvl * traitStats.growth.vit) + player.equippedStats.vit;
+    player.baseStats.int = traitStats.base.int + (player.lvl * traitStats.growth.int) + player.equippedStats.int;
     calculateAdvStats();
 }
 
@@ -160,8 +166,8 @@ const showInventory = () => {
     let playerInventoryList = document.getElementById("playerInventory");
     playerInventoryList.innerHTML = "";
 
-    for (let i = 0; i < player.inventory.length; i++) {
-        const item = JSON.parse(player.inventory[i]);
+    for (let i = 0; i < player.inventory.equipment.length; i++) {
+        const item = JSON.parse(player.inventory.equipment[i]);
 
         // Create an element to display the item's name and stats
         let itemDiv = document.createElement('div');
@@ -182,11 +188,11 @@ const showInventory = () => {
         button.innerHTML = 'Equip';
         button.addEventListener('click', function () {
             // Remove the item from the inventory and add it to the equipment
-            if (player.equipment.length >= 6) {
+            if (player.equipped.length >= 6) {
                 alert("You are fully equipped.");
             } else {
-                player.inventory.splice(i, 1);
-                player.equipment.push(item);
+                player.inventory.equipment.splice(i, 1);
+                player.equipped.push(item);
             }
 
             playerLoadStats();
@@ -206,8 +212,8 @@ const showEquipment = () => {
     let playerEquipmentList = document.getElementById("playerEquipment");
     playerEquipmentList.innerHTML = "";
 
-    for (let i = 0; i < player.equipment.length; i++) {
-        const item = player.equipment[i];
+    for (let i = 0; i < player.equipped.length; i++) {
+        const item = player.equipped[i];
 
         // Create an element to display the item's name and stats
         let equipDiv = document.createElement('div');
@@ -228,8 +234,8 @@ const showEquipment = () => {
         button.innerHTML = 'Unequip';
         button.addEventListener('click', function () {
             // Remove the item from the inventory and add it to the equipment
-            player.equipment.splice(i, 1);
-            player.inventory.push(JSON.stringify(item));
+            player.equipped.splice(i, 1);
+            player.inventory.equipment.push(JSON.stringify(item));
 
             playerLoadStats();
         });
@@ -245,7 +251,7 @@ const showEquipment = () => {
 // Apply the equipment stats to the player
 const applyEquipmentStats = () => {
     // Reset the equipment stats
-    player.equipmentStats = {
+    player.equippedStats = {
         hp: 0,
         mp: 0,
         str: 0,
@@ -265,13 +271,13 @@ const applyEquipmentStats = () => {
         critDmg: 0,
     };
 
-    for (let i = 0; i < player.equipment.length; i++) {
-        const item = player.equipment[i];
+    for (let i = 0; i < player.equipped.length; i++) {
+        const item = player.equipped[i];
 
         // Iterate through the stats array and update the player stats
         item.stats.forEach(stat => {
             for (const key in stat) {
-                player.equipmentStats[key] += stat[key];
+                player.equippedStats[key] += stat[key];
             }
         });
     }
