@@ -30,7 +30,6 @@ window.onload = function () {
     enemy.baseStats.mp = enemy.baseStats.mpMax;
     playerLoadStats();
     enemyLoadStats();
-    showInventory();
 };
 
 // Gain exp
@@ -92,6 +91,9 @@ const playerLoadStats = () => {
     playerCTRElement.innerHTML = (player.advStats.castTimeReduction).toFixed(2) + "%";
     playerCrateElement.innerHTML = (player.advStats.critRate).toFixed(2) + "%";
     playerCdmgElement.innerHTML = (player.advStats.critDmg).toFixed(2) + "%";
+
+    showEquipment();
+    showInventory();
 };
 
 const enemyLoadStats = () => {
