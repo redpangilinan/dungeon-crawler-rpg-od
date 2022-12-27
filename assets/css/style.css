@@ -42,6 +42,8 @@ h6 {
 body {
     font-family: Futura, Trebuchet MS, Arial, sans-serif;
     font-size: 1rem;
+    background-color: black;
+    color: white;
 }
 
 /* Custom Scrollbar */
@@ -70,7 +72,6 @@ body {
 
 /* Combat Log */
 #combatLogBox {
-    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
     margin: 0.5rem;
     padding: 0 0.5rem;
     overflow: auto;
@@ -89,12 +90,44 @@ body {
 }
 
 .inventorySlots .items {
+    border-radius: 0.3rem;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
     padding: 1rem;
     margin: 0.3rem;
 }
 
 .inventorySlots .h3 {
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
     text-align: center;
+}
+
+/* Shadows */
+.primary-panel {
+    border-radius: 0.3rem;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+
+/* Buttons */
+button {
+    display: inline-block;
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 0.4rem;
+    border-radius: 0.3rem;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    -ms-border-radius: 0.3rem;
+    -o-border-radius: 0.3rem;
+    cursor: pointer;
+    transition: .1s;
+    -webkit-transition: .1s;
+    -moz-transition: .1s;
+    -ms-transition: .1s;
+    -o-transition: .1s;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
 }
