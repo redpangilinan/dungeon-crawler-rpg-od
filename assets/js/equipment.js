@@ -61,7 +61,7 @@ const createEquipment = () => {
     const damageyStats = ["str", "atk", "lifesteal", "critRate", "critDmg"];
     const speedyStats = ["dex", "atk", "atkSpd", "lifesteal", "critRate", "critDmg"];
     const magicStats = ["int", "mAtk", "castTimeReduction", "mLifesteal"];
-    const defenseStats = ["hpMax", "mpMax", "vit", "def", "mDef", "reflect"];
+    const defenseStats = ["hp", "mp", "vit", "def", "mDef", "reflect"];
     let statTypes;
     if (equipment.attribute == "Physical") {
         if (equipment.category == "Axe" || equipment.category == "Scythe") {
