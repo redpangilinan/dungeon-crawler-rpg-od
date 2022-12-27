@@ -44,7 +44,7 @@ const playerExpGain = () => {
     while (player.exp.expCurr >= player.exp.expMax) {
         playerLevelUp();
     }
-    
+
     playerLoadStats();
 };
 
@@ -137,44 +137,88 @@ const setStats = (traitStats) => {
 
 // Show inventory
 const showInventory = () => {
-    let itemDiv = null;
+    // Clear the inventory container
+    let playerInventoryList = document.getElementById("playerInventory");
+    playerInventoryList.innerHTML = "";
+
     for (let i = 0; i < player.inventory.length; i++) {
         const item = JSON.parse(player.inventory[i]);
 
-        // Create an equip button for the item
-        const button = document.createElement('button');
-        button.innerHTML = 'Equip';
-        button.addEventListener('click', function () {
-            // Add the stats from the item to the player
-            for (let j = 0; j < item.stats.length; j++) {
-                const stat = item.stats[j];
-                const statKeys = Object.keys(stat);
-                for (let k = 0; k < statKeys.length; k++) {
-                    player.advStats[statKeys[k]] += stat[statKeys[k]];
-                    player.baseStats[statKeys[k]] += stat[statKeys[k]];
-                }
-            }
-            playerLoadStats();
-        });
-
         // Create an element to display the item's name and stats
-        itemDiv = document.createElement('div');
+        let itemDiv = document.createElement('div');
         itemDiv.className = "items";
         itemDiv.innerHTML = `
-          <h3>${item.category}</h3>
-          <p>Type: ${item.type}</p>
-          <p>Rarity: ${item.rarity}</p>
-          <ul>
+            <h3>${item.category}</h3>
+            <p>Type: ${item.type}</p>
+            <p>Rarity: ${item.rarity}</p>
+            <ul>
             ${item.stats.map(stat => {
             return `<li>${Object.keys(stat)[0]}: ${stat[Object.keys(stat)[0]]}</li>`;
         }).join('')}
-          </ul>
+            </ul>
         `;
+
+        // Create an equip button for the item
+        let button = document.createElement('button');
+        button.innerHTML = 'Equip';
+        button.addEventListener('click', function () {
+            // Remove the item from the inventory and add it to the equipment
+            if (player.equipment.length >= 6) {
+                alert("You are fully equipped.");
+            } else {
+                player.inventory.splice(i, 1);
+                player.equipment.push(item);
+            }
+
+            playerLoadStats();
+        });
 
         // Append the equip button and item details to the itemDiv
         itemDiv.appendChild(button);
+
+        // Add the itemDiv to the inventory container
+        playerInventoryList.appendChild(itemDiv);
     }
-    // Append the itemDiv to the DOM
-    let playerInventoryList = document.getElementById("playerInventory");
-    playerInventoryList.appendChild(itemDiv);
-}
+};
+
+// Show equipment
+const showEquipment = () => {
+    // Clear the inventory container
+    let playerEquipmentList = document.getElementById("playerEquipment");
+    playerEquipmentList.innerHTML = "";
+
+    for (let i = 0; i < player.equipment.length; i++) {
+        const item = player.equipment[i];
+
+        // Create an element to display the item's name and stats
+        let equipDiv = document.createElement('div');
+        equipDiv.className = "items";
+        equipDiv.innerHTML = `
+            <h3>${item.category}</h3>
+            <p>Type: ${item.type}</p>
+            <p>Rarity: ${item.rarity}</p>
+            <ul>
+            ${item.stats.map(stat => {
+            return `<li>${Object.keys(stat)[0]}: ${stat[Object.keys(stat)[0]]}</li>`;
+        }).join('')}
+            </ul>
+        `;
+
+        // Create an equip button for the item
+        let button = document.createElement('button');
+        button.innerHTML = 'Unequip';
+        button.addEventListener('click', function () {
+            // Remove the item from the inventory and add it to the equipment
+            player.equipment.splice(i, 1);
+            player.inventory.push(JSON.stringify(item));
+
+            playerLoadStats();
+        });
+
+        // Append the equip button and item details to the equipDiv
+        equipDiv.appendChild(button);
+
+        // Add the equipDiv to the inventory container
+        playerEquipmentList.appendChild(equipDiv);
+    }
+};
