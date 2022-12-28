@@ -3,6 +3,12 @@
     padding: 0;
     text-decoration: none;
     list-style: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 h1 {
@@ -44,6 +50,10 @@ body {
     font-size: 1rem;
     background-color: black;
     color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Custom Scrollbar */
@@ -91,9 +101,13 @@ body {
 
 .inventorySlots .items {
     border-radius: 0.3rem;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    border: solid 1px;
     padding: 1rem;
     margin: 0.3rem;
+}
+
+.inventorySlots > * {
+    flex: 1 1 30%;
 }
 
 .inventorySlots .h3 {
@@ -103,7 +117,7 @@ body {
 /* Shadows */
 .primary-panel {
     border-radius: 0.3rem;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    border: solid 1px;
 }
 
 /* Buttons */
@@ -114,7 +128,7 @@ button {
     color: white;
     padding: 0.4rem;
     border-radius: 0.3rem;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    border: solid 1px;
     -webkit-border-radius: 0.3rem;
     -moz-border-radius: 0.3rem;
     -ms-border-radius: 0.3rem;
@@ -130,4 +144,55 @@ button {
 button:hover {
     background-color: white;
     color: black;
+}
+
+/* game */
+main {
+    width: 100%;
+    max-width: 28rem;
+    height: 100%;
+    max-height: 50rem;
+    background-color: black;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+}
+
+.game * {
+    margin: 0.3rem;
+}
+
+/* title screen */
+.title-screen {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.title-screen h1 {
+    font-family: 'Rubik Vinyl';
+    font-size: 2.5rem;
+    font-weight: 400;
+    cursor: context-menu;
+    margin: 0 1rem;
+}
+
+.title-screen i {
+    margin: 0 0 1rem;
+}
+
+.title-screen p {
+    cursor: context-menu;
+    animation: blinker 1s linear infinite;
+    -webkit-animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }
