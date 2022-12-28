@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Rubik Vinyl' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <title>Dungeon Crawler on Demand!</title>
+</head>
+
+<body>
+    <main class="primary-panel">
+        <div class="game">
+            <h1>Create your character</h1>
+            <form>
+                <div class="divider">
+                    <label for="player-name">Name:</label><br>
+                    <input type="text" id="player-name" name="player-name" value=""><br>
+                </div>
+                <div class="divider">
+                    <label for="player-trait">Trait:</label>
+                    <select name="player-trait" id="player-trait">
+                        <option value="Brute">Brute</option>
+                        <option value="Keen">Keen</option>
+                        <option value="Intelligent">Intelligent</option>
+                    </select>
+                </div>
+                <div class="divider">
+                    <p>Attribute</p>
+                    <input type="radio" id="Physical" name="player-attribute" value="Physical">
+                    <label for="Physical">Physical</label><br>
+                    <input type="radio" id="Magic" name="player-attribute" value="Magic">
+                    <label for="Magic">Magic</label><br>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
