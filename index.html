@@ -5,50 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Rubik Vinyl' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Dungeon Crawler on Demand!</title>
 </head>
 
 <body>
-    <div id="player-stats">
-        <p>Name: <span id="player-name"></span></p>
-        <p>Lvl: <span id="player-lvl"></span></p>
-        <p>HP: <span id="player-hp"></span></p>
-        <p>MP: <span id="player-mp"></span></p>
-        <p>EXP: <span id="player-exp"></span></p>
-        <br>
-        <p>STR: <span id="player-str"></span></p>
-        <p>DEX: <span id="player-dex"></span></p>
-        <p>VIT: <span id="player-vit"></span></p>
-        <p>INT: <span id="player-int"></span></p>
-        <br>
-        <p>ATK: <span id="player-atk"></span></p>
-        <p>M.ATK: <span id="player-matk"></span></p>
-        <p>DEF: <span id="player-def"></span></p>
-        <p>M.DEF: <span id="player-mdef"></span></p>
-        <p>ATK.SPD: <span id="player-atkspd"></span></p>
-        <p>CTR: <span id="player-ctr"></span></p>
-        <p>C.RATE: <span id="player-crate"></span></p>
-        <p>C.DMG: <span id="player-cdmg"></span></p>
-        <br>
-        <p>Enemy HP: <span id="enemy-hp"></span></p>
-        <br>
-        <p>Timer: <span id="timer"></span></p>
-    </div>
-    <button id="exp">Exp Up</button>
-    <button onclick="startCombat()">Start Battle</button>
-    <button onclick="createEquipment()">Generate Weapon</button>
-    <h1>Equipment</h1>
-    <div class="inventorySlots" id="playerEquipment"></div>
-    <h1>Inventory</h1>
-    <div class="inventorySlots" id="playerInventory"></div>
-    <div class="primary-panel" id="combatLogBox"></div>
+    <main class="title-screen primary-panel">
+        <div>
+            <i class="fa-solid fa-dungeon fa-5x"></i>
+            <h1>Dungeon Crawler on Demand!</h1>
+        </div>
+        <p>Click anywhere to start</p>
+    </main>
     
-    <script src="./assets/js/nformatter.js"></script>
     <script src="./assets/js/player.js"></script>
-    <script src="./assets/js/enemy.js"></script>
-    <script src="./assets/js/combat.js"></script>
-    <script src="./assets/js/equipment.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/validation.js"></script>
 </body>
 </html>
