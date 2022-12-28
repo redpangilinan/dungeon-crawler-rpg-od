@@ -3,6 +3,7 @@ const player = {
     name: 'Red',
     lvl: 1,
     trait: "Keen",
+    attribute: "Physical",
     baseStats: {
         hp: null,
         hpMax: null,
@@ -58,7 +59,7 @@ const player = {
     equipped: [],
     gold: 0,
     playtime: 0,
-    savedata: false
+    savedata: null
 };
 
 const playerExpGain = () => {
