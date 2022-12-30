@@ -160,7 +160,7 @@ button:hover {
 .game-container {
     display: inline-block;
     position: relative;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     width: 100%;
     max-width: 28.125rem;
     height: 100%;
@@ -228,7 +228,7 @@ button:hover {
     width: 20rem;
     max-width: calc(100% - 2rem);
     padding: 0.4rem;
-    margin: 1rem 0 0 0;
+    margin: 1rem 0 0.5rem 0;
     background: transparent;
     border: solid 1px;
     color: white;
@@ -249,9 +249,7 @@ button:hover {
 
 .loader {
     border: 0.5rem solid #f3f3f3;
-    /* Light grey */
     border-top: 0.5rem solid grey;
-    /* Blue */
     border-radius: 50%;
     width: 3.8rem;
     height: 3.8rem;
@@ -266,4 +264,10 @@ button:hover {
     100% {
         transform: rotate(360deg);
     }
+}
+
+/* grid-ish */
+.grid-ish {
+    display: flex;
+    flex-flow: column wrap;
 }
