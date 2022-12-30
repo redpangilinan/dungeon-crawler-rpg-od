@@ -1,6 +1,6 @@
 // Player
 const player = {
-    name: 'Red',
+    name: null,
     lvl: 1,
     stats: {
         hp: 500,
@@ -35,7 +35,6 @@ const player = {
     equipped: [],
     gold: 0,
     playtime: 0,
-    savedata: null
 };
 
 const playerExpGain = () => {
