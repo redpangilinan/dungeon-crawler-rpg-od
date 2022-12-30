@@ -6,10 +6,8 @@ window.addEventListener("load", function () {
             runLoad("character-creation", "flex");
         } else {
             this.style.display = "none";
+            initialLoad();
             runLoad("hub", "flex");
-            const player = JSON.parse(localStorage.getItem("playerData"));
-            document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name}`
-            document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${player.gold}`
         }
     });
 
@@ -29,6 +27,7 @@ window.addEventListener("load", function () {
                 let playerData = JSON.stringify(player);
                 localStorage.setItem("playerData", playerData)
                 document.querySelector("#character-creation").style.display = "none";
+                initialLoad();
                 runLoad("hub", "flex");
             }
         }
@@ -42,4 +41,22 @@ const runLoad = (id, display) => {
         loader.style.display = "none";
         document.querySelector(`#${id}`).style.display = `${display}`;
     }, 1000);
+}
+
+const initialLoad = () => {
+    const player = JSON.parse(localStorage.getItem("playerData"));
+
+    // Header
+    document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name}`
+    document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`
+    document.querySelector("#player-cubes").innerHTML = `<i class="fas fa-cube" style="color: #A020F0;"></i>${nFormatter(player.cubes)}`
+
+    // Player Stats
+    playerHpElement.innerHTML = nFormatter(player.stats.hp) + "/" + nFormatter(player.stats.hpMax);
+    playerAtkElement.innerHTML = nFormatter(player.stats.atk);
+    playerDefElement.innerHTML = nFormatter(player.stats.def);
+    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1);
+    playerVampElement.innerHTML = (player.stats.vamp).toFixed(2) + "%";;
+    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(2) + "%";
+    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(2) + "%";
 }
