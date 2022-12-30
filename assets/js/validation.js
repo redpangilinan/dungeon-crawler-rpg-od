@@ -6,7 +6,8 @@ window.addEventListener("load", function () {
             runLoad("character-creation", "flex");
         } else {
             this.style.display = "none";
-            initialLoad();
+            const player = JSON.parse(localStorage.getItem("playerData"));
+            initialLoad(player);
             runLoad("hub", "flex");
         }
     });
@@ -27,7 +28,7 @@ window.addEventListener("load", function () {
                 let playerData = JSON.stringify(player);
                 localStorage.setItem("playerData", playerData)
                 document.querySelector("#character-creation").style.display = "none";
-                initialLoad();
+                initialLoad(player);
                 runLoad("hub", "flex");
             }
         }
@@ -43,9 +44,7 @@ const runLoad = (id, display) => {
     }, 1000);
 }
 
-const initialLoad = () => {
-    const player = JSON.parse(localStorage.getItem("playerData"));
-
+const initialLoad = (player) => {
     // Header
     document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name}`
     document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`
