@@ -24,14 +24,22 @@
 
         <!-- Character Creation -->
         <div id="character-creation" class="game-container">
-            <h1>What is your name?</h1>
-            <input type="text" id="name-input" autocomplete="off">
-            <button id="char-name">Confirm</button>
+            <form id="name-submit">
+                <h1>What is your name?</h1>
+                <input type="text" id="name-input" autocomplete="off">
+                <p id="alert"></p>
+                <button type="submit">Confirm</button>
+            </form>
         </div>
 
         <!-- Hub -->
         <div id="hub" class="game-container">
-            R
+            <div class="menu">
+                <button id="labyrinth">Labyrinth</button>
+                <button id="Shop">Shop</button>
+                <button id="Blacksmith">Blacksmith</button>
+                <button id="Guild">Guild</button>
+            </div>
         </div>
 
         <!-- Utilities -->
