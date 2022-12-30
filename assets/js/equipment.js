@@ -56,9 +56,9 @@ const createEquipment = () => {
     }
 
     // Generate and append random stats to the stats array
-    const physicalStats = ["atk", "atkSpd", "lifesteal", "critRate", "critDmg"];
+    const physicalStats = ["atk", "atkSpd", "vamp", "critRate", "critDmg"];
     const damageyStats = ["atk", "atk", "critRate", "critDmg", "critDmg"];
-    const speedyStats = ["atkSpd", "atkSpd", "lifesteal", "critRate", "critDmg"];
+    const speedyStats = ["atkSpd", "atkSpd", "vamp", "critRate", "critDmg"];
     const defenseStats = ["hp", "def"];
     let statTypes;
     if (equipment.attribute == "Physical") {
