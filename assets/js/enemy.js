@@ -8,7 +8,7 @@ const enemy = {
         atk: 0,
         def: 0,
         atkSpd: 0,
-        lifesteal: 0,
+        vamp: 0,
         critRate: 0,
         critDmg: 0
     }
