@@ -1,36 +1,17 @@
 const playerNameElement = document.getElementById('player-name');
 const playerLvlElement = document.getElementById('player-lvl');
 const playerHpElement = document.getElementById('player-hp');
-const playerMpElement = document.getElementById('player-mp');
-const playerStrElement = document.getElementById('player-str');
-const playerDexElement = document.getElementById('player-dex');
-const playerVitElement = document.getElementById('player-vit');
-const playerIntElement = document.getElementById('player-int');
 const playerExpElement = document.getElementById('player-exp');
 const playerAtkElement = document.getElementById('player-atk');
-const playerMatkElement = document.getElementById('player-matk');
 const playerDefElement = document.getElementById('player-def');
-const playerMdefElement = document.getElementById('player-mdef');
 const playerAtkSpdElement = document.getElementById('player-atkspd');
-const playerCTRElement = document.getElementById('player-ctr');
+const playerVampElement = document.getElementById('player-vamp');
 const playerCrateElement = document.getElementById('player-crate');
 const playerCdmgElement = document.getElementById('player-cdmg');
 
 const enemyHpElement = document.getElementById('enemy-hp');
 
 const exp = document.querySelector('#exp');
-
-window.onload = function () {
-    calculateTraitStats();
-    calculateAdvStats();
-
-    player.baseStats.hp = player.baseStats.hpMax;
-    player.baseStats.mp = player.baseStats.mpMax;
-    enemy.baseStats.hp = enemy.baseStats.hpMax;
-    enemy.baseStats.mp = enemy.baseStats.mpMax;
-    playerLoadStats();
-    enemyLoadStats();
-};
 
 // Gain exp
 exp.addEventListener("click", function () {
