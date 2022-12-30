@@ -8,16 +8,12 @@ const createEquipment = () => {
     };
 
     // Generate random equipment attribute
-    const equipmentAttributes = ["Physical", "Magic", "Defense"];
+    const equipmentAttributes = ["Damage", "Defense"];
     equipment.attribute = equipmentAttributes[Math.floor(Math.random() * equipmentAttributes.length)];
 
     // Generate random equipment name and type based on attribute
-    if (equipment.attribute == "Physical") {
+    if (equipment.attribute == "Damage") {
         const equipmentCategories = ["Sword", "Axe", "Dagger", "Flail", "Scythe"];
-        equipment.category = equipmentCategories[Math.floor(Math.random() * equipmentCategories.length)];
-        equipment.type = "Weapon";
-    } else if (equipment.attribute == "Magic") {
-        const equipmentCategories = ["Wand", "Staff", "Rod"];
         equipment.category = equipmentCategories[Math.floor(Math.random() * equipmentCategories.length)];
         equipment.type = "Weapon";
     } else if (equipment.attribute == "Defense") {
@@ -60,11 +56,10 @@ const createEquipment = () => {
     }
 
     // Generate and append random stats to the stats array
-    const physicalStats = ["str", "dex", "atk", "atkSpd", "lifesteal", "critRate", "critDmg"];
-    const damageyStats = ["str", "atk", "lifesteal", "critRate", "critDmg"];
-    const speedyStats = ["dex", "atk", "atkSpd", "lifesteal", "critRate", "critDmg"];
-    const magicStats = ["int", "mAtk", "castTimeReduction", "mLifesteal"];
-    const defenseStats = ["hp", "mp", "vit", "def", "mDef", "reflect"];
+    const physicalStats = ["atk", "atkSpd", "lifesteal", "critRate", "critDmg"];
+    const damageyStats = ["atk", "atk", "critRate", "critDmg", "critDmg"];
+    const speedyStats = ["atkSpd", "atkSpd", "lifesteal", "critRate", "critDmg"];
+    const defenseStats = ["hp", "def"];
     let statTypes;
     if (equipment.attribute == "Physical") {
         if (equipment.category == "Axe" || equipment.category == "Scythe") {
@@ -74,8 +69,6 @@ const createEquipment = () => {
         } else {
             statTypes = physicalStats;
         }
-    } else if (equipment.attribute == "Magic") {
-        statTypes = magicStats;
     } else if (equipment.attribute == "Defense") {
         statTypes = defenseStats;
     }

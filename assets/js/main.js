@@ -38,7 +38,7 @@ exp.addEventListener("click", function () {
 });
 
 // ========== Const Functions ==========
-const calculateAdvStats = () => {
+const calculateStats = () => {
     player.baseStats.hpMax = (player.baseStats.vit * 40) + player.equippedStats.hp;
     player.baseStats.mpMax = (player.baseStats.int * 10) + player.equippedStats.mp;
     player.advStats.atk = (player.baseStats.str * 4) + player.equippedStats.atk;
