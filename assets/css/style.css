@@ -45,6 +45,10 @@ h6 {
     font-style: normal;
 }
 
+i {
+    margin-right: 0.5rem;
+}
+
 input {
     font-size: 1rem;
 }
@@ -149,11 +153,17 @@ button {
     -moz-transition: .1s;
     -ms-transition: .1s;
     -o-transition: .1s;
+    -webkit-tap-highlight-color: transparent;
 }
 
 button:hover {
     background-color: white;
     color: black;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 /* GSame */
@@ -237,6 +247,39 @@ button:hover {
 /* Hub */
 #hub {
     display: none;
+    flex-direction: column;
+}
+
+#hub h1 {
+    text-align: center;
+    letter-spacing: 0.5rem;
+}
+
+#hub .primary-panel:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 1rem;
+}
+
+#hub .primary-panel:nth-child(1) button {
+    width: auto;
+    padding: 0.5rem 0.7rem;
+}
+
+#hub .primary-panel:nth-child(1) button i {
+    margin: 0;
+}
+
+#hub .primary-panel {
+    margin: 0.5rem;
+    padding: 1rem;
+}
+
+#hub .primary-panel button {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 1rem;
 }
 
 /* loader */

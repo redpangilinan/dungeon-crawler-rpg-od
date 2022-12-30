@@ -8,7 +8,8 @@ window.addEventListener("load", function () {
             this.style.display = "none";
             runLoad("hub", "flex");
             const player = JSON.parse(localStorage.getItem("playerData"));
-            console.log(player);
+            document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name}`
+            document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${player.gold}`
         }
     });
 
