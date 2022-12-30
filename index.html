@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Rubik Vinyl' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rpg-awesome/0.2.0/css/rpg-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Dungeon Crawler on Demand!</title>
 </head>
@@ -14,39 +15,57 @@
 <body>
     <main>
         <!-- Title Screen -->
-        <div id="title-screen" class="game-container">
+        <section id="title-screen" class="game-container">
             <div>
                 <i class="fa-solid fa-dungeon fa-5x"></i>
                 <h1>Dungeon Crawler on Demand!</h1>
             </div>
             <p>Click anywhere to start</p>
-        </div>
+        </section>
 
         <!-- Character Creation -->
-        <div id="character-creation" class="game-container">
+        <section id="character-creation" class="game-container">
             <form id="name-submit">
                 <h1>What is your name?</h1>
                 <input type="text" id="name-input" autocomplete="off">
                 <p id="alert"></p>
                 <button type="submit">Confirm</button>
             </form>
-        </div>
+        </section>
 
         <!-- Hub -->
-        <div id="hub" class="game-container">
-            <div class="primary-panel">
+        <section id="hub" class="game-container">
+            <header>
                 <p id="player-name"></p>
                 <p id="player-gold"></p>
+                <p id="player-cubes"></p>
                 <button><i class="fas fa-bars" style="font-size: 1.3rem;"></i></button>
+            </header>
+            <div class="scrollable">
+                <div class="stat-panel">
+                    <div class="box">
+                        <h4>Stats</h4>
+                        <p><i class="fas fa-heart"></i>HP: <span id="player-hp"></span></p>
+                        <p><i class="ra ra-sword"></i>ATK: <span id="player-atk"></span></p>
+                        <p><i class="ra ra-round-shield"></i>DEF: <span id="player-def"></span></p>
+                        <p><i class="ra ra-plain-dagger"></i>ATK.SPD: <span id="player-atkspd"></span></p>
+                        <p><i class="ra ra-dripping-blade"></i>VAMP: <span id="player-vamp"></span></p>
+                        <p><i class="ra ra-lightning-bolt"></i>C.RATE: <span id="player-crate"></span></p>
+                        <p><i class="ra ra-focused-lightning"></i>C.DMG: <span id="player-cdmg"></span></p>
+                    </div>
+                    <div class="box">
+                        <h4>Equipment</h4>
+                    </div>
+                </div>
+                <h1>Hub</h1>
+                <div class="primary-panel">
+                    <button id="labyrinth"><i class="fas fa-dungeon"></i>Labyrinth</button>
+                    <button id="market"><i class="fas fa-store"></i>Market</button>
+                    <button id="blacksmith"><i class="ra ra-forging"></i>Blacksmith</button>
+                    <button id="tavern"><i class="fas fa-house-chimney"></i>Tavern</button>
+                </div>
             </div>
-            <h1>Hub</h1>
-            <div class="primary-panel">
-                <button id="labyrinth"><i class="fas fa-dungeon"></i>Labyrinth</button>
-                <button id="market"><i class="fas fa-store"></i>Market</button>
-                <button id="blacksmith"><i class="fas fa-warehouse"></i>Blacksmith</button>
-                <button id="tavern"><i class="fas fa-house-chimney"></i>Tavern</button>
-            </div>
-        </div>
+        </section>
 
         <!-- Utilities -->
         <div id="loading" class="game-container">
@@ -54,6 +73,8 @@
         </div>
     </main>
 
+    <script src="./assets/js/nformatter.js"></script>
+    <script src="./assets/js/main.js"></script>
     <script src="./assets/js/player.js"></script>
     <script src="./assets/js/validation.js"></script>
 </body>
