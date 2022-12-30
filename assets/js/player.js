@@ -2,50 +2,26 @@
 const player = {
     name: 'Red',
     lvl: 1,
-    trait: "Keen",
-    attribute: "Physical",
-    baseStats: {
-        hp: null,
-        hpMax: null,
-        mp: null,
-        mpMax: null,
-        str: null,
-        dex: null,
-        vit: null,
-        int: null
-    },
-    advStats: {
-        atk: 0,
-        mAtk: 0,
-        def: 0,
-        mDef: 0,
-        atkSpd: 0,
-        castTimeReduction: 0,
+    stats: {
+        hp: 500,
+        hpMax: 500,
+        atk: 100,
+        def: 70,
+        atkSpd: 0.8,
         lifesteal: 0,
-        mLifesteal: 0,
-        reflect: 0,
         critRate: 0,
-        critDmg: 0,
+        critDmg: 0
     },
     equippedStats: {
         hp: 0,
-        mp: 0,
-        str: 0,
-        dex: 0,
-        vit: 0,
-        int: 0,
         atk: 0,
-        mAtk: 0,
         def: 0,
-        mDef: 0,
         atkSpd: 0,
-        castTimeReduction: 0,
         lifesteal: 0,
-        mLifesteal: 0,
-        reflect: 0,
         critRate: 0,
-        critDmg: 0,
+        critDmg: 0
     },
+    bonusStats: [],
     exp: {
         expCurr: 0,
         expMax: 100,
@@ -89,8 +65,8 @@ const playerLevelUp = () => {
 
         // Calculate stats based on trait then apply it to advanced stats then bring player hp and mp to full
         calculateTraitStats();
-        player.baseStats.hp = player.baseStats.hpMax;
-        player.baseStats.mp = player.baseStats.mpMax;
+        player.stats.hp = player.stats.hpMax;
+        player.stats.mp = player.stats.mpMax;
         playerLoadStats();
     } else {
         expMaxIncrease = 0;
@@ -154,11 +130,11 @@ const calculateTraitStats = () => {
 };
 
 const setStats = (traitStats) => {
-    player.baseStats.str = traitStats.base.str + (player.lvl * traitStats.growth.str) + player.equippedStats.str;
-    player.baseStats.dex = traitStats.base.dex + (player.lvl * traitStats.growth.dex) + player.equippedStats.dex;
-    player.baseStats.vit = traitStats.base.vit + (player.lvl * traitStats.growth.vit) + player.equippedStats.vit;
-    player.baseStats.int = traitStats.base.int + (player.lvl * traitStats.growth.int) + player.equippedStats.int;
-    calculateAdvStats();
+    player.stats.str = traitStats.base.str + (player.lvl * traitStats.growth.str) + player.equippedStats.str;
+    player.stats.dex = traitStats.base.dex + (player.lvl * traitStats.growth.dex) + player.equippedStats.dex;
+    player.stats.vit = traitStats.base.vit + (player.lvl * traitStats.growth.vit) + player.equippedStats.vit;
+    player.stats.int = traitStats.base.int + (player.lvl * traitStats.growth.int) + player.equippedStats.int;
+    calculateStats();
 }
 
 // Show inventory
@@ -254,22 +230,12 @@ const applyEquipmentStats = () => {
     // Reset the equipment stats
     player.equippedStats = {
         hp: 0,
-        mp: 0,
-        str: 0,
-        dex: 0,
-        vit: 0,
-        int: 0,
         atk: 0,
-        mAtk: 0,
         def: 0,
-        mDef: 0,
         atkSpd: 0,
-        castTimeReduction: 0,
         lifesteal: 0,
-        mLifesteal: 0,
-        reflect: 0,
         critRate: 0,
-        critDmg: 0,
+        critDmg: 0
     };
 
     for (let i = 0; i < player.equipped.length; i++) {
@@ -292,30 +258,20 @@ const playerLoadStats = () => {
     applyEquipmentStats();
 
     // Shows proper percentage for respective stats
-    let playerHpPercentage = ((player.baseStats.hp / player.baseStats.hpMax) * 100).toFixed(2);
-    let playerMpPercentage = ((player.baseStats.mp / player.baseStats.mpMax) * 100).toFixed(2);
+    let playerHpPercentage = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2);
     let playerExpPercentage = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2);
 
     // Displays the stats of the player
     playerNameElement.innerHTML = player.name;
     playerLvlElement.innerHTML = player.lvl;
-    playerHpElement.innerHTML = nFormatter(player.baseStats.hp) + "/" + nFormatter(player.baseStats.hpMax) + " (" + playerHpPercentage + "%)";
-    playerMpElement.innerHTML = nFormatter(player.baseStats.mp) + "/" + nFormatter(player.baseStats.mpMax) + " (" + playerMpPercentage + "%)";
+    playerHpElement.innerHTML = nFormatter(player.stats.hp) + "/" + nFormatter(player.stats.hpMax) + " (" + playerHpPercentage + "%)";
+    playerMpElement.innerHTML = nFormatter(player.stats.mp) + "/" + nFormatter(player.stats.mpMax) + " (" + playerMpPercentage + "%)";
     playerExpElement.innerHTML = nFormatter(player.exp.expCurr) + "/" + nFormatter(player.exp.expMax) + " (" + playerExpPercentage + "%)";
 
-    // Base Stats
-    playerStrElement.innerHTML = player.baseStats.str;
-    playerDexElement.innerHTML = player.baseStats.dex;
-    playerVitElement.innerHTML = player.baseStats.vit;
-    playerIntElement.innerHTML = player.baseStats.int;
-
-    // Advanced Stats
-    playerAtkElement.innerHTML = nFormatter(player.advStats.atk);
-    playerMatkElement.innerHTML = nFormatter(player.advStats.mAtk);
-    playerDefElement.innerHTML = nFormatter(player.advStats.def);
-    playerMdefElement.innerHTML = nFormatter(player.advStats.mDef);
-    playerAtkSpdElement.innerHTML = (player.advStats.atkSpd).toFixed(1);
-    playerCTRElement.innerHTML = (player.advStats.castTimeReduction).toFixed(2) + "%";
-    playerCrateElement.innerHTML = (player.advStats.critRate).toFixed(2) + "%";
-    playerCdmgElement.innerHTML = (player.advStats.critDmg).toFixed(2) + "%";
+    // Stats
+    playerAtkElement.innerHTML = nFormatter(player.stats.atk);
+    playerDefElement.innerHTML = nFormatter(player.stats.def);
+    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1);
+    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(2) + "%";
+    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(2) + "%";
 };
