@@ -12,15 +12,36 @@
 </head>
 
 <body>
-    <main class="title-screen primary-panel">
-        <div>
-            <i class="fa-solid fa-dungeon fa-5x"></i>
-            <h1>Dungeon Crawler on Demand!</h1>
+    <main>
+        <!-- Title Screen -->
+        <div id="title-screen" class="game-container">
+            <div>
+                <i class="fa-solid fa-dungeon fa-5x"></i>
+                <h1>Dungeon Crawler on Demand!</h1>
+            </div>
+            <p>Click anywhere to start</p>
         </div>
-        <p>Click anywhere to start</p>
+
+        <!-- Character Creation -->
+        <div id="character-creation" class="game-container">
+            <h1>What is your name?</h1>
+            <input type="text" id="name-input" autocomplete="off">
+            <button id="char-name">Confirm</button>
+        </div>
+
+        <!-- Hub -->
+        <div id="hub" class="game-container">
+            R
+        </div>
+
+        <!-- Utilities -->
+        <div id="loading" class="game-container">
+            <div class="loader"></div>
+        </div>
     </main>
-    
+
     <script src="./assets/js/player.js"></script>
     <script src="./assets/js/validation.js"></script>
 </body>
+
 </html>
