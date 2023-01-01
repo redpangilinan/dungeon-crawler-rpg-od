@@ -14,6 +14,7 @@
 
 <body>
     <main>
+        <!-- ===== Rooms ===== -->
         <!-- Title Screen -->
         <section id="title-screen" class="game-container">
             <div>
@@ -55,6 +56,7 @@
                     </div>
                     <div class="box">
                         <h4>Equipment</h4>
+                        <div class="inventorySlots" id="playerEquipment"></div>
                     </div>
                 </div>
                 <h1>Hub</h1>
@@ -64,10 +66,16 @@
                     <button id="blacksmith"><i class="ra ra-forging"></i>Blacksmith</button>
                     <button id="tavern"><i class="fas fa-house-chimney"></i>Tavern</button>
                 </div>
+                <button onclick="createEquipment()">Generate Weapon</button>
             </div>
         </section>
 
-        <!-- Utilities -->
+        <!-- ===== Non-rooms ===== -->
+        <div id="inventory" class="game-container">
+            <div class="inventorySlots" id="playerInventory"></div>
+        </div>
+
+        <!-- ===== Utilities ===== -->
         <div id="loading" class="game-container">
             <div class="loader"></div>
         </div>
@@ -76,6 +84,7 @@
     <script src="./assets/js/nformatter.js"></script>
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/player.js"></script>
+    <script src="./assets/js/equipment.js"></script>
     <script src="./assets/js/validation.js"></script>
 </body>
 
