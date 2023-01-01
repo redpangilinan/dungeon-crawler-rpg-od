@@ -61,7 +61,7 @@ const createEquipment = () => {
     const speedyStats = ["atkSpd", "atkSpd", "vamp", "critRate", "critDmg"];
     const defenseStats = ["hp", "def"];
     let statTypes;
-    if (equipment.attribute == "Physical") {
+    if (equipment.attribute == "Damage") {
         if (equipment.category == "Axe" || equipment.category == "Scythe") {
             statTypes = damageyStats;
         } else if (equipment.category == "Dagger" || equipment.category == "Flail") {
@@ -100,6 +100,7 @@ const createEquipment = () => {
         }
     }
     player.inventory.equipment.push(JSON.stringify(equipment));
+    saveData();
     showInventory();
     showEquipment();
 };
