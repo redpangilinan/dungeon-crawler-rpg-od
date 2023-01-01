@@ -309,6 +309,11 @@ header button i {
     font-weight: bold;
 }
 
+/* Inventory */
+#inventory {
+    display: none;
+}
+
 /* loader */
 #loading {
     display: none;
