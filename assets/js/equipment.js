@@ -13,17 +13,20 @@ const createEquipment = () => {
 
     // Generate random equipment name and type based on attribute
     if (equipment.attribute == "Damage") {
-        const equipmentCategories = ["Sword", "Axe", "Dagger", "Flail", "Scythe"];
+        const equipmentCategories = ["Sword", "Axe", "Hammer", "Dagger", "Flail", "Scythe"];
         equipment.category = equipmentCategories[Math.floor(Math.random() * equipmentCategories.length)];
         equipment.type = "Weapon";
     } else if (equipment.attribute == "Defense") {
-        const equipmentTypes = ["Armor", "Shield"];
+        const equipmentTypes = ["Armor", "Shield", "Helmet"];
         equipment.type = equipmentTypes[Math.floor(Math.random() * equipmentTypes.length)];
         if (equipment.type == "Armor") {
             const equipmentCategories = ["Plate", "Chain", "Leather"];
             equipment.category = equipmentCategories[Math.floor(Math.random() * equipmentCategories.length)];
         } else if (equipment.type == "Shield") {
             const equipmentCategories = ["Tower", "Kite", "Buckler"];
+            equipment.category = equipmentCategories[Math.floor(Math.random() * equipmentCategories.length)];
+        } else if (equipment.type == "Helmet") {
+            const equipmentCategories = ["Great Helm", "Horned Helm"];
             equipment.category = equipmentCategories[Math.floor(Math.random() * equipmentCategories.length)];
         }
     }
@@ -59,10 +62,10 @@ const createEquipment = () => {
     const physicalStats = ["atk", "atkSpd", "vamp", "critRate", "critDmg"];
     const damageyStats = ["atk", "atk", "critRate", "critDmg", "critDmg"];
     const speedyStats = ["atkSpd", "atkSpd", "vamp", "critRate", "critDmg"];
-    const defenseStats = ["hp", "def"];
+    const defenseStats = ["hp", "hp", "def", "def", "atk"];
     let statTypes;
     if (equipment.attribute == "Damage") {
-        if (equipment.category == "Axe" || equipment.category == "Scythe") {
+        if (equipment.category == "Axe" || equipment.category == "Scythe" || equipment.category == "Hammer") {
             statTypes = damageyStats;
         } else if (equipment.category == "Dagger" || equipment.category == "Flail") {
             statTypes = speedyStats;
