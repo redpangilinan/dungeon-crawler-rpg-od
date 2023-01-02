@@ -107,10 +107,10 @@ const initialLoad = (player) => {
     playerHpElement.innerHTML = nFormatter(player.stats.hp) + "/" + nFormatter(player.stats.hpMax);
     playerAtkElement.innerHTML = nFormatter(player.stats.atk);
     playerDefElement.innerHTML = nFormatter(player.stats.def);
-    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1);
-    playerVampElement.innerHTML = (player.stats.vamp).toFixed(2) + "%";
-    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(2) + "%";
-    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(2) + "%";
+    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1");
+    playerVampElement.innerHTML = (player.stats.vamp).toFixed(1).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") + "%";
+    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(1).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") + "%";
+    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(1).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") + "%";
 
     showEquipment();
     showInventory();
