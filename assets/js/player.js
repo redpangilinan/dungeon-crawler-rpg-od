@@ -82,6 +82,34 @@ const showInventory = () => {
     }
 };
 
+const equipmentIcon = (equipment) => {
+    if (equipment == "Sword") {
+        return '<i class="ra ra-relic-blade">';
+    } else if (equipment == "Axe") {
+        return '<i class="ra ra-axe">';
+    } else if (equipment == "Hammer") {
+        return '<i class="ra ra-flat-hammer">';
+    } else if (equipment == "Dagger") {
+        return '<i class="ra ra-bowie-knife">';
+    } else if (equipment == "Flail") {
+        return '<i class="ra ra-chain">';
+    } else if (equipment == "Scythe") {
+        return '<i class="ra ra-scythe">';
+    } else if (equipment == "Plate") {
+        return '<i class="ra ra-vest">';
+    } else if (equipment == "Chain") {
+        return '<i class="ra ra-vest">';
+    } else if (equipment == "Leather") {
+        return '<i class="ra ra-vest">';
+    } else if (equipment == "Tower") {
+        return '<i class="ra ra-shield">';
+    } else if (equipment == "Kite") {
+        return '<i class="ra ra-heavy-shield">';
+    } else if (equipment == "Buckler") {
+        return '<i class="ra ra-round-shield">';
+    }
+}
+
 // Show equipment
 const showEquipment = () => {
     // Clear the inventory container
@@ -93,8 +121,9 @@ const showEquipment = () => {
 
         // Create an element to display the item's name and stats
         let equipDiv = document.createElement('div');
+        let icon = equipmentIcon(item.category);
         equipDiv.className = "items";
-        equipDiv.innerHTML = `<p class="${item.rarity}">${item.rarity} ${item.category}</p>`;
+        equipDiv.innerHTML = `<p class="${item.rarity}">${icon} ${item.rarity} ${item.category}</p>`;
         equipDiv.addEventListener('click', function () {
             let equipInfo = document.createElement('div');
             // Create an equip button for the item
