@@ -94,24 +94,23 @@ const showEquipment = () => {
         // Create an element to display the item's name and stats
         let equipDiv = document.createElement('div');
         equipDiv.className = "items";
-        equipDiv.innerHTML = `<p>${item.rarity} ${item.category}</p>`;
-        button.addEventListener('click', function () {
+        equipDiv.innerHTML = `<p class="${item.rarity}">${item.rarity} ${item.category}</p>`;
+        equipDiv.addEventListener('click', function () {
             let equipInfo = document.createElement('div');
-        });
+            // Create an equip button for the item
+            let button = document.createElement('button');
+            button.innerHTML = 'Unequip';
+            button.addEventListener('click', function () {
+                // Remove the item from the inventory and add it to the equipment
+                player.equipped.splice(i, 1);
+                player.inventory.equipment.push(JSON.stringify(item));
+                playerLoadStats();
+                saveData();
+            });
 
-        // Create an equip button for the item
-        let button = document.createElement('button');
-        button.innerHTML = 'Unequip';
-        button.addEventListener('click', function () {
-            // Remove the item from the inventory and add it to the equipment
-            player.equipped.splice(i, 1);
-            player.inventory.equipment.push(JSON.stringify(item));
-            playerLoadStats();
-            saveData();
+            // Append the equip button and item details to the equipDiv
+            equipDiv.appendChild(button);
         });
-
-        // Append the equip button and item details to the equipDiv
-        equipDiv.appendChild(button);
 
         // Add the equipDiv to the inventory container
         playerEquipmentList.appendChild(equipDiv);

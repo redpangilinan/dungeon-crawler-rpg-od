@@ -109,22 +109,7 @@ main {
 
 .inventorySlots {
     display: flex;
-    flex-flow: row wrap;
-}
-
-.inventorySlots .items {
-    border-radius: 0.3rem;
-    border: solid 1px;
-    padding: 1rem;
-    margin: 0.3rem;
-}
-
-.inventorySlots > * {
-    flex: 1 1 30%;
-}
-
-.inventorySlots .h3 {
-    text-align: center;
+    flex-direction: column;
 }
 
 /* Shadows */
@@ -166,7 +151,32 @@ button:focus {
     box-shadow: none;
 }
 
-/* GSame */
+/* Rarity Colors */
+.Common {
+    color: #ffffff;
+}
+
+.Uncommon {
+    color: #1eff00;
+}
+
+.Rare {
+    color: #0070dd;
+}
+
+.Epic {
+    color: #a335ee;
+}
+
+.Legendary {
+    color: #ffd700;
+}
+
+.Mythical {
+    color: #e30b5c;
+}
+
+/* Game */
 .game-container {
     display: inline-block;
     position: relative;
