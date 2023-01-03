@@ -84,34 +84,34 @@ const showInventory = () => {
 
 const equipmentIcon = (equipment) => {
     if (equipment == "Sword") {
-        return '<i class="ra ra-relic-blade">';
+        return '<i class="ra ra-relic-blade"></i>';
     } else if (equipment == "Axe") {
-        return '<i class="ra ra-axe">';
+        return '<i class="ra ra-axe"></i>';
     } else if (equipment == "Hammer") {
-        return '<i class="ra ra-flat-hammer">';
+        return '<i class="ra ra-flat-hammer"></i>';
     } else if (equipment == "Dagger") {
-        return '<i class="ra ra-bowie-knife">';
+        return '<i class="ra ra-bowie-knife"></i>';
     } else if (equipment == "Flail") {
-        return '<i class="ra ra-chain">';
+        return '<i class="ra ra-chain"></i>';
     } else if (equipment == "Scythe") {
-        return '<i class="ra ra-scythe">';
+        return '<i class="ra ra-scythe"></i>';
     } else if (equipment == "Plate") {
-        return '<i class="ra ra-vest">';
+        return '<i class="ra ra-vest"></i>';
     } else if (equipment == "Chain") {
-        return '<i class="ra ra-vest">';
+        return '<i class="ra ra-vest"></i>';
     } else if (equipment == "Leather") {
-        return '<i class="ra ra-vest">';
+        return '<i class="ra ra-vest"></i>';
     } else if (equipment == "Tower") {
-        return '<i class="ra ra-shield">';
+        return '<i class="ra ra-shield"></i>';
     } else if (equipment == "Kite") {
-        return '<i class="ra ra-heavy-shield">';
+        return '<i class="ra ra-heavy-shield"></i>';
     } else if (equipment == "Buckler") {
-        return '<i class="ra ra-round-shield">';
+        return '<i class="ra ra-round-shield"></i>';
     } else if (equipment == "Great Helm") {
-        return '<i class="ra ra-knight-helmet">';
+        return '<i class="ra ra-knight-helmet"></i>';
     } else if (equipment == "Horned Helm") {
-        return '<i class="ra ra-helmet">';
-    } 
+        return '<i class="ra ra-helmet"></i>';
+    }
 }
 
 // Show equipment
@@ -123,26 +123,47 @@ const showEquipment = () => {
     for (let i = 0; i < player.equipped.length; i++) {
         const item = player.equipped[i];
 
-        // Create an element to display the item's name and stats
+        // Create an element to display the item's name
         let equipDiv = document.createElement('div');
         let icon = equipmentIcon(item.category);
         equipDiv.className = "items";
-        equipDiv.innerHTML = `<p class="${item.rarity}">${icon} ${item.rarity} ${item.category}</p>`;
+        equipDiv.innerHTML = `<p class="${item.rarity}">${icon}${item.rarity} ${item.category}</p>`;
         equipDiv.addEventListener('click', function () {
-            let equipInfo = document.createElement('div');
-            // Create an equip button for the item
-            let button = document.createElement('button');
-            button.innerHTML = 'Unequip';
-            button.addEventListener('click', function () {
+            let equipInfo = document.querySelector("#equipmentInfo");
+            let gameContainer = document.querySelector("#hub");
+            equipInfo.style.display = "flex";
+            gameContainer.style.filter = "brightness(50%)";
+            equipInfo.innerHTML = `
+            <div class="content">
+                <h3 class="${item.rarity}">${icon}${item.rarity} ${item.category}</h3>
+                <ul>
+                ${item.stats.map(stat => {
+                    return `<li>${Object.keys(stat)[0]}: ${stat[Object.keys(stat)[0]]}</li>`;
+                }).join('')}
+                </ul>
+                <div class="button-container">
+                    <button id="unequip">Unequip</button>
+                    <button id="discard">Discard</button>
+                    <button id="close">Close</button>
+                </div>
+            </div>`;
+            // Unequip button for the item
+            let unequip = document.querySelector("#unequip");
+            unequip.addEventListener('click', function () {
                 // Remove the item from the inventory and add it to the equipment
+                equipInfo.style.display = "none";
+                gameContainer.style.filter = "brightness(100%)";
                 player.equipped.splice(i, 1);
                 player.inventory.equipment.push(JSON.stringify(item));
                 playerLoadStats();
                 saveData();
             });
 
-            // Append the equip button and item details to the equipDiv
-            equipDiv.appendChild(button);
+            let close = document.querySelector("#close");
+            close.addEventListener('click', function () {
+                equipInfo.style.display = "none";
+                gameContainer.style.filter = "brightness(100%)";
+            });
         });
 
         // Add the equipDiv to the inventory container
