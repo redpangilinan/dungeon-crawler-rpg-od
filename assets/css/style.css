@@ -110,11 +110,13 @@ main {
 .inventorySlots {
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 .inventorySlots p:hover {
     background-color: grey;
     color: white;
+    cursor: pointer;
 }
 
 /* Shadows */
@@ -204,12 +206,13 @@ button:focus {
 }
 
 /* Modals */
+/* Equipment Info */
 #equipmentInfo {
     display: none;
     align-items: center;
     justify-content: center;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     width: 100%;
     height: 100%;
 }
@@ -239,6 +242,45 @@ button:focus {
 #equipmentInfo .content .button-container {
     display: flex;
     gap: 0.5rem;
+}
+
+/* Inventory */
+#inventory {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+#inventory .content {
+    background: -webkit-linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
+    background: linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
+    color: #fff;
+    border-radius: 0.3rem;
+    border: solid 1px;
+    max-width: 20rem;
+    height: 30rem;
+    padding: 0.5em;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    -ms-border-radius: 0.3rem;
+    -o-border-radius: 0.3rem;
+}
+
+#inventory .content-head {
+    display: flex;
+    justify-content: space-between;
+}
+
+#inventory .content-head p:hover {
+    cursor: pointer;
 }
 
 /* Title Screen */
@@ -360,11 +402,6 @@ header button i {
 
 .stat-panel .box h4 {
     font-weight: bold;
-}
-
-/* Inventory */
-#inventory {
-    display: none;
 }
 
 /* loader */
