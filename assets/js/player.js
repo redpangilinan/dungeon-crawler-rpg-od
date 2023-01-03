@@ -36,52 +36,6 @@ const playerLevelUp = () => {
     }
 };
 
-// Show inventory
-const showInventory = () => {
-    // Clear the inventory container
-    let playerInventoryList = document.getElementById("playerInventory");
-    playerInventoryList.innerHTML = "";
-
-    for (let i = 0; i < player.inventory.equipment.length; i++) {
-        const item = JSON.parse(player.inventory.equipment[i]);
-
-        // Create an element to display the item's name and stats
-        let itemDiv = document.createElement('div');
-        itemDiv.className = "items";
-        itemDiv.innerHTML = `
-            <h3>${item.category}</h3>
-            <p>Type: ${item.type}</p>
-            <p>Rarity: ${item.rarity}</p>
-            <ul>
-            ${item.stats.map(stat => {
-            return `<li>${Object.keys(stat)[0]}: ${stat[Object.keys(stat)[0]]}</li>`;
-        }).join('')}
-            </ul>
-        `;
-
-        // Create an equip button for the item
-        let button = document.createElement('button');
-        button.innerHTML = 'Equip';
-        button.addEventListener('click', function () {
-            // Remove the item from the inventory and add it to the equipment
-            if (player.equipped.length >= 6) {
-                alert("You are fully equipped.");
-            } else {
-                player.inventory.equipment.splice(i, 1);
-                player.equipped.push(item);
-            }
-            playerLoadStats();
-            saveData();
-        });
-
-        // Append the equip button and item details to the itemDiv
-        itemDiv.appendChild(button);
-
-        // Add the itemDiv to the inventory container
-        playerInventoryList.appendChild(itemDiv);
-    }
-};
-
 const equipmentIcon = (equipment) => {
     if (equipment == "Sword") {
         return '<i class="ra ra-relic-blade"></i>';
@@ -114,11 +68,98 @@ const equipmentIcon = (equipment) => {
     }
 }
 
+const showItemInfo = (item, icon, type, i) => {
+    let itemInfo = document.querySelector("#equipmentInfo");
+    let gameContainer = document.querySelector("#hub");
+    itemInfo.style.display = "flex";
+    gameContainer.style.filter = "brightness(50%)";
+    itemInfo.innerHTML = `
+            <div class="content">
+                <h3 class="${item.rarity}">${icon}${item.rarity} ${item.category}</h3>
+                <ul>
+                ${item.stats.map(stat => {
+        return `<li>${Object.keys(stat)[0]}: ${stat[Object.keys(stat)[0]]}</li>`;
+    }).join('')}
+                </ul>
+                <div class="button-container">
+                    <button id="un-equip">${type}</button>
+                    <button id="discard">Discard</button>
+                    <button id="close-item-info">Close</button>
+                </div>
+            </div>`;
+
+    // Equip button for the item
+    let unEquip = document.querySelector("#un-equip");
+    unEquip.addEventListener('click', function () {
+        if (type == "Equip") {
+            // Remove the item from the inventory and add it to the equipment
+            itemInfo.style.display = "none";
+            gameContainer.style.filter = "brightness(100%)";
+            if (player.equipped.length >= 6) {
+                alert("You are fully equipped.");
+            } else {
+                player.inventory.equipment.splice(i, 1);
+                player.equipped.push(item);
+            }
+            playerLoadStats();
+            saveData();
+        } else if (type == "Unequip") {
+            // Remove the item from the equipment and add it to the inventory
+            itemInfo.style.display = "none";
+            gameContainer.style.filter = "brightness(100%)";
+            player.equipped.splice(i, 1);
+            player.inventory.equipment.push(JSON.stringify(item));
+            playerLoadStats();
+            saveData();
+        }
+    });
+
+    // Close item info
+    let close = document.querySelector("#close-item-info");
+    close.addEventListener('click', function () {
+        itemInfo.style.display = "none";
+        gameContainer.style.filter = "brightness(100%)";
+    });
+}
+
+// Show inventory
+const showInventory = () => {
+    // Clear the inventory container
+    let playerInventoryList = document.getElementById("playerInventory");
+    playerInventoryList.innerHTML = "";
+
+    if (player.inventory.equipment.length == 0) {
+        playerInventoryList.innerHTML = "You haven't equipped anything.";
+    }
+
+    for (let i = 0; i < player.inventory.equipment.length; i++) {
+        const item = JSON.parse(player.inventory.equipment[i]);
+
+        // Create an element to display the item's name
+        let itemDiv = document.createElement('div');
+        let icon = equipmentIcon(item.category);
+        itemDiv.className = "items";
+        itemDiv.innerHTML = `<p class="${item.rarity}">${icon}${item.rarity} ${item.category}</p>`;
+        itemDiv.addEventListener('click', function () {
+            let type = "Equip";
+            showItemInfo(item, icon, type, i);
+        });
+
+        // Add the itemDiv to the inventory container
+        playerInventoryList.appendChild(itemDiv);
+    }
+};
+
 // Show equipment
 const showEquipment = () => {
     // Clear the inventory container
     let playerEquipmentList = document.getElementById("playerEquipment");
     playerEquipmentList.innerHTML = "";
+
+    // Show a message if a player has no equipment
+    if (player.equipped.length == 0) {
+        playerEquipmentList.innerHTML = "You haven't equipped anything.";
+    }
 
     for (let i = 0; i < player.equipped.length; i++) {
         const item = player.equipped[i];
@@ -129,41 +170,8 @@ const showEquipment = () => {
         equipDiv.className = "items";
         equipDiv.innerHTML = `<p class="${item.rarity}">${icon}${item.rarity} ${item.category}</p>`;
         equipDiv.addEventListener('click', function () {
-            let equipInfo = document.querySelector("#equipmentInfo");
-            let gameContainer = document.querySelector("#hub");
-            equipInfo.style.display = "flex";
-            gameContainer.style.filter = "brightness(50%)";
-            equipInfo.innerHTML = `
-            <div class="content">
-                <h3 class="${item.rarity}">${icon}${item.rarity} ${item.category}</h3>
-                <ul>
-                ${item.stats.map(stat => {
-                    return `<li>${Object.keys(stat)[0]}: ${stat[Object.keys(stat)[0]]}</li>`;
-                }).join('')}
-                </ul>
-                <div class="button-container">
-                    <button id="unequip">Unequip</button>
-                    <button id="discard">Discard</button>
-                    <button id="close">Close</button>
-                </div>
-            </div>`;
-            // Unequip button for the item
-            let unequip = document.querySelector("#unequip");
-            unequip.addEventListener('click', function () {
-                // Remove the item from the inventory and add it to the equipment
-                equipInfo.style.display = "none";
-                gameContainer.style.filter = "brightness(100%)";
-                player.equipped.splice(i, 1);
-                player.inventory.equipment.push(JSON.stringify(item));
-                playerLoadStats();
-                saveData();
-            });
-
-            let close = document.querySelector("#close");
-            close.addEventListener('click', function () {
-                equipInfo.style.display = "none";
-                gameContainer.style.filter = "brightness(100%)";
-            });
+            let type = "Unequip";
+            showItemInfo(item, icon, type, i);
         });
 
         // Add the equipDiv to the inventory container
@@ -220,4 +228,14 @@ const playerLoadStats = () => {
     playerVampElement.innerHTML = (player.stats.vamp).toFixed(2) + "%";;
     playerCrateElement.innerHTML = (player.stats.critRate).toFixed(2) + "%";
     playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(2) + "%";
+};
+
+const openInventory = () => {
+    let openInv = document.querySelector('#inventory');
+    openInv.style.display = "flex";
+};
+
+const closeInventory = () => {
+    let openInv = document.querySelector('#inventory');
+    openInv.style.display = "none";
 };
