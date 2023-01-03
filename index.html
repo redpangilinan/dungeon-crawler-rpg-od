@@ -40,7 +40,7 @@
                 <p id="player-name"></p>
                 <p id="player-gold"></p>
                 <p id="player-cubes"></p>
-                <button><i class="fas fa-bars" style="font-size: 1.3rem;"></i></button>
+                <button onclick="openInventory()"><i class="fas fa-bars" style="font-size: 1.3rem;"></i></button>
             </header>
             <div class="scrollable">
                 <div class="stat-panel">
@@ -70,17 +70,21 @@
             </div>
         </section>
 
-        <!-- ===== Non-rooms ===== -->
-        <div id="inventory" class="game-container">
-            <div class="inventorySlots" id="playerInventory"></div>
-        </div>
-
-        <!-- ===== Utilities ===== -->
+        <!-- ===== Utility ===== -->
         <div id="loading" class="game-container">
             <div class="loader"></div>
         </div>
 
         <!-- ===== Modals ===== -->
+        <div id="inventory">
+            <div class="content">
+                <div class="content-head">
+                    <h3>Inventory</h3>
+                    <p onclick="closeInventory()"><i class="fa fa-xmark"></i></p>
+                </div>
+                <div class="inventorySlots" id="playerInventory"></div>
+            </div>
+        </div>
         <div id="equipmentInfo"></div>
     </main>
 
