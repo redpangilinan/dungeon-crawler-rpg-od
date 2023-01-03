@@ -112,6 +112,11 @@ main {
     flex-direction: column;
 }
 
+.inventorySlots p:hover {
+    background-color: grey;
+    color: white;
+}
+
 /* Shadows */
 .primary-panel {
     border-radius: 0.3rem;
@@ -207,7 +212,6 @@ button:focus {
     z-index: 1;
     width: 100%;
     height: 100%;
-    
 }
 
 #equipmentInfo .content {
@@ -217,12 +221,24 @@ button:focus {
     border-radius: 0.3rem;
     border: solid 1px;
     max-width: 20rem;
-    padding: 1em;
+    padding: 0.5em;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
     -webkit-border-radius: 0.3rem;
     -moz-border-radius: 0.3rem;
     -ms-border-radius: 0.3rem;
     -o-border-radius: 0.3rem;
+}
+
+#equipmentInfo .content ul {
+    margin-left: 1rem;
+}
+
+#equipmentInfo .content .button-container {
+    display: flex;
+    gap: 0.5rem;
 }
 
 /* Title Screen */
