@@ -70,9 +70,15 @@ const equipmentIcon = (equipment) => {
 
 const showItemInfo = (item, icon, type, i) => {
     let itemInfo = document.querySelector("#equipmentInfo");
-    let gameContainer = document.querySelector("#hub");
+    let target = null;
+    if (type == "Equip") {
+        target = "inventory";
+    } else {
+        target = "hub";
+    }
+    let dimContainer = document.querySelector(`#${target}`);
     itemInfo.style.display = "flex";
-    gameContainer.style.filter = "brightness(50%)";
+    dimContainer.style.filter = "brightness(50%)";
     itemInfo.innerHTML = `
             <div class="content">
                 <h3 class="${item.rarity}">${icon}${item.rarity} ${item.category}</h3>
@@ -94,7 +100,7 @@ const showItemInfo = (item, icon, type, i) => {
         if (type == "Equip") {
             // Remove the item from the inventory and add it to the equipment
             itemInfo.style.display = "none";
-            gameContainer.style.filter = "brightness(100%)";
+            dimContainer.style.filter = "brightness(100%)";
             if (player.equipped.length >= 6) {
                 alert("You are fully equipped.");
             } else {
@@ -106,7 +112,7 @@ const showItemInfo = (item, icon, type, i) => {
         } else if (type == "Unequip") {
             // Remove the item from the equipment and add it to the inventory
             itemInfo.style.display = "none";
-            gameContainer.style.filter = "brightness(100%)";
+            dimContainer.style.filter = "brightness(100%)";
             player.equipped.splice(i, 1);
             player.inventory.equipment.push(JSON.stringify(item));
             playerLoadStats();
@@ -118,7 +124,7 @@ const showItemInfo = (item, icon, type, i) => {
     let close = document.querySelector("#close-item-info");
     close.addEventListener('click', function () {
         itemInfo.style.display = "none";
-        gameContainer.style.filter = "brightness(100%)";
+        dimContainer.style.filter = "brightness(100%)";
     });
 }
 
@@ -232,10 +238,14 @@ const playerLoadStats = () => {
 
 const openInventory = () => {
     let openInv = document.querySelector('#inventory');
+    let dimHub = document.querySelector('#hub');
     openInv.style.display = "flex";
+    dimHub.style.filter = "brightness(50%)";
 };
 
 const closeInventory = () => {
     let openInv = document.querySelector('#inventory');
+    let dimHub = document.querySelector('#hub');
     openInv.style.display = "none";
+    dimHub.style.filter = "brightness(100%)";
 };
