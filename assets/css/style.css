@@ -120,6 +120,14 @@ main {
     overflow: auto;
 }
 
+.inventorySlots p {
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+}
+
 .inventorySlots p:hover {
     background-color: grey;
     color: white;
@@ -147,11 +155,11 @@ button {
     -ms-border-radius: 0.3rem;
     -o-border-radius: 0.3rem;
     cursor: pointer;
-    transition: .1s;
-    -webkit-transition: .1s;
-    -moz-transition: .1s;
-    -ms-transition: .1s;
-    -o-transition: .1s;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -232,7 +240,7 @@ button:focus {
     margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.5em;
     -webkit-border-radius: 0.3rem;
     -moz-border-radius: 0.3rem;
     -ms-border-radius: 0.3rem;
