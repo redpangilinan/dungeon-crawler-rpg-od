@@ -72,11 +72,11 @@ const showItemInfo = (item, icon, type, i) => {
     let itemInfo = document.querySelector("#equipmentInfo");
     let target = null;
     if (type == "Equip") {
-        target = "inventory";
-    } else {
-        target = "main";
+        target = "#inventory";
+    } else if (type == "Unequip") {
+        target = "#dungeon-main";
     }
-    let dimContainer = document.querySelector(`#${target}`);
+    let dimContainer = document.querySelector(`${target}`);
     itemInfo.style.display = "flex";
     dimContainer.style.filter = "brightness(50%)";
     itemInfo.innerHTML = `
