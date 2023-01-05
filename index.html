@@ -21,7 +21,7 @@
                 <i class="fa-solid fa-dungeon fa-5x"></i>
                 <h1>Dungeon Crawler on Demand!</h1>
             </div>
-            <p>Click anywhere to start</p>
+            <p>Tap to explore the dungeon</p>
         </section>
 
         <!-- Character Creation -->
@@ -55,16 +55,19 @@
                 </div>
                 <div class="box">
                     <h4>Equipment</h4>
-                    <div class="inventorySlots" id="playerEquipment"></div>
+                    <div id="playerEquipment"></div>
                 </div>
             </div>
             <div class="dungeon-head">
-                <h3>Dungeon</h3>
+                <p>00:12:45</p>
                 <p>Floor 1</p>
                 <p>Room 1</p>
                 <button>Start</button>
             </div>
-            <div class="logBox" id="dungeonLog"></div>
+            <div class="logBox">
+                <p id="dungeonAction"></p>
+                <div id="dungeonLog"></div>
+            </div>
         </section>
 
         <!-- ===== Utility ===== -->
@@ -90,6 +93,7 @@
     <script src="./assets/js/player.js"></script>
     <script src="./assets/js/equipment.js"></script>
     <script src="./assets/js/combat.js"></script>
+    <script src="./assets/js/dungeon.js"></script>
     <script src="./assets/js/validation.js"></script>
 </body>
 
