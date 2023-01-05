@@ -480,15 +480,11 @@ header button i {
 /* Scroll */
 .scrollable {
     overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrollable::-webkit-scrollbar {
     display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.scrollable {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
 }
