@@ -1,18 +1,20 @@
 window.addEventListener("load", function () {
+    if (player === null) {
+        runLoad("character-creation", "flex");
+    } else {
+        let target = document.querySelector("#title-screen");
+        target.style.display = "flex";
+    }
+
     // Title Screen Validation
     document.querySelector("#title-screen").addEventListener("click", function () {
-        if (player === null) {
-            this.style.display = "none";
-            runLoad("character-creation", "flex");
-        } else {
-            this.style.display = "none";
-            const player = JSON.parse(localStorage.getItem("playerData"));
-            initialLoad(player);
-            runLoad("hub", "flex");
-            console.log(player);
-        }
+        this.style.display = "none";
+        const player = JSON.parse(localStorage.getItem("playerData"));
+        initialLoad(player);
+        runLoad("hub", "flex");
+        console.table(player);
     });
-  
+
     // Submit Name
     document.querySelector("#name-submit").addEventListener("submit", function (e) {
         e.preventDefault();
@@ -45,7 +47,7 @@ window.addEventListener("load", function () {
                         atkSpd: 0.8,
                         vamp: 0,
                         critRate: 0,
-                        critDmg: 0
+                        critDmg: 50
                     },
                     equippedStats: {
                         hp: 0,
@@ -69,15 +71,13 @@ window.addEventListener("load", function () {
                     },
                     equipped: [],
                     gold: 0,
-                    cubes: 0,
                     playtime: 0,
                 };
                 calculateStats();
                 player.stats.hp = player.stats.hpMax;
                 saveData();
                 document.querySelector("#character-creation").style.display = "none";
-                initialLoad(player);
-                runLoad("hub", "flex");
+                runLoad("title-screen", "flex");
             }
         }
     });
@@ -98,19 +98,23 @@ const saveData = () => {
 }
 
 const initialLoad = (player) => {
+    let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    let playerHpPercentage = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
+    let playerExpPercentage = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
+
     // Header
-    document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name}`
-    document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`
-    document.querySelector("#player-cubes").innerHTML = `<i class="fas fa-cube" style="color: #A020F0;"></i>${nFormatter(player.cubes)}`
+    document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name} Lv.${player.lvl}`;
+    document.querySelector("#player-exp").innerHTML = `Exp: ${nFormatter(player.exp.expCurrLvl)}/${nFormatter(player.exp.expMaxLvl)} (${playerExpPercentage}%)`;
+    document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`;
 
     // Player Stats
-    playerHpElement.innerHTML = nFormatter(player.stats.hp) + "/" + nFormatter(player.stats.hpMax);
+    playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${playerHpPercentage}%)`;
     playerAtkElement.innerHTML = nFormatter(player.stats.atk);
     playerDefElement.innerHTML = nFormatter(player.stats.def);
-    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1");
-    playerVampElement.innerHTML = (player.stats.vamp).toFixed(1).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") + "%";
-    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(1).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") + "%";
-    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(1).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") + "%";
+    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1).replace(rx, "$1");
+    playerVampElement.innerHTML = (player.stats.vamp).toFixed(1).replace(rx, "$1") + "%";
+    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(1).replace(rx, "$1") + "%";
+    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(1).replace(rx, "$1") + "%";
 
     showEquipment();
     showInventory();
