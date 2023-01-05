@@ -54,7 +54,8 @@ input {
 }
 
 body {
-    background-image: radial-gradient(rgba(19,30,37,1) 24.5%, rgba(19,30,37,1) 66%);
+    background: -webkit-linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
+    background: linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
     font-family: Futura, Trebuchet MS, Arial, sans-serif;
     font-size: 1rem;
     color: white;
@@ -94,7 +95,7 @@ main {
 }
 
 /* Combat Log */
-#combatLogBox {
+.logBox {
     border-radius: 0.3rem;
     border: 1px solid;
     margin: 0.5rem;
@@ -108,7 +109,7 @@ main {
     -o-border-radius: 0.3rem;
 }
 
-#combatLogBox p {
+.logBox p {
     margin: 0.3rem 0;
     padding: 0.3rem;
 }
@@ -193,13 +194,10 @@ button:focus {
 .game-container {
     display: inline-block;
     position: relative;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     width: 100%;
     max-width: 28.125rem;
     height: 100%;
     max-height: 50rem;
-    background: -webkit-linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
-    background: linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
 }
 
 .game {
