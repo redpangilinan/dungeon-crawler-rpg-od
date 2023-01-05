@@ -74,7 +74,7 @@ const showItemInfo = (item, icon, type, i) => {
     if (type == "Equip") {
         target = "inventory";
     } else {
-        target = "dungeon-main";
+        target = "main";
     }
     let dimContainer = document.querySelector(`#${target}`);
     itemInfo.style.display = "flex";
