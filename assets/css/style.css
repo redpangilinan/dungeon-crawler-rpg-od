@@ -95,11 +95,17 @@ main {
 
 /* Combat Log */
 #combatLogBox {
+    border-radius: 0.3rem;
+    border: 1px solid;
     margin: 0.5rem;
     padding: 0 0.5rem;
     overflow: auto;
     width: auto;
-    height: 15rem;
+    height: 100%;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    -ms-border-radius: 0.3rem;
+    -o-border-radius: 0.3rem;
 }
 
 #combatLogBox p {
@@ -359,27 +365,34 @@ header button i {
     margin: 0;
 }
 
-/* Hub */
-#hub {
+/* Dungeon */
+#dungeon-main {
     display: none;
     flex-direction: column;
 }
 
-#hub h1 {
+#dungeon-main h1 {
     margin-top: 1rem;
     text-align: center;
     letter-spacing: 0.5rem;
 }
 
-#hub .primary-panel {
+#dungeon-main .primary-panel {
     border: none;
     margin: 0.5rem;
 }
 
-#hub .primary-panel button {
+#dungeon-main .primary-panel button {
     width: 100%;
     margin: 0.4rem 0;
     padding: 1rem;
+}
+
+.dungeon-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 1rem;
 }
 
 /* Stat Panel */
