@@ -135,7 +135,7 @@ const showInventory = () => {
     playerInventoryList.innerHTML = "";
 
     if (player.inventory.equipment.length == 0) {
-        playerInventoryList.innerHTML = "You haven't equipped anything.";
+        playerInventoryList.innerHTML = "There are no items available.";
     }
 
     for (let i = 0; i < player.inventory.equipment.length; i++) {
