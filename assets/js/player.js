@@ -74,7 +74,7 @@ const showItemInfo = (item, icon, type, i) => {
     if (type == "Equip") {
         target = "inventory";
     } else {
-        target = "hub";
+        target = "dungeon-main";
     }
     let dimContainer = document.querySelector(`#${target}`);
     itemInfo.style.display = "flex";
@@ -238,14 +238,14 @@ const playerLoadStats = () => {
 
 const openInventory = () => {
     let openInv = document.querySelector('#inventory');
-    let dimHub = document.querySelector('#hub');
+    let dimDungeon = document.querySelector('#dungeon-main');
     openInv.style.display = "flex";
-    dimHub.style.filter = "brightness(50%)";
+    dimDungeon.style.filter = "brightness(50%)";
 };
 
 const closeInventory = () => {
     let openInv = document.querySelector('#inventory');
-    let dimHub = document.querySelector('#hub');
+    let dimDungeon = document.querySelector('#dungeon-main');
     openInv.style.display = "none";
-    dimHub.style.filter = "brightness(100%)";
+    dimDungeon.style.filter = "brightness(100%)";
 };

@@ -11,7 +11,7 @@ window.addEventListener("load", function () {
         this.style.display = "none";
         const player = JSON.parse(localStorage.getItem("playerData"));
         initialLoad(player);
-        runLoad("hub", "flex");
+        runLoad("dungeon-main", "flex");
         console.table(player);
     });
 
@@ -104,7 +104,7 @@ const initialLoad = (player) => {
 
     // Header
     document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name} Lv.${player.lvl}`;
-    document.querySelector("#player-exp").innerHTML = `Exp: ${nFormatter(player.exp.expCurrLvl)}/${nFormatter(player.exp.expMaxLvl)} (${playerExpPercentage}%)`;
+    document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurrLvl)}/${nFormatter(player.exp.expMaxLvl)} (${playerExpPercentage}%)`;
     document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`;
 
     // Player Stats
