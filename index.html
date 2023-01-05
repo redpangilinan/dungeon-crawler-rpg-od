@@ -35,39 +35,36 @@
         </section>
 
         <!-- Hub -->
-        <section id="hub" class="game-container">
+        <section id="dungeon-main" class="game-container">
             <header>
                 <p id="player-name"></p>
+                <p id="player-exp"></p>
                 <p id="player-gold"></p>
-                <p id="player-cubes"></p>
                 <button onclick="openInventory()"><i class="fas fa-bars" style="font-size: 1.3rem;"></i></button>
             </header>
-            <div class="scrollable">
-                <div class="stat-panel">
-                    <div class="box">
-                        <h4>Stats</h4>
-                        <p><i class="fas fa-heart"></i>HP: <span id="player-hp"></span></p>
-                        <p><i class="ra ra-sword"></i>ATK: <span id="player-atk"></span></p>
-                        <p><i class="ra ra-round-shield"></i>DEF: <span id="player-def"></span></p>
-                        <p><i class="ra ra-plain-dagger"></i>ATK.SPD: <span id="player-atkspd"></span></p>
-                        <p><i class="ra ra-dripping-blade"></i>VAMP: <span id="player-vamp"></span></p>
-                        <p><i class="ra ra-lightning-bolt"></i>C.RATE: <span id="player-crate"></span></p>
-                        <p><i class="ra ra-focused-lightning"></i>C.DMG: <span id="player-cdmg"></span></p>
-                    </div>
-                    <div class="box">
-                        <h4>Equipment</h4>
-                        <div class="inventorySlots" id="playerEquipment"></div>
-                    </div>
+            <div class="stat-panel">
+                <div class="box">
+                    <h4>Stats</h4>
+                    <p><i class="fas fa-heart"></i>HP: <span id="player-hp"></span></p>
+                    <p><i class="ra ra-sword"></i>ATK: <span id="player-atk"></span></p>
+                    <p><i class="ra ra-round-shield"></i>DEF: <span id="player-def"></span></p>
+                    <p><i class="ra ra-plain-dagger"></i>ATK.SPD: <span id="player-atkspd"></span></p>
+                    <p><i class="ra ra-dripping-blade"></i>VAMP: <span id="player-vamp"></span></p>
+                    <p><i class="ra ra-lightning-bolt"></i>C.RATE: <span id="player-crate"></span></p>
+                    <p><i class="ra ra-focused-lightning"></i>C.DMG: <span id="player-cdmg"></span></p>
                 </div>
-                <h1>Hub</h1>
-                <div class="primary-panel">
-                    <button id="dungeon"><i class="fas fa-dungeon"></i>Dungeon</button>
-                    <button id="market"><i class="fas fa-store"></i>Market</button>
-                    <button id="blacksmith"><i class="ra ra-forging"></i>Blacksmith</button>
-                    <button id="tavern"><i class="fas fa-house-chimney"></i>Tavern</button>
+                <div class="box">
+                    <h4>Equipment</h4>
+                    <div class="inventorySlots" id="playerEquipment"></div>
                 </div>
-                <button onclick="createEquipment()">Generate Weapon</button>
             </div>
+            <div class="dungeon-head">
+                <h3>Dungeon</h3>
+                <p>Floor 1</p>
+                <p>Room 1</p>
+                <button>Start</button>
+            </div>
+            <div id="combatLogBox"></div>
         </section>
 
         <!-- ===== Utility ===== -->
@@ -92,6 +89,7 @@
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/player.js"></script>
     <script src="./assets/js/equipment.js"></script>
+    <script src="./assets/js/combat.js"></script>
     <script src="./assets/js/validation.js"></script>
 </body>
 
