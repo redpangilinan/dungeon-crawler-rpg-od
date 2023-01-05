@@ -285,7 +285,7 @@ button:focus {
 
 /* Title Screen */
 #title-screen {
-    display: flex;
+    display: none;
     justify-content: space-around;
     align-items: center;
     text-align: center;
