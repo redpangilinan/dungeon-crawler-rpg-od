@@ -99,14 +99,24 @@ main {
     border-radius: 0.3rem;
     border: 1px solid;
     margin: 0.5rem;
-    padding: 0 0.5rem;
-    overflow: auto;
     width: auto;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     -webkit-border-radius: 0.3rem;
     -moz-border-radius: 0.3rem;
     -ms-border-radius: 0.3rem;
     -o-border-radius: 0.3rem;
+}
+
+.logBox #dungeonLog {
+    padding: 0.5em;
+    overflow: auto;
+}
+
+.logBox #dungeonAction {
+    text-align: center;
 }
 
 .logBox p {
@@ -120,7 +130,8 @@ main {
     overflow: auto;
 }
 
-.inventorySlots p {
+.inventorySlots p,
+#playerEquipment p {
     transition: .2s;
     -webkit-transition: .2s;
     -moz-transition: .2s;
@@ -128,10 +139,15 @@ main {
     -o-transition: .2s;
 }
 
-.inventorySlots p:hover {
+.inventorySlots p:hover,
+#playerEquipment p:hover {
     background-color: grey;
     color: white;
     cursor: pointer;
+}
+
+#inventory .content .inventorySlots {
+    padding: 0 0.7em 0.4em;
 }
 
 /* Shadows */
@@ -275,11 +291,9 @@ button:focus {
     border: solid 1px;
     max-width: 20rem;
     height: 30rem;
-    padding: 0.5em;
     margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
     -webkit-border-radius: 0.3rem;
     -moz-border-radius: 0.3rem;
     -ms-border-radius: 0.3rem;
@@ -289,6 +303,12 @@ button:focus {
 #inventory .content-head {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0.4em 0.7em;
+}
+
+#inventory .content-head i {
+    margin: 0;
 }
 
 #inventory .content-head p:hover {
@@ -302,13 +322,13 @@ button:focus {
     align-items: center;
     text-align: center;
     flex-direction: column;
+    cursor: pointer;
 }
 
 #title-screen h1 {
     font-family: 'Rubik Vinyl';
     font-size: 2.5rem;
     font-weight: 400;
-    cursor: context-menu;
     margin: 0 1rem;
 }
 
@@ -317,7 +337,6 @@ button:focus {
 }
 
 #title-screen p {
-    cursor: context-menu;
     animation: blinker 1s linear infinite;
     -webkit-animation: blinker 1s linear infinite;
 }
@@ -398,7 +417,7 @@ header button i {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0.5rem 1rem;
+    margin: 0.2rem 1rem;
 }
 
 /* Stat Panel */
@@ -409,6 +428,7 @@ header button i {
 }
 
 .stat-panel .box {
+    white-space: nowrap;
     border: solid 1px;
     border-radius: 0.3rem;
     -webkit-border-radius: 0.3rem;
@@ -417,6 +437,13 @@ header button i {
     -o-border-radius: 0.3rem;
     width: 100%;
     padding: 0.5rem;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.stat-panel .box::-webkit-scrollbar {
+    display: none;
 }
 
 .stat-panel .box h4 {
