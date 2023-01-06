@@ -22,6 +22,7 @@ let dungeon = {
 let dungeonSeconds = 0;
 let dungeonActivity = document.querySelector("#dungeonActivity");
 let exploring = true;
+let paused = false;
 
 // Sets up the initial dungeon
 const initialDungeonLoad = () => {
@@ -37,14 +38,16 @@ dungeonActivity.addEventListener('click', function() {
 
 // Start and Pause Functionality
 const dungeonStartPause = () => {
-    if (exploring) {
+    if (!paused) {
         addDungeonLog("You took a break from exploring.");
         dungeonActivity.innerHTML = "Start"
         exploring = false;
+        paused = true;
     } else {
         addDungeonLog("You continued your exploration.");
         dungeonActivity.innerHTML = "Stop"
         exploring = true;
+        paused = false;
     }
 }
 
@@ -58,26 +61,26 @@ const dungeonEvent = () => {
     if (exploring) {
         const eventTypes = ["up", "blessing", "trap", "enemy", "shop"];
         const event = eventTypes[Math.floor(Math.random() * eventTypes.length)];
-      
-        switch(event) {
-          case "up":
-            addDungeonLog("You went up a room.");
-            break;
-          case "blessing":
-            addDungeonLog("You encountered a blessing.");
-            break;
-          case "trap":
-            addDungeonLog("You encountered a trap.");
-            break;
-          case "enemy":
-            addDungeonLog("You encountered an enemy.");
-            break;
-          case "shop":
-            addDungeonLog("You encountered a shop.");
-            break;
+
+        switch (event) {
+            case "up":
+                addDungeonLog("You went up a room.");
+                break;
+            case "blessing":
+                addDungeonLog("You encountered a blessing.");
+                break;
+            case "trap":
+                addDungeonLog("You encountered a trap.");
+                break;
+            case "enemy":
+                addDungeonLog("You encountered an enemy.");
+                break;
+            case "shop":
+                addDungeonLog("You encountered a shop.");
+                break;
         }
     }
-  }
+}
 
 // ========= Dungeon Backlog ==========
 // Displays every dungeon activity

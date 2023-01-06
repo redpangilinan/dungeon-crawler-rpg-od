@@ -1,4 +1,5 @@
 let player = JSON.parse(localStorage.getItem("playerData"));
+let inventoryOpen = false;
 
 const playerExpGain = () => {
     let expGain = 1000000;
@@ -69,6 +70,7 @@ const equipmentIcon = (equipment) => {
 }
 
 const showItemInfo = (item, icon, type, i) => {
+    exploring = false;
     let itemInfo = document.querySelector("#equipmentInfo");
     let target = null;
     if (type == "Equip") {
@@ -109,6 +111,7 @@ const showItemInfo = (item, icon, type, i) => {
             }
             playerLoadStats();
             saveData();
+            continueExploring();
         } else if (type == "Unequip") {
             // Remove the item from the equipment and add it to the inventory
             itemInfo.style.display = "none";
@@ -117,6 +120,7 @@ const showItemInfo = (item, icon, type, i) => {
             player.inventory.equipment.push(JSON.stringify(item));
             playerLoadStats();
             saveData();
+            continueExploring();
         }
     });
 
@@ -125,6 +129,7 @@ const showItemInfo = (item, icon, type, i) => {
     close.addEventListener('click', function () {
         itemInfo.style.display = "none";
         dimContainer.style.filter = "brightness(100%)";
+        continueExploring();
     });
 }
 
@@ -237,6 +242,8 @@ const playerLoadStats = () => {
 };
 
 const openInventory = () => {
+    exploring = false;
+    inventoryOpen = true;
     let openInv = document.querySelector('#inventory');
     let dimDungeon = document.querySelector('#dungeon-main');
     openInv.style.display = "flex";
@@ -248,4 +255,15 @@ const closeInventory = () => {
     let dimDungeon = document.querySelector('#dungeon-main');
     openInv.style.display = "none";
     dimDungeon.style.filter = "brightness(100%)";
+    inventoryOpen = false;
+    if (!paused) {
+        exploring = true;
+    }
+};
+
+// Continue exploring if inventory is not open and the game is not paused
+const continueExploring = () => {
+    if (!inventoryOpen && !paused) {
+        exploring = true;
+    }
 };
