@@ -11,6 +11,7 @@ window.addEventListener("load", function () {
         this.style.display = "none";
         const player = JSON.parse(localStorage.getItem("playerData"));
         initialLoad(player);
+        initialDungeonLoad();
         runLoad("dungeon-main", "flex");
         console.table(player);
     });
