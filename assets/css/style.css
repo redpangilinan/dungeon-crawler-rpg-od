@@ -234,18 +234,18 @@ button:focus {
 }
 
 /* Modals */
-/* Equipment Info */
-#equipmentInfo {
+/* Main containter for modals */
+.modal-container {
     display: none;
     align-items: center;
     justify-content: center;
     position: fixed;
-    z-index: 2;
+    z-index: 1;
     width: 100%;
     height: 100%;
 }
 
-#equipmentInfo .content {
+.modal-container .content {
     background: -webkit-linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
     background: linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
     color: #fff;
@@ -263,6 +263,7 @@ button:focus {
     -o-border-radius: 0.3rem;
 }
 
+/* Equipment Info */
 #equipmentInfo .content ul {
     margin-left: 1rem;
 }
@@ -273,31 +274,9 @@ button:focus {
 }
 
 /* Inventory */
-#inventory {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-}
-
 #inventory .content {
-    background: -webkit-linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
-    background: linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
-    color: #fff;
-    border-radius: 0.3rem;
-    border: solid 1px;
-    max-width: 20rem;
+    padding: 0;
     height: 30rem;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    -webkit-border-radius: 0.3rem;
-    -moz-border-radius: 0.3rem;
-    -ms-border-radius: 0.3rem;
-    -o-border-radius: 0.3rem;
 }
 
 #inventory .content-head {
