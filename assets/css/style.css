@@ -263,14 +263,14 @@ button:focus {
     -o-border-radius: 0.3rem;
 }
 
+.modal-container .content .button-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
 /* Equipment Info */
 #equipmentInfo .content ul {
     margin-left: 1rem;
-}
-
-#equipmentInfo .content .button-container {
-    display: flex;
-    gap: 0.5rem;
 }
 
 /* Inventory */
@@ -292,6 +292,10 @@ button:focus {
 
 #inventory .content-head p:hover {
     cursor: pointer;
+}
+
+#eventModal {
+    display: flex;
 }
 
 /* Title Screen */
