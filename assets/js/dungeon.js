@@ -21,11 +21,13 @@ let dungeon = {
 // ===== Dungeon Main Functions =====
 let dungeonSeconds = 0;
 let dungeonActivity = document.querySelector("#dungeonActivity");
-let exploring = true;
-let paused = false;
+let dungeonAction = document.querySelector("#dungeonAction");
+let exploring = false;
+let paused = true;
 
 // Sets up the initial dungeon
 const initialDungeonLoad = () => {
+    dungeonAction.innerHTML = "Resting...";
     addDungeonLog("You arrived at the dungeon.");
     document.querySelector('#dungeonTime').innerHTML = "00:00:00"
     dungeonTimer = setInterval(dungeonEvent, (1000));
@@ -39,13 +41,13 @@ dungeonActivity.addEventListener('click', function() {
 // Start and Pause Functionality
 const dungeonStartPause = () => {
     if (!paused) {
-        addDungeonLog("You took a break from exploring.");
-        dungeonActivity.innerHTML = "Start"
+        dungeonAction.innerHTML = "Resting...";
+        dungeonActivity.innerHTML = "Explore";
         exploring = false;
         paused = true;
     } else {
-        addDungeonLog("You continued your exploration.");
-        dungeonActivity.innerHTML = "Stop"
+        dungeonAction.innerHTML = "Exploring...";
+        dungeonActivity.innerHTML = "Rest";
         exploring = true;
         paused = false;
     }

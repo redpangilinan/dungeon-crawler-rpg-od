@@ -294,10 +294,6 @@ button:focus {
     cursor: pointer;
 }
 
-#eventModal {
-    display: flex;
-}
-
 /* Title Screen */
 #title-screen {
     display: none;
