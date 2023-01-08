@@ -25,7 +25,7 @@ let dungeon = {
     status: {
         exploring: false,
         paused: true,
-        decision: false,
+        event: false,
     },
     backlog: [],
     runtime: 0,
@@ -84,7 +84,7 @@ const loadDungeonProgress = () => {
 // ========== Events in the Dungeon ==========
 const dungeonEvent = () => {
     dungeonCounter();
-    if (dungeon.status.exploring && !dungeon.status.decision) {
+    if (dungeon.status.exploring && !dungeon.status.event) {
         dungeon.action++;
         let eventTypes = ["blessing", "trap", "enemy", "shop"];
         if (dungeon.action > 10) {
@@ -96,7 +96,7 @@ const dungeonEvent = () => {
 
         switch (event) {
             case "nextroom":
-                dungeon.status.decision = true;
+                dungeon.status.event = true;
                 let choices = `
                 <div class="decision-panel">
                     <button id="choice1">Go to next room</button>
@@ -105,14 +105,14 @@ const dungeonEvent = () => {
                 addDungeonLog("You found the door to the next room.", choices);
 
                 document.querySelector("#choice1").addEventListener("click", function() {
-                    dungeon.status.decision = false;
+                    dungeon.status.event = false;
                     dungeon.progress.room++;
                     dungeon.action = 0;
                     loadDungeonProgress();
                     addDungeonLog("You moved to the next room.");
                 });
                 document.querySelector("#choice2").addEventListener("click", function() {
-                    dungeon.status.decision = false;
+                    dungeon.status.event = false;
                     dungeon.action = 5;
                     addDungeonLog("You decided to stay.");
                 });
