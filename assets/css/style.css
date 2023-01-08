@@ -99,8 +99,8 @@ main {
     border-radius: 0.3rem;
     border: 1px solid;
     margin: 0.5rem;
-    width: auto;
     height: 100%;
+    min-height: 10rem;
     display: flex;
     flex-direction: column;
     overflow: hidden;
