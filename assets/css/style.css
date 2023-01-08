@@ -429,6 +429,13 @@ header button i {
     font-weight: bold;
 }
 
+/* Decision Panel */
+.decision-panel {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem;
+}
+
 /* loader */
 #loading {
     display: none;
