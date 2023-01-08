@@ -7,7 +7,6 @@ const roomCount = document.querySelector("#roomCount");
 let dungeon = {
     rating: 500,
     grade: "E",
-    timer: 0,
     progress: {
         floor: 1,
         room: 1,
@@ -16,19 +15,22 @@ let dungeon = {
     },
     limit: {
         floor: 100,
-        room: 10
+        room: 10,
     },
     difficulty: {
         enemyBaseLvl: 1,
         enemyBaseStats: 1,
         enemyGrowth: 1.1,
     },
+    status: {
+        exploring: false,
+        paused: true,
+        decision: false,
+    },
     backlog: [],
-    runtime: 0
-}
-let exploring = false;
-let paused = true;
-let decision = false;
+    runtime: 0,
+    action: 0,
+};
 
 // ===== Dungeon Setup =====
 // Sets up the initial dungeon
@@ -48,16 +50,16 @@ dungeonActivity.addEventListener('click', function() {
 
 // Start and Pause Functionality
 const dungeonStartPause = () => {
-    if (!paused) {
+    if (!dungeon.status.paused) {
         dungeonAction.innerHTML = "Resting...";
         dungeonActivity.innerHTML = "Explore";
-        exploring = false;
-        paused = true;
+        dungeon.status.exploring = false;
+        dungeon.status.paused = true;
     } else {
         dungeonAction.innerHTML = "Exploring...";
         dungeonActivity.innerHTML = "Rest";
-        exploring = true;
-        paused = false;
+        dungeon.status.exploring = true;
+        dungeon.status.paused = false;
     }
 }
 
@@ -82,13 +84,19 @@ const loadDungeonProgress = () => {
 // ========== Events in the Dungeon ==========
 const dungeonEvent = () => {
     dungeonCounter();
-    if (exploring && !decision) {
-        const eventTypes = ["nextroom", "blessing", "trap", "enemy", "shop"];
+    if (dungeon.status.exploring && !dungeon.status.decision) {
+        dungeon.action++;
+        let eventTypes = ["blessing", "trap", "enemy", "shop"];
+        if (dungeon.action > 10) {
+            eventTypes.push("nextroom");
+        } else if (dungeon.action > 20) {
+            eventTypes = ["nextroom"];
+        }
         const event = eventTypes[Math.floor(Math.random() * eventTypes.length)];
 
         switch (event) {
             case "nextroom":
-                decision = true;
+                dungeon.status.decision = true;
                 let choices = `
                 <div class="decision-panel">
                     <button id="choice1">Go to next room</button>
@@ -97,14 +105,16 @@ const dungeonEvent = () => {
                 addDungeonLog("You found the door to the next room.", choices);
 
                 document.querySelector("#choice1").addEventListener("click", function() {
+                    dungeon.status.decision = false;
                     dungeon.progress.room++;
+                    dungeon.action = 0;
                     loadDungeonProgress();
                     addDungeonLog("You moved to the next room.");
-                    decision = false;
                 });
                 document.querySelector("#choice2").addEventListener("click", function() {
+                    dungeon.status.decision = false;
+                    dungeon.action = 5;
                     addDungeonLog("You decided to stay.");
-                    decision = false;
                 });
                 break;
             case "blessing":
