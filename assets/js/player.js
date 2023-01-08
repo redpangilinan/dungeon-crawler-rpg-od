@@ -70,7 +70,7 @@ const equipmentIcon = (equipment) => {
 }
 
 const showItemInfo = (item, icon, type, i) => {
-    exploring = false;
+    dungeon.status.exploring = false;
     let itemInfo = document.querySelector("#equipmentInfo");
     let target = null;
     if (type == "Equip") {
@@ -222,27 +222,27 @@ const playerLoadStats = () => {
     showInventory();
     applyEquipmentStats();
 
-    // Shows proper percentage for respective stats
-    let playerHpPercentage = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2);
-    // let playerExpPercentage = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2);
+    let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    let playerHpPercentage = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
+    let playerExpPercentage = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
 
-    // Displays the stats of the player
-    playerNameElement.innerHTML = player.name;
-    // playerLvlElement.innerHTML = player.lvl;
-    playerHpElement.innerHTML = nFormatter(player.stats.hp) + "/" + nFormatter(player.stats.hpMax) + " (" + playerHpPercentage + "%)";
-    // playerExpElement.innerHTML = nFormatter(player.exp.expCurr) + "/" + nFormatter(player.exp.expMax) + " (" + playerExpPercentage + "%)";
+    // Header
+    document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name} Lv.${player.lvl}`;
+    document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurrLvl)}/${nFormatter(player.exp.expMaxLvl)} (${playerExpPercentage}%)`;
+    document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`;
 
-    // Stats
+    // Player Stats
+    playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${playerHpPercentage}%)`;
     playerAtkElement.innerHTML = nFormatter(player.stats.atk);
     playerDefElement.innerHTML = nFormatter(player.stats.def);
-    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1);
-    playerVampElement.innerHTML = (player.stats.vamp).toFixed(2) + "%";;
-    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(2) + "%";
-    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(2) + "%";
+    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1).replace(rx, "$1");
+    playerVampElement.innerHTML = (player.stats.vamp).toFixed(1).replace(rx, "$1") + "%";
+    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(1).replace(rx, "$1") + "%";
+    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(1).replace(rx, "$1") + "%";
 };
 
 const openInventory = () => {
-    exploring = false;
+    dungeon.status.exploring = false;
     inventoryOpen = true;
     let openInv = document.querySelector('#inventory');
     let dimDungeon = document.querySelector('#dungeon-main');
@@ -256,14 +256,14 @@ const closeInventory = () => {
     openInv.style.display = "none";
     dimDungeon.style.filter = "brightness(100%)";
     inventoryOpen = false;
-    if (!paused) {
-        exploring = true;
+    if (!dungeon.status.paused) {
+        dungeon.status.exploring = true;
     }
 };
 
 // Continue exploring if inventory is not open and the game is not paused
 const continueExploring = () => {
-    if (!inventoryOpen && !paused) {
-        exploring = true;
+    if (!inventoryOpen && !dungeon.status.paused) {
+        dungeon.status.exploring = true;
     }
 };
