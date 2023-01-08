@@ -36,7 +36,7 @@ const initialDungeonLoad = () => {
     dungeonAction.innerHTML = "Resting...";
     dungeonActivity.innerHTML = "Explore";
     dungeonTime.innerHTML = "00:00:00";
-    dungeonTimer = setInterval(dungeonEvent, (1500));
+    dungeonTimer = setInterval(dungeonEvent, (1000));
     loadDungeonProgress();
     addDungeonLog("You arrived at the dungeon.");
 };
