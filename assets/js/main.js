@@ -14,9 +14,9 @@ const enemyHpElement = document.getElementById('enemy-hp');
 const exp = document.querySelector('#exp');
 
 // Gain exp
-exp.addEventListener("click", function () {
-    playerExpGain();
-});
+// exp.addEventListener("click", function () {
+//     playerExpGain();
+// });
 
 // ========== Const Functions =========
 const enemyLoadStats = () => {
