@@ -169,7 +169,7 @@ const showEquipment = () => {
 
     // Show a message if a player has no equipment
     if (player.equipped.length == 0) {
-        playerEquipmentList.innerHTML = "You haven't equipped anything.";
+        playerEquipmentList.innerHTML = "Nothing equipped.";
     }
 
     for (let i = 0; i < player.equipped.length; i++) {
