@@ -294,6 +294,42 @@ button:focus {
     cursor: pointer;
 }
 
+/* Battle Panel */
+#battlePanel {
+    display: flex;
+}
+
+#battlePanel .content {
+    height: 100%;
+    max-height: 35rem;
+    width: 100%;
+    padding: 0.5em;
+    margin: 0 0.5rem;
+}
+
+.enemy-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.healthbar {
+    font-size: 0.8rem;
+    background-color: grey;
+    height: 1rem;
+    width: 15rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+
+.healthbar .current {
+    background-color: red;
+}
+
 /* Title Screen */
 #title-screen {
     display: none;
