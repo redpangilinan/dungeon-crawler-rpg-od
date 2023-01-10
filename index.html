@@ -64,7 +64,7 @@
                 <p id="roomCount"></p>
                 <button id="dungeonActivity"></button>
             </div>
-            <div class="logBox">
+            <div class="primary-panel logBox">
                 <p id="dungeonAction"></p>
                 <div id="dungeonLog"></div>
             </div>
@@ -88,20 +88,23 @@
         <div class="modal-container" id="equipmentInfo"></div>
         <div class="modal-container" id="battlePanel">
             <div class="content">
-                <div class="enemy-panel">
+                <div class="battle-info-panel center" id="enemyPanel">
                     <p>Enemy Lv.1</p>
-                    <div class="healthbar">
-                        <div class="healthbar current" id="enemyHp">100/100</div>
+                    <div class="battle-bar empty-bar hp bb-hp">
+                        <div class="battle-bar current bb-hp" id="enemyHp">100/100</div>
                     </div>
-                    <img src="./assets/sprites/Goblin Grunt.png" alt="Goblin" width="50%">
+                    <img src="./assets/sprites/Goblin Raider.png" alt="Goblin">
                 </div>
-                <div class="primary-panel" style="display: flex; flex-direction: column; gap: 0.5rem; padding: 0.7rem; margin: 0 0.5rem;">
+                <div class="battle-info-panel primary-panel">
                     <p>Red Lv.1</p>
-                    <div class="healthbar">
-                        <div class="healthbar current" id="playerHp">100/100</div>
+                    <div class="battle-bar empty-bar bb-hp">
+                        <div class="battle-bar current bb-hp" id="playerHp">100/100</div>
+                    </div>
+                    <div class="battle-bar empty-bar bb-ab">
+                        <div class="battle-bar current bb-ab" id="playerAtkBar">action</div>
                     </div>
                 </div>
-                <div class="logBox">
+                <div class="primary-panel logBox">
                     <div id="combatLog">
                         <p>You encountered an enemy.</p>
                         <p>You dealt 150 damage.</p>

@@ -53,6 +53,11 @@ input {
     font-size: 1rem;
 }
 
+img {
+    pointer-events: none;
+    width: 50%;
+}
+
 body {
     background: -webkit-linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
     background: linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
@@ -94,10 +99,13 @@ main {
     background-color: #a8bbbf;
 }
 
+/* Utility */
+.w-100 {
+    width: 100%;
+}
+
 /* Combat Log */
 .logBox {
-    border-radius: 0.3rem;
-    border: 1px solid;
     margin: 0.5rem;
     height: 100%;
     min-height: 10rem;
@@ -106,10 +114,6 @@ main {
     overflow: hidden;
     padding: 0.5em;
     overflow: auto;
-    -webkit-border-radius: 0.3rem;
-    -moz-border-radius: 0.3rem;
-    -ms-border-radius: 0.3rem;
-    -o-border-radius: 0.3rem;
 }
 
 .logBox #dungeonAction {
@@ -304,27 +308,48 @@ button:focus {
     margin: 0 0.5rem;
 }
 
-.enemy-panel {
+.battle-info-panel {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 0.5rem;
+    padding: 0.7rem;
+    margin: 0 0.5rem;
 }
 
-.healthbar {
+#enemyPanel {
+    align-items: center;
+}
+
+.battle-bar {
+    text-align: center;
     font-size: 0.8rem;
-    background-color: grey;
-    height: 1rem;
-    width: 15rem;
-    border-radius: 1rem;
-    -webkit-border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -ms-border-radius: 1rem;
-    -o-border-radius: 1rem;
+    border-radius: 0.3rem;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    -ms-border-radius: 0.3rem;
+    -o-border-radius: 0.3rem;
 }
 
-.healthbar .current {
+.bb-hp {
+    height: 1rem;
+}
+
+.bb-ab {
+    height: 0.5rem;
+}
+
+.empty-bar {
+    width: 100%;
+    background-color: grey;
+}
+
+.bb-hp .current {
     background-color: red;
+}
+
+.bb-ab .current {
+    color: transparent;
+    background-color: gold;
 }
 
 /* Title Screen */
