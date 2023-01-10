@@ -64,7 +64,7 @@
                 <p id="roomCount"></p>
                 <button id="dungeonActivity"></button>
             </div>
-            <div class="primary-panel logBox">
+            <div class="logBox primary-panel">
                 <p id="dungeonAction"></p>
                 <div id="dungeonLog"></div>
             </div>
@@ -86,14 +86,14 @@
             </div>
         </div>
         <div class="modal-container" id="equipmentInfo"></div>
-        <div class="modal-container" id="battlePanel">
+        <div class="modal-container" id="combatPanel">
             <div class="content">
                 <div class="battle-info-panel center" id="enemyPanel">
                     <p>Enemy Lv.1</p>
                     <div class="battle-bar empty-bar hp bb-hp">
                         <div class="battle-bar current bb-hp" id="enemyHp">100/100</div>
                     </div>
-                    <img src="./assets/sprites/Goblin Raider.png" alt="Goblin">
+                    <img src="./assets/sprites/Goblin Raider.png" alt="Goblin" width="50%">
                 </div>
                 <div class="battle-info-panel primary-panel">
                     <p>Red Lv.1</p>
@@ -104,23 +104,14 @@
                         <div class="battle-bar current bb-ab" id="playerAtkBar">action</div>
                     </div>
                 </div>
-                <div class="primary-panel logBox">
-                    <div id="combatLog">
-                        <p>You encountered an enemy.</p>
-                        <p>You dealt 150 damage.</p>
-                        <p>You dealt 150 damage.</p>
-                        <p>You dealt 150 damage.</p>
-                        <p>You dealt 150 damage.</p>
-                        <p>You dealt 150 damage.</p>
-                        <p>You dealt 150 damage.</p>
-                        <p>You dealt 150 damage.</p>
-                    </div>
+                <div class="logBox primary-panel">
+                    <div id="combatLog"></div>
                 </div>
             </div>
         </div>
     </main>
 
-    <script src="./assets/js/nformatter.js"></script>
+    <script src="./assets/js/utility.js"></script>
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/player.js"></script>
     <script src="./assets/js/equipment.js"></script>
