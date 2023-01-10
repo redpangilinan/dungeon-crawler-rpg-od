@@ -45,7 +45,7 @@ window.addEventListener("load", function () {
                         hp: 500,
                         atk: 100,
                         def: 50,
-                        atkSpd: 0.8,
+                        atkSpd: 0.6,
                         vamp: 0,
                         critRate: 0,
                         critDmg: 50
