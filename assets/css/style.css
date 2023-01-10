@@ -55,7 +55,6 @@ input {
 
 img {
     pointer-events: none;
-    width: 50%;
 }
 
 body {
@@ -295,12 +294,8 @@ button:focus {
     cursor: pointer;
 }
 
-/* Battle Panel */
-#battlePanel {
-    display: flex;
-}
-
-#battlePanel .content {
+/* Battle/Combat Panel */
+#combatPanel .content {
     height: 100%;
     max-height: 35rem;
     width: 100%;
@@ -335,7 +330,7 @@ button:focus {
 }
 
 .bb-ab {
-    height: 0.5rem;
+    height: 0.4rem;
 }
 
 .empty-bar {
@@ -437,17 +432,6 @@ header button i {
     margin-top: 1rem;
     text-align: center;
     letter-spacing: 0.5rem;
-}
-
-#dungeon-main .primary-panel {
-    border: none;
-    margin: 0.5rem;
-}
-
-#dungeon-main .primary-panel button {
-    width: 100%;
-    margin: 0.4rem 0;
-    padding: 1rem;
 }
 
 .dungeon-head {
