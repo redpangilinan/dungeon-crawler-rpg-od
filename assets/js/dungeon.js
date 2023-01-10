@@ -17,10 +17,11 @@ let dungeon = {
         floor: 100,
         room: 10,
     },
-    difficulty: {
+    settings: {
         enemyBaseLvl: 1,
+        enemyLvlGrowth: 5,
         enemyBaseStats: 1,
-        enemyGrowth: 1.1,
+        enemyScaling: 1.1,
     },
     status: {
         exploring: false,
