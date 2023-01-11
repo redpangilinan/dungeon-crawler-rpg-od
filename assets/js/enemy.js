@@ -13,53 +13,176 @@ let enemy = {
         critRate: 0,
         critDmg: 0
     },
-    drops: [],
-    image: null
+    image: {
+        name: null,
+        type: null,
+        size: null
+    },
+    drops: []
 };
 
 const generateRandomEnemy = () => {
     // List of possible enemy names
-    const enemyNames = ['Goblin', 'Wolf', 'Slime', 'Orc', 'Troll', 'Spider', 'Zombie', 'Skeleton'];
-    const enemyTypes = ['Offensive', 'Defensive', 'Balanced', 'Speedy', 'Lethal'];
+    const enemyNames = [
+        // Goblin
+        'Goblin', 'Goblin Rogue', 'Goblin Mage', 'Goblin Archer',
+        // Wolf
+        'Wolf', 'Black Wolf', 'Winter Wolf',
+        // Slime
+        'Slime', 'Angel Slime', 'Knight Slime', 'Crusader Slime',
+        // Orc
+        'Orc Swordsmaster', 'Orc Axe', 'Orc Archer', 'Orc Mage',
+        // Spider
+        'Spider', 'Red Spider', 'Green Spider',
+        // Skeleton
+        'Skeleton Archer', 'Skeleton Swordsmaster', 'Skeleton Knight', 'Skeleton Mage', 'Skeleton Pirate', 'Skeleton Samurai', 'Skeleton Warrior'
+    ];
+    const enemyTypes = ['Offensive', 'Defensive', 'Balanced', 'Quick', 'Lethal'];
+    let selectedEnemies = null;
 
     // Generate a random enemy name
-    enemy.name = enemyNames[Math.floor(Math.random() * enemyNames.length)];
     enemy.type = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
 
-    // Generate random stats for the enemy
-    enemy.stats = {
-        hp: 0,
-        hpMax: randomizeNum(200, 300),
-        atk: randomizeNum(50, 80),
-        def: randomizeNum(30, 60),
-        atkSpd: randomizeDecimal(0.4, 1).toFixed(1),
-        vamp: 0,
-        critRate: randomizeDecimal(1, 10).toFixed(1),
-        critDmg: randomizeDecimal(50, 100).toFixed(1)
-    };
-
-    // Level stat scaling
-    enemy.stats = enemy.stats + enemy.stats*((dungeon.settings.enemyScaling-1)*enemy.lvl);
-    enemy.stats.vamp = 0;
-
-    // Stat modifier for enemy types
-    if (enemy.type === 'Offensive') {
-        enemy.stats.atk = Math.floor((Math.random() * 100) + 1);
-        enemy.stats.atkSpd = 0;
-        enemy.stats.critDmg = 0;
-    } else if (type === 'Defensive') {
-        stats.def += 5;
-        stats.hpMax += 50;
-    } else if (type === 'Balanced') {
-        stats.atk += 3;
-        stats.def += 3;
-        stats.atkSpd += 0.3;
-    } else if (type === 'Speedy') {
-        stats.atkSpd += 1;
-        stats.critRate += 0.5;
-    } else if (type === 'Lethal') {
-        stats.critRate += 0.5;
-        stats.critDmg += 0.5;
+    // Generate proper enemy info
+    switch (enemy.type) {
+        case "Offensive":
+            // Select name and apply stats for Offensive enemies
+            selectedEnemies = enemyNames.filter(name => [
+                'Goblin Mage', 'Goblin Archer',
+                'Wolf', 'Black Wolf', 'Winter Wolf',
+                'Knight Slime',
+                'Orc Swordsmaster', 'Orc Axe', 'Orc Archer', 'Orc Mage',
+                'Red Spider',
+                'Skeleton Archer', 'Skeleton Swordsmaster', 'Skeleton Mage', 'Skeleton Pirate', 'Skeleton Samurai',
+            ].includes(name));
+            enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+            setEnemyStats(enemy.type);
+            break;
+        case "Defensive":
+            // Select name and apply stats for Defensive enemies
+            selectedEnemies = enemyNames.filter(name => [
+                'Angel Slime', 'Knight Slime', 'Crusader Slime',
+                'Green Spider',
+                'Skeleton Knight', 'Skeleton Warrior'
+            ].includes(name));
+            enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+            setEnemyStats(enemy.type);
+            break;
+        case "Balanced":
+            // Select name and apply stats for Balanced enemies
+            selectedEnemies = enemyNames.filter(name => [
+                'Goblin',
+                'Slime', 'Angel Slime', 'Knight Slime',
+                'Orc Swordsmaster', 'Orc Axe', 'Orc Archer', 'Orc Mage',
+                'Spider',
+                'Skeleton Knight', 'Skeleton Warrior'
+            ].includes(name));
+            enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+            setEnemyStats(enemy.type);
+            break;
+        case "Quick":
+            // Select name and apply stats for Quick enemies
+            selectedEnemies = enemyNames.filter(name => [
+                'Goblin', 'Goblin Rogue', 'Goblin Archer',
+                'Wolf', 'Black Wolf', 'Winter Wolf',
+                'Orc Swordsmaster',
+                'Spider', 'Red Spider', 'Green Spider',
+                'Skeleton Swordsmaster', 'Skeleton Pirate', 'Skeleton Samurai'
+            ].includes(name));
+            enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+            setEnemyStats(enemy.type);
+            break;
+        case "Lethal":
+            // Select name and apply stats for Lethal enemies
+            selectedEnemies = enemyNames.filter(name => [
+                'Goblin Rogue',
+                'Wolf', 'Black Wolf', 'Winter Wolf',
+                'Orc Swordsmaster', 'Orc Axe',
+                'Red Spider',
+                'Skeleton Swordsmaster', 'Skeleton Samurai'
+            ].includes(name));
+            enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+            setEnemyStats(enemy.type);
+            break;
     }
-    enemy.stats.hp = enemy.stats.hpMax;
+
+    // Apply monster image
+    enemy.image = {
+        name: null,
+        type: null,
+        size: null
+    }
+
+    console.log(enemy);
 };
+
+// Set a randomly generated stat for the enemy
+const setEnemyStats = (type) => {
+    if (type == "Offensive") {
+        enemy.stats = {
+            hp: 0,
+            hpMax: randomizeNum(180, 250),
+            atk: randomizeNum(70, 100),
+            def: randomizeNum(20, 50),
+            atkSpd: randomizeDecimal(0.45, 0.65),
+            vamp: 0,
+            critRate: randomizeDecimal(1, 5),
+            critDmg: randomizeDecimal(50, 70)
+        };
+    } else if (type == "Defensive") {
+        enemy.stats = {
+            hp: 0,
+            hpMax: randomizeNum(250, 350),
+            atk: randomizeNum(40, 70),
+            def: randomizeNum(40, 70),
+            atkSpd: randomizeDecimal(0.3, 0.5),
+            vamp: 0,
+            critRate: randomizeDecimal(1, 2),
+            critDmg: randomizeDecimal(50, 55)
+        };
+    } else if (type == "Balanced") {
+        enemy.stats = {
+            hp: 0,
+            hpMax: randomizeNum(200, 300),
+            atk: randomizeNum(50, 80),
+            def: randomizeNum(30, 60),
+            atkSpd: randomizeDecimal(0.4, 0.6),
+            vamp: 0,
+            critRate: randomizeDecimal(1, 2),
+            critDmg: randomizeDecimal(50, 60)
+        };
+    } else if (type == "Quick") {
+        enemy.stats = {
+            hp: 0,
+            hpMax: randomizeNum(180, 250),
+            atk: randomizeNum(50, 80),
+            def: randomizeNum(30, 60),
+            atkSpd: randomizeDecimal(0.7, 0.9),
+            vamp: 0,
+            critRate: randomizeDecimal(1, 5),
+            critDmg: randomizeDecimal(50, 70)
+        };
+    } else if (type == "Lethal") {
+        enemy.stats = {
+            hp: 0,
+            hpMax: randomizeNum(180, 250),
+            atk: randomizeNum(70, 100),
+            def: randomizeNum(20, 50),
+            atkSpd: randomizeDecimal(0.3, 0.5),
+            vamp: 0,
+            critRate: randomizeDecimal(5, 10),
+            critDmg: randomizeDecimal(70, 90)
+        };
+    }
+
+    // Apply stat scaling for enemies each level
+    for (const stat in enemy.stats) {
+        if (["hpMax", "atk", "def"].includes(stat)) {
+            enemy.stats[stat] += enemy.stats[stat] * ((dungeon.settings.enemyScaling - 1) * enemy.lvl);
+        } else if (["atkSpd", "critRate", "critDmg"].includes(stat)) {
+            enemy.stats[stat] += enemy.stats[stat] * (((dungeon.settings.enemyScaling - 1) / 4) * enemy.lvl);
+        }
+    }
+
+    enemy.stats.hp = enemy.stats.hpMax;
+}
