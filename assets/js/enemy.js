@@ -105,16 +105,7 @@ const generateRandomEnemy = () => {
             setEnemyStats(enemy.type);
             break;
     }
-
-    // Apply monster image
-    enemy.image = {
-        name: null,
-        type: null,
-        size: null
-    }
-
-    console.log(enemy);
-};
+}
 
 // Set a randomly generated stat for the enemy
 const setEnemyStats = (type) => {
@@ -185,4 +176,125 @@ const setEnemyStats = (type) => {
     }
 
     enemy.stats.hp = enemy.stats.hpMax;
+}
+
+const setEnemyImg = () => {
+    // Apply monster image
+    enemy.image.type = '.png';
+    switch (enemy.name) {
+        // Goblins
+        case 'Goblin':
+            enemy.image.name = 'goblin';
+            enemy.image.size = '50%';
+            break;
+        case 'Goblin Rogue':
+            enemy.image.name = 'goblin_rogue';
+            enemy.image.size = '50%';
+            break;
+        case 'Goblin Archer':
+            enemy.image.name = 'goblin_archer';
+            enemy.image.size = '50%';
+            break;
+        case 'Goblin Mage':
+            enemy.image.name = 'goblin_mage';
+            enemy.image.size = '50%';
+            break;
+
+        // Wolf
+        case 'Wolf':
+            enemy.image.name = 'wolf';
+            enemy.image.size = '50%';
+            break;
+        case 'Black Wolf':
+            enemy.image.name = 'wolf_black';
+            enemy.image.size = '50%';
+            break;
+        case 'Winter Wolf':
+            enemy.image.name = 'wolf_winter';
+            enemy.image.size = '50%';
+            break;
+
+        // Slime
+        case 'Slime':
+            enemy.image.name = 'slime';
+            enemy.image.size = '50%';
+            break;
+        case 'Angel Slime':
+            enemy.image.name = 'slime_angel';
+            enemy.image.size = '50%';
+            break;
+        case 'Knight Slime':
+            enemy.image.name = 'slime_knight';
+            enemy.image.size = '50%';
+            break;
+        case 'Crusader Slime':
+            enemy.image.name = 'slime_crusader';
+            enemy.image.size = '50%';
+            break;
+
+        // Orc
+        case 'Orc Swordsmaster':
+            enemy.image.name = 'orc_swordsmaster';
+            enemy.image.size = '50%';
+            break;
+        case 'Orc Axe':
+            enemy.image.name = 'orc_axe';
+            enemy.image.size = '50%';
+            break;
+        case 'Orc Archer':
+            enemy.image.name = 'orc_archer';
+            enemy.image.size = '50%';
+            break;
+        case 'Orc Mage':
+            enemy.image.name = 'orc_mage';
+            enemy.image.size = '50%';
+
+        // Spider
+        case 'Spider':
+            enemy.image.name = 'spider';
+            enemy.image.size = '50%';
+            break;
+        case 'Red Spider':
+            enemy.image.name = 'spider_red';
+            enemy.image.size = '50%';
+            break;
+        case 'Green Spider':
+            enemy.image.name = 'spider_green';
+            enemy.image.size = '50%';
+            break;
+
+        // Skeleton
+        case 'Skeleton Archer':
+            enemy.image.name = 'skeleton_archer';
+            enemy.image.size = '50%';
+            break;
+        case 'Skeleton Swordsmaster':
+            enemy.image.name = 'skeleton_swordsmaster';
+            enemy.image.size = '50%';
+            break;
+        case 'Skeleton Knight':
+            enemy.image.name = 'skeleton_knight';
+            enemy.image.size = '50%';
+            break;
+        case 'Skeleton Mage':
+            if (randomizeNum(1, 2) == 1) {
+                enemy.image.name = 'skeleton_mage1';
+            } else {
+                enemy.image.name = 'skeleton_mage2';
+            }
+            enemy.image.size = '50%';
+            break;
+        case 'Skeleton Pirate':
+            enemy.image.name = 'skeleton_pirate';
+            enemy.image.size = '50%';
+            break;
+        case 'Skeleton Samurai':
+            enemy.image.name = 'skeleton_samurai';
+            enemy.image.size = '50%';
+            break;
+        case 'Skeleton Warrior':
+            enemy.image.name = 'skeleton_warrior';
+            enemy.image.size = '50%';
+            break;
+    };
 }
