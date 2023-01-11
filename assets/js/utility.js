@@ -24,6 +24,6 @@ const randomizeNum = (min, max) => {
 }
 
 // Get a randomized decimal between 2 numbers
-function randomizeDecimal(min, max) {
+const randomizeDecimal = (min, max) => {
     return Math.random() * (max - min) + min;
 }
