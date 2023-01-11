@@ -4,7 +4,8 @@ const createEquipment = () => {
         attribute: "",
         type: "",
         rarity: "",
-        stats: []
+        stats: [],
+        icon: null,
     };
 
     // Generate random equipment attribute
@@ -103,7 +104,42 @@ const createEquipment = () => {
         }
     }
     player.inventory.equipment.push(JSON.stringify(equipment));
+
     saveData();
     showInventory();
     showEquipment();
+
+    return (`<span class="${equipment.rarity}">${equipmentIcon(equipment.category)}${equipment.rarity} ${equipment.category}</span>`);
+};
+
+const equipmentIcon = (equipment) => {
+    if (equipment == "Sword") {
+        return '<i class="ra ra-relic-blade"></i>';
+    } else if (equipment == "Axe") {
+        return '<i class="ra ra-axe"></i>';
+    } else if (equipment == "Hammer") {
+        return '<i class="ra ra-flat-hammer"></i>';
+    } else if (equipment == "Dagger") {
+        return '<i class="ra ra-bowie-knife"></i>';
+    } else if (equipment == "Flail") {
+        return '<i class="ra ra-chain"></i>';
+    } else if (equipment == "Scythe") {
+        return '<i class="ra ra-scythe"></i>';
+    } else if (equipment == "Plate") {
+        return '<i class="ra ra-vest"></i>';
+    } else if (equipment == "Chain") {
+        return '<i class="ra ra-vest"></i>';
+    } else if (equipment == "Leather") {
+        return '<i class="ra ra-vest"></i>';
+    } else if (equipment == "Tower") {
+        return '<i class="ra ra-shield"></i>';
+    } else if (equipment == "Kite") {
+        return '<i class="ra ra-heavy-shield"></i>';
+    } else if (equipment == "Buckler") {
+        return '<i class="ra ra-round-shield"></i>';
+    } else if (equipment == "Great Helm") {
+        return '<i class="ra ra-knight-helmet"></i>';
+    } else if (equipment == "Horned Helm") {
+        return '<i class="ra ra-helmet"></i>';
+    }
 };
