@@ -108,6 +108,9 @@ const startCombat = () => {
     let dimDungeon = document.querySelector('#dungeon-main');
     dimDungeon.style.filter = "brightness(50%)";
 
+    playerLoadStats();
+    enemyLoadStats();
+
     dungeon.status.event = true;
     combatPanel.style.display = "flex";
     addCombatLog(`You encountered ${enemy.name}.`);
@@ -163,12 +166,12 @@ const showCombatInfo = () => {
             <img src="./assets/sprites/${enemy.image.name}${enemy.image.type}" alt="${enemy.name}" width="${enemy.image.size}">
         </div>
         <div class="battle-info-panel primary-panel">
-            <p>${player.name} Lv.${player.lvl}</p>
+            <p id="player-combat-info"></p>
             <div class="battle-bar empty-bar bb-hp">
                 <div class="battle-bar current bb-hp" id="player-hp-battle">${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)}(${player.stats.hpPercent}%)</div>
             </div>
-            <div class="battle-bar empty-bar bb-ab">
-                <div class="battle-bar current bb-ab" id="playerAtkBar">action</div>
+            <div class="battle-bar empty-bar bb-xb">
+                <div class="battle-bar current bb-xb" id="player-exp-bar">exp</div>
             </div>
         </div>
         <div class="logBox primary-panel">
