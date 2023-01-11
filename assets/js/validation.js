@@ -5,6 +5,7 @@ window.addEventListener("load", function () {
         let target = document.querySelector("#title-screen");
         target.style.display = "flex";
     }
+    generateRandomEnemy();
 
     // Title Screen Validation
     document.querySelector("#title-screen").addEventListener("click", function () {
