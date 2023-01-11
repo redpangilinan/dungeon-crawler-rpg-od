@@ -122,6 +122,9 @@ const dungeonEvent = () => {
                 break;
             case "enemy":
                 addDungeonLog("You encountered an enemy.");
+                generateRandomEnemy();
+                showCombatInfo();
+                startCombat();
                 break;
             case "shop":
                 addDungeonLog("You encountered a shop.");
@@ -138,7 +141,7 @@ const updateDungeonLog = (choices) => {
 
     for (let message of dungeon.backlog) {
         let logElement = document.createElement("p");
-        logElement.textContent = message;
+        logElement.innerHTML = message;
         dungeonLog.appendChild(logElement);
     }
 
