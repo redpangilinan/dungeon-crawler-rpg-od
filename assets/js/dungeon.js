@@ -45,7 +45,7 @@ const initialDungeonLoad = () => {
 };
 
 // Enables start and pause on button click
-dungeonActivity.addEventListener('click', function() {
+dungeonActivity.addEventListener('click', function () {
     dungeonStartPause();
 });
 
@@ -105,14 +105,14 @@ const dungeonEvent = () => {
                 </div>`;
                 addDungeonLog("You found the door to the next room.", choices);
 
-                document.querySelector("#choice1").addEventListener("click", function() {
+                document.querySelector("#choice1").addEventListener("click", function () {
                     dungeon.status.event = false;
                     dungeon.progress.room++;
                     dungeon.action = 0;
                     loadDungeonProgress();
                     addDungeonLog("You moved to the next room.");
                 });
-                document.querySelector("#choice2").addEventListener("click", function() {
+                document.querySelector("#choice2").addEventListener("click", function () {
                     dungeon.status.event = false;
                     dungeon.action = 5;
                     addDungeonLog("You decided to stay.");
