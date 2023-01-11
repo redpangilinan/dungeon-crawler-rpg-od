@@ -338,7 +338,7 @@ button:focus {
     height: 1rem;
 }
 
-.bb-ab {
+.bb-xb {
     height: 0.4rem;
 }
 
@@ -351,7 +351,7 @@ button:focus {
     background-color: red;
 }
 
-.bb-ab .current {
+.bb-xb .current {
     color: transparent;
     background-color: gold;
 }
