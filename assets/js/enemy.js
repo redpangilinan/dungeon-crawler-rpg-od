@@ -105,6 +105,7 @@ const generateRandomEnemy = () => {
             setEnemyStats(enemy.type);
             break;
     }
+    setEnemyImg();
 }
 
 // Set a randomly generated stat for the enemy
