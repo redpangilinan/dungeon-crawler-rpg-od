@@ -2,7 +2,7 @@ let player = JSON.parse(localStorage.getItem("playerData"));
 let inventoryOpen = false;
 
 const playerExpGain = () => {
-    let expGain = 1000000;
+    let expGain = enemy.rewards.exp;
     player.exp.expCurr += expGain;
     player.exp.expCurrLvl += expGain;
 
@@ -15,59 +15,22 @@ const playerExpGain = () => {
 
 // Levels up the player
 const playerLevelUp = () => {
-    // Exp increase Formula
-    if (player.lvl < 100) {
-        let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
-        let excessExp = player.exp.expCurr - player.exp.expMax;
-        player.exp.expCurrLvl = excessExp;
-        player.exp.expMaxLvl = expMaxIncrease;
+    // Calculates the excess exp and the new exp required to level up
+    let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
+    let excessExp = player.exp.expCurr - player.exp.expMax;
+    player.exp.expCurrLvl = excessExp;
+    player.exp.expMaxLvl = expMaxIncrease;
 
-        // Increase player level and maximum exp
-        player.lvl++;
-        player.exp.expMax += expMaxIncrease;
+    // Increase player level and maximum exp
+    player.lvl++;
+    player.exp.expMax += expMaxIncrease;
 
-        // Calculate stats based on trait then apply it to advanced stats then bring player hp and mp to full
-        calculateStats();
-        player.stats.hp = player.stats.hpMax;
-        playerLoadStats();
-    } else {
-        expMaxIncrease = 0;
-        player.exp.expCurr = player.exp.expMax - 1;
-        player.exp.expCurrLvl = player.exp.expMaxLvl - 1;
-    }
+    // Calculate stats based on trait then apply it to advanced stats then bring player hp and mp to full
+    calculateStats();
+    player.stats.hp = player.stats.hpMax;
+    playerLoadStats();
+    addCombatLog(`You leveled up! (Lv.${player.lvl - 1} > Lv.${player.lvl})`)
 };
-
-const equipmentIcon = (equipment) => {
-    if (equipment == "Sword") {
-        return '<i class="ra ra-relic-blade"></i>';
-    } else if (equipment == "Axe") {
-        return '<i class="ra ra-axe"></i>';
-    } else if (equipment == "Hammer") {
-        return '<i class="ra ra-flat-hammer"></i>';
-    } else if (equipment == "Dagger") {
-        return '<i class="ra ra-bowie-knife"></i>';
-    } else if (equipment == "Flail") {
-        return '<i class="ra ra-chain"></i>';
-    } else if (equipment == "Scythe") {
-        return '<i class="ra ra-scythe"></i>';
-    } else if (equipment == "Plate") {
-        return '<i class="ra ra-vest"></i>';
-    } else if (equipment == "Chain") {
-        return '<i class="ra ra-vest"></i>';
-    } else if (equipment == "Leather") {
-        return '<i class="ra ra-vest"></i>';
-    } else if (equipment == "Tower") {
-        return '<i class="ra ra-shield"></i>';
-    } else if (equipment == "Kite") {
-        return '<i class="ra ra-heavy-shield"></i>';
-    } else if (equipment == "Buckler") {
-        return '<i class="ra ra-round-shield"></i>';
-    } else if (equipment == "Great Helm") {
-        return '<i class="ra ra-knight-helmet"></i>';
-    } else if (equipment == "Horned Helm") {
-        return '<i class="ra ra-helmet"></i>';
-    }
-}
 
 const showItemInfo = (item, icon, type, i) => {
     dungeon.status.exploring = false;
@@ -223,16 +186,20 @@ const playerLoadStats = () => {
     applyEquipmentStats();
 
     let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-    let playerHpPercentage = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
+    player.stats.hpPercent = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
     let playerExpPercentage = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
+
+    const playerCombatHpElement = document.querySelector('#player-hp-battle');
+    playerCombatHpElement.style.width = `${player.stats.hpPercent}%`;
 
     // Header
     document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name} Lv.${player.lvl}`;
-    document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurrLvl)}/${nFormatter(player.exp.expMaxLvl)} (${playerExpPercentage}%)`;
+    document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurr)}/${nFormatter(player.exp.expMax)} (${playerExpPercentage}%)`;
     document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`;
 
     // Player Stats
-    playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${playerHpPercentage}%)`;
+    playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${player.stats.hpPercent}%)`;
+    playerCombatHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)}(${player.stats.hpPercent}%)`;
     playerAtkElement.innerHTML = nFormatter(player.stats.atk);
     playerDefElement.innerHTML = nFormatter(player.stats.def);
     playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1).replace(rx, "$1");
