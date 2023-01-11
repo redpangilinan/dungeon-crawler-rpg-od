@@ -5,7 +5,6 @@ window.addEventListener("load", function () {
         let target = document.querySelector("#title-screen");
         target.style.display = "flex";
     }
-    generateRandomEnemy();
 
     // Title Screen Validation
     document.querySelector("#title-screen").addEventListener("click", function () {
@@ -106,7 +105,7 @@ const initialLoad = (player) => {
 
     // Header
     document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name} Lv.${player.lvl}`;
-    document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurrLvl)}/${nFormatter(player.exp.expMaxLvl)} (${playerExpPercentage}%)`;
+    document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurr)}/${nFormatter(player.exp.expMax)} (${playerExpPercentage}%)`;
     document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`;
 
     // Player Stats
