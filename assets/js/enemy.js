@@ -2,7 +2,7 @@
 let enemy = {
     name: null,
     type: null,
-    lvl: 1,
+    lvl: null,
     stats: {
         hp: null,
         hpMax: null,
@@ -40,8 +40,13 @@ const generateRandomEnemy = () => {
     const enemyTypes = ['Offensive', 'Defensive', 'Balanced', 'Quick', 'Lethal'];
     let selectedEnemies = null;
 
-    // Generate a random enemy name
+    // Generate enemy type
     enemy.type = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
+
+    // Calculate enemy level
+    const minLvl = (dungeon.progress.floor - 1) + dungeon.settings.enemyBaseLvl;
+    const maxLvl = (minLvl - 1) + dungeon.settings.enemyLvlGap;
+    enemy.lvl = randomizeNum(minLvl, maxLvl);
 
     // Generate proper enemy info
     switch (enemy.type) {
@@ -106,6 +111,7 @@ const generateRandomEnemy = () => {
             break;
     }
     setEnemyImg();
+    console.log(enemy);
 }
 
 // Set a randomly generated stat for the enemy
@@ -119,7 +125,7 @@ const setEnemyStats = (type) => {
             atkSpd: randomizeDecimal(0.45, 0.65),
             vamp: 0,
             critRate: randomizeDecimal(1, 5),
-            critDmg: randomizeDecimal(50, 70)
+            critDmg: randomizeDecimal(6, 9)
         };
     } else if (type == "Defensive") {
         enemy.stats = {
@@ -129,8 +135,8 @@ const setEnemyStats = (type) => {
             def: randomizeNum(40, 70),
             atkSpd: randomizeDecimal(0.3, 0.5),
             vamp: 0,
-            critRate: randomizeDecimal(1, 2),
-            critDmg: randomizeDecimal(50, 55)
+            critRate: 0,
+            critDmg: 0
         };
     } else if (type == "Balanced") {
         enemy.stats = {
@@ -141,7 +147,7 @@ const setEnemyStats = (type) => {
             atkSpd: randomizeDecimal(0.4, 0.6),
             vamp: 0,
             critRate: randomizeDecimal(1, 2),
-            critDmg: randomizeDecimal(50, 60)
+            critDmg: randomizeDecimal(2, 4)
         };
     } else if (type == "Quick") {
         enemy.stats = {
@@ -152,7 +158,7 @@ const setEnemyStats = (type) => {
             atkSpd: randomizeDecimal(0.7, 0.9),
             vamp: 0,
             critRate: randomizeDecimal(1, 5),
-            critDmg: randomizeDecimal(50, 70)
+            critDmg: randomizeDecimal(4, 7)
         };
     } else if (type == "Lethal") {
         enemy.stats = {
@@ -163,7 +169,7 @@ const setEnemyStats = (type) => {
             atkSpd: randomizeDecimal(0.3, 0.5),
             vamp: 0,
             critRate: randomizeDecimal(5, 10),
-            critDmg: randomizeDecimal(70, 90)
+            critDmg: randomizeDecimal(7, 10)
         };
     }
 
