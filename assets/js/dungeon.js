@@ -13,13 +13,9 @@ let dungeon = {
         floorLimit: 100,
         roomLimit: 10,
     },
-    limit: {
-        floor: 100,
-        room: 10,
-    },
     settings: {
         enemyBaseLvl: 1,
-        enemyLvlGrowth: 5,
+        enemyLvlGap: 5,
         enemyBaseStats: 1,
         enemyScaling: 1.1,
     },
