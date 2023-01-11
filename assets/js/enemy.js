@@ -18,7 +18,11 @@ let enemy = {
         type: null,
         size: null
     },
-    drops: []
+    rewards: {
+        exp: null,
+        gold: null,
+        drop: null
+    }
 };
 
 const generateRandomEnemy = () => {
@@ -111,7 +115,6 @@ const generateRandomEnemy = () => {
             break;
     }
     setEnemyImg();
-    console.log(enemy);
 }
 
 // Set a randomly generated stat for the enemy
@@ -182,7 +185,32 @@ const setEnemyStats = (type) => {
         }
     }
 
+    // Calculate exp that the monster gives
+    const expYield = [];
+
+    for (const stat in enemy.stats) {
+        let statExp;
+        if (["hpMax", "atk", "def"].includes(stat)) {
+            statExp = enemy.stats[stat] + enemy.stats[stat] * 0.5;
+        } else if (["atkSpd", "critRate", "critDmg"].includes(stat)) {
+            statExp = enemy.stats[stat] + enemy.stats[stat] * 2;
+        } else if (["vamp", "hp"].includes(stat)) {
+            statExp = enemy.stats[stat] + enemy.stats[stat] * 1;
+        }
+        expYield.push(statExp);
+    }
+
+    enemy.rewards.exp = Math.round((expYield.reduce((acc, cur) => acc + cur, 0)) / 12);
+    enemy.rewards.gold = Math.round((enemy.rewards.exp * randomizeDecimal(0.9, 1.1)) * 1.5);
+    enemy.rewards.drop = randomizeNum(1, 4);
+    if (enemy.rewards.drop == 1) {
+        enemy.rewards.drop = true;
+    } else {
+        enemy.rewards.drop = false;
+    }
+
     enemy.stats.hp = enemy.stats.hpMax;
+    enemy.stats.hpPercent = 100;
 }
 
 const setEnemyImg = () => {
@@ -304,4 +332,13 @@ const setEnemyImg = () => {
             enemy.image.size = '50%';
             break;
     };
-}
+};
+
+const enemyLoadStats = () => {
+    // Shows proper percentage for respective stats
+    enemy.stats.hpPercent = ((enemy.stats.hp / enemy.stats.hpMax) * 100).toFixed(2);
+
+    const enemyHpElement = document.querySelector('#enemy-hp-battle');
+    enemyHpElement.innerHTML = `${nFormatter(enemy.stats.hp)}/${nFormatter(enemy.stats.hpMax)}<br>(${enemy.stats.hpPercent}%)`;
+    enemyHpElement.style.width = `${enemy.stats.hpPercent}%`;
+};
