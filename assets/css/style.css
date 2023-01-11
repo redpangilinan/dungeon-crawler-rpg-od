@@ -55,11 +55,12 @@ input {
 
 img {
     pointer-events: none;
+    margin-top: 1rem;
 }
 
 body {
-    background: -webkit-linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
-    background: linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
+    background: -webkit-linear-gradient(360deg, #030303 10%, #1f1f1f 360%);
+    background: linear-gradient(360deg, #030303 10%, #1f1f1f 360%);
     font-family: Futura, Trebuchet MS, Arial, sans-serif;
     font-size: 1rem;
     color: white;
@@ -122,6 +123,14 @@ main {
 .logBox p {
     margin: 0.3rem 0;
     padding: 0.3rem;
+}
+
+#dungeonLog {
+    overflow: auto;
+}
+
+#combatLogBox {
+    overflow: auto;
 }
 
 .inventorySlots {
@@ -246,8 +255,8 @@ button:focus {
 }
 
 .modal-container .content {
-    background: -webkit-linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
-    background: linear-gradient(360deg,#030303 10%,#1f1f1f 360%);
+    background: -webkit-linear-gradient(360deg, #030303 10%, #1f1f1f 360%);
+    background: linear-gradient(360deg, #030303 10%, #1f1f1f 360%);
     color: #fff;
     border-radius: 0.3rem;
     border: solid 1px;
