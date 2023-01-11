@@ -100,16 +100,16 @@ const saveData = () => {
 
 const initialLoad = (player) => {
     let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-    let playerHpPercentage = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
-    let playerExpPercentage = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
+    player.stats.hpPercent = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
+    player.exp.expPercent = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
 
     // Header
     document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name} Lv.${player.lvl}`;
-    document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurr)}/${nFormatter(player.exp.expMax)} (${playerExpPercentage}%)`;
+    document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurr)}/${nFormatter(player.exp.expMax)} (${player.exp.expPercent}%)`;
     document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`;
 
     // Player Stats
-    playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${playerHpPercentage}%)`;
+    playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${player.stats.hpPercent}%)`;
     playerAtkElement.innerHTML = nFormatter(player.stats.atk);
     playerDefElement.innerHTML = nFormatter(player.stats.def);
     playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1).replace(rx, "$1");
