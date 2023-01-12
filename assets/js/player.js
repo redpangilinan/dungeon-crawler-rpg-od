@@ -15,6 +15,8 @@ const playerExpGain = () => {
 
 // Levels up the player
 const playerLevelUp = () => {
+    sfxLevelUp.play();
+
     // Calculates the excess exp and the new exp required to level up
     let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
     let excessExp = player.exp.expCurr - player.exp.expMax;
@@ -64,7 +66,10 @@ const playerLoadStats = () => {
     playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(1).replace(rx, "$1") + "%";
 };
 
+// Opens inventory
 const openInventory = () => {
+    sfxOpen.play();
+
     dungeon.status.exploring = false;
     let scroll = document.querySelector('#playerInventory')
     scroll.scrollBottom - scroll.clientHeight;
@@ -76,7 +81,10 @@ const openInventory = () => {
     dimDungeon.style.filter = "brightness(50%)";
 };
 
+// Closes inventory
 const closeInventory = () => {
+    sfxDecline.play();
+
     let openInv = document.querySelector('#inventory');
     let dimDungeon = document.querySelector('#dungeon-main');
     openInv.style.display = "none";
