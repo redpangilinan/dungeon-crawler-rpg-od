@@ -179,9 +179,9 @@ const setEnemyStats = (type) => {
     // Apply stat scaling for enemies each level
     for (const stat in enemy.stats) {
         if (["hpMax", "atk", "def"].includes(stat)) {
-            enemy.stats[stat] += enemy.stats[stat] * ((dungeon.settings.enemyScaling - 1) * enemy.lvl);
+            enemy.stats[stat] += Math.round(enemy.stats[stat] * ((dungeon.settings.enemyScaling - 1) * enemy.lvl));
         } else if (["atkSpd", "critRate", "critDmg"].includes(stat)) {
-            enemy.stats[stat] += enemy.stats[stat] * (((dungeon.settings.enemyScaling - 1) / 4) * enemy.lvl);
+            enemy.stats[stat] += Math.round(enemy.stats[stat] * (((dungeon.settings.enemyScaling - 1) / 4) * enemy.lvl));
         }
     }
 
@@ -283,6 +283,7 @@ const setEnemyImg = () => {
         case 'Orc Mage':
             enemy.image.name = 'orc_mage';
             enemy.image.size = '50%';
+            break;
 
         // Spider
         case 'Spider':
@@ -336,9 +337,10 @@ const setEnemyImg = () => {
 
 const enemyLoadStats = () => {
     // Shows proper percentage for respective stats
-    enemy.stats.hpPercent = ((enemy.stats.hp / enemy.stats.hpMax) * 100).toFixed(2);
+    let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    enemy.stats.hpPercent = ((enemy.stats.hp / enemy.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
 
     const enemyHpElement = document.querySelector('#enemy-hp-battle');
-    enemyHpElement.innerHTML = `${nFormatter(enemy.stats.hp)}/${nFormatter(enemy.stats.hpMax)}<br>(${enemy.stats.hpPercent}%)`;
+    enemyHpElement.innerHTML = `&nbsp${nFormatter(enemy.stats.hp)}/${nFormatter(enemy.stats.hpMax)}<br>(${enemy.stats.hpPercent}%)`;
     enemyHpElement.style.width = `${enemy.stats.hpPercent}%`;
 };
