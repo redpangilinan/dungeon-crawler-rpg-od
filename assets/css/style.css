@@ -260,7 +260,7 @@ button:focus {
     color: #fff;
     border-radius: 0.3rem;
     border: solid 1px;
-    max-width: 20rem;
+    max-width: 22rem;
     padding: 0.5em;
     margin: auto;
     display: flex;
@@ -306,7 +306,7 @@ button:focus {
 /* Battle/Combat Panel */
 #combatPanel .content {
     height: 100%;
-    max-height: 35rem;
+    max-height: 40rem;
     width: 100%;
     padding: 0.5em;
     margin: 0 0.5rem;
@@ -325,7 +325,6 @@ button:focus {
 }
 
 .battle-bar {
-    text-align: center;
     font-size: 0.8rem;
     border-radius: 0.3rem;
     -webkit-border-radius: 0.3rem;
