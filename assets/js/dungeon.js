@@ -32,6 +32,7 @@ let dungeon = {
 // ===== Dungeon Setup =====
 // Sets up the initial dungeon
 const initialDungeonLoad = () => {
+    bgmDungeon.play();
     dungeonAction.innerHTML = "Resting...";
     dungeonActivity.innerHTML = "Explore";
     dungeonTime.innerHTML = "00:00:00";
