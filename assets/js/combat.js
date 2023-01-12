@@ -33,10 +33,12 @@ const hpValidation = () => {
                 event: false,
             };
             dungeon.backlog.length = 0;
+            dungeon.action = 0;
             dungeon.runtime = 0;
             combatBacklog.length = 0;
             combatPanel.style.display = "none";
             playerDead = false;
+            saveData();
         });
         endCombat();
     } else if (enemy.stats.hp < 1) {
