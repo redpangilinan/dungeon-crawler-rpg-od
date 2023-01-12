@@ -144,7 +144,10 @@ const equipmentIcon = (equipment) => {
     }
 };
 
+// Show full detail of the item
 const showItemInfo = (item, icon, type, i) => {
+    sfxOpen.play();
+
     dungeon.status.exploring = false;
     let itemInfo = document.querySelector("#equipmentInfo");
     let target = null;
@@ -171,23 +174,29 @@ const showItemInfo = (item, icon, type, i) => {
                 </div>
             </div>`;
 
-    // Equip button for the item
+    // Equip/Unequip button for the item
     let unEquip = document.querySelector("#un-equip");
     unEquip.addEventListener('click', function () {
         if (type == "Equip") {
             // Remove the item from the inventory and add it to the equipment
-            itemInfo.style.display = "none";
-            dimContainer.style.filter = "brightness(100%)";
             if (player.equipped.length >= 6) {
-                alert("You are fully equipped.");
+                sfxDeny.play();
             } else {
+                sfxEquip.play();
+
+                // Equip the item
                 player.inventory.equipment.splice(i, 1);
                 player.equipped.push(item);
+
+                itemInfo.style.display = "none";
+                dimContainer.style.filter = "brightness(100%)";
+                playerLoadStats();
+                saveData();
+                continueExploring();
             }
-            playerLoadStats();
-            saveData();
-            continueExploring();
         } else if (type == "Unequip") {
+            sfxUnequip.play();
+
             // Remove the item from the equipment and add it to the inventory
             itemInfo.style.display = "none";
             dimContainer.style.filter = "brightness(100%)";
@@ -202,6 +211,8 @@ const showItemInfo = (item, icon, type, i) => {
     // Close item info
     let close = document.querySelector("#close-item-info");
     close.addEventListener('click', function () {
+        sfxDecline.play();
+
         itemInfo.style.display = "none";
         dimContainer.style.filter = "brightness(100%)";
         continueExploring();
