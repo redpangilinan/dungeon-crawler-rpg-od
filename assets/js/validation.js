@@ -10,7 +10,7 @@ window.addEventListener("load", function () {
     document.querySelector("#title-screen").addEventListener("click", function () {
         this.style.display = "none";
         const player = JSON.parse(localStorage.getItem("playerData"));
-        initialLoad(player);
+        playerLoadStats();
         initialDungeonLoad();
         runLoad("dungeon-main", "flex");
         console.table(player);
@@ -73,6 +73,7 @@ window.addEventListener("load", function () {
                     equipped: [],
                     gold: 0,
                     playtime: 0,
+                    inCombat: false
                 };
                 calculateStats();
                 player.stats.hp = player.stats.hpMax;
@@ -96,29 +97,6 @@ const runLoad = (id, display) => {
 const saveData = () => {
     let playerData = JSON.stringify(player);
     localStorage.setItem("playerData", playerData);
-}
-
-const initialLoad = (player) => {
-    let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-    player.stats.hpPercent = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
-    player.exp.expPercent = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
-
-    // Header
-    document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name} Lv.${player.lvl}`;
-    document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurr)}/${nFormatter(player.exp.expMax)} (${player.exp.expPercent}%)`;
-    document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`;
-
-    // Player Stats
-    playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${player.stats.hpPercent}%)`;
-    playerAtkElement.innerHTML = nFormatter(player.stats.atk);
-    playerDefElement.innerHTML = nFormatter(player.stats.def);
-    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1).replace(rx, "$1");
-    playerVampElement.innerHTML = (player.stats.vamp).toFixed(1).replace(rx, "$1") + "%";
-    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(1).replace(rx, "$1") + "%";
-    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(1).replace(rx, "$1") + "%";
-
-    showEquipment();
-    showInventory();
 }
 
 const calculateStats = () => {

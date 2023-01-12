@@ -41,23 +41,29 @@ const playerLoadStats = () => {
     applyEquipmentStats();
 
     let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    if (player.stats.hp > player.stats.hpMax) {
+        player.stats.hp = player.stats.hpMax;
+    }
     player.stats.hpPercent = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
     player.exp.expPercent = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
 
-    const playerCombatHpElement = document.querySelector('#player-hp-battle');
-    const playerExpElement = document.querySelector('#player-exp-bar');
-    playerCombatHpElement.style.width = `${player.stats.hpPercent}%`;
-    playerExpElement.style.width = `${player.exp.expPercent}%`;
+    if (player.inCombat) {
+        const playerCombatHpElement = document.querySelector('#player-hp-battle');
+        const playerExpElement = document.querySelector('#player-exp-bar');
+        const playerInfoElement = document.querySelector('#player-combat-info');
+        playerCombatHpElement.innerHTML = `&nbsp${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)}(${player.stats.hpPercent}%)`;
+        playerCombatHpElement.style.width = `${player.stats.hpPercent}%`;
+        playerExpElement.style.width = `${player.exp.expPercent}%`;
+        playerInfoElement.innerHTML = `${player.name} Lv.${player.lvl} (${player.exp.expPercent}%)`;
+    }
 
     // Header
     document.querySelector("#player-name").innerHTML = `<i class="fas fa-user"></i>${player.name} Lv.${player.lvl}`;
     document.querySelector("#player-exp").innerHTML = `<p>Exp</p> ${nFormatter(player.exp.expCurr)}/${nFormatter(player.exp.expMax)} (${player.exp.expPercent}%)`;
     document.querySelector("#player-gold").innerHTML = `<i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(player.gold)}`;
-    document.querySelector("#player-combat-info").innerHTML = `${player.name} Lv.${player.lvl} (${player.exp.expPercent}%)`;
 
     // Player Stats
     playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${player.stats.hpPercent}%)`;
-    playerCombatHpElement.innerHTML = `&nbsp${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)}(${player.stats.hpPercent}%)`;
     playerAtkElement.innerHTML = nFormatter(player.stats.atk);
     playerDefElement.innerHTML = nFormatter(player.stats.def);
     playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1).replace(rx, "$1");
