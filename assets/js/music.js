@@ -1,7 +1,7 @@
 // Volume settings
 let volume = {
     master: 100 / 100,
-    bgm: 50 / 100,
+    bgm: (80 / 100) / 2,
     sfx: 100 / 100
 }
 
@@ -12,6 +12,13 @@ let bgmBattleGuardian;
 let sfxEncounter;
 let sfxEnemyDeath;
 let sfxAttack;
+let sfxLevelUp;
+let sfxConfirm;
+let sfxDecline;
+let sfxDeny;
+let sfxEquip;
+let sfxUnequip;
+let sfxOpen;
 
 document.querySelector("#title-screen").addEventListener("click", function () {
     // ===== Bgm =====
@@ -52,6 +59,41 @@ document.querySelector("#title-screen").addEventListener("click", function () {
 
     sfxAttack = new Howl({
         src: ['/assets/sfx/attack.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxLevelUp = new Howl({
+        src: ['/assets/sfx/level_up.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxConfirm = new Howl({
+        src: ['/assets/sfx/confirm.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxDecline = new Howl({
+        src: ['/assets/sfx/decline.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxDeny = new Howl({
+        src: ['/assets/sfx/deny.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxEquip = new Howl({
+        src: ['/assets/sfx/equip.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxUnquip = new Howl({
+        src: ['/assets/sfx/unequip.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxOpen = new Howl({
+        src: ['/assets/sfx/hover.wav'],
         volume: volume.sfx * volume.master
     });
 });
