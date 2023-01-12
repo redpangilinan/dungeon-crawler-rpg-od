@@ -49,11 +49,15 @@ dungeonActivity.addEventListener('click', function () {
 // Start and Pause Functionality
 const dungeonStartPause = () => {
     if (!dungeon.status.paused) {
+        sfxPause.play();
+
         dungeonAction.innerHTML = "Resting...";
         dungeonActivity.innerHTML = "Explore";
         dungeon.status.exploring = false;
         dungeon.status.paused = true;
     } else {
+        sfxUnpause.play();
+
         dungeonAction.innerHTML = "Exploring...";
         dungeonActivity.innerHTML = "Rest";
         dungeon.status.exploring = true;
@@ -103,6 +107,8 @@ const dungeonEvent = () => {
                 addDungeonLog("You found the door to the next room.", choices);
 
                 document.querySelector("#choice1").addEventListener("click", function () {
+                    sfxConfirm.play();
+
                     dungeon.status.event = false;
                     dungeon.progress.room++;
                     dungeon.action = 0;
@@ -110,6 +116,8 @@ const dungeonEvent = () => {
                     addDungeonLog("You moved to the next room.");
                 });
                 document.querySelector("#choice2").addEventListener("click", function () {
+                    sfxConfirm.play();
+
                     dungeon.status.event = false;
                     dungeon.action = 5;
                     addDungeonLog("You decided to stay.");

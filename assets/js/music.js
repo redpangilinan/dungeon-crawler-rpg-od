@@ -5,10 +5,13 @@ let volume = {
     sfx: 100 / 100
 }
 
+// BGM
 let bgmDungeon;
 let bgmBattleMain;
 let bgmBattleBoss;
 let bgmBattleGuardian;
+
+// SFX
 let sfxEncounter;
 let sfxEnemyDeath;
 let sfxAttack;
@@ -19,9 +22,12 @@ let sfxDeny;
 let sfxEquip;
 let sfxUnequip;
 let sfxOpen;
+let sfxPause;
+let sfxUnpause;
+let sfxSell;
 
 document.querySelector("#title-screen").addEventListener("click", function () {
-    // ===== Bgm =====
+    // ===== BGM =====
     bgmDungeon = new Howl({
         src: ['/assets/bgm/dungeon.wav'],
         volume: volume.bgm * volume.master,
@@ -46,7 +52,7 @@ document.querySelector("#title-screen").addEventListener("click", function () {
         loop: true
     });
 
-    // ===== Sfx =====
+    // ===== SFX =====
     sfxEncounter = new Howl({
         src: ['/assets/sfx/encounter.wav'],
         volume: volume.sfx * volume.master
@@ -78,7 +84,7 @@ document.querySelector("#title-screen").addEventListener("click", function () {
     });
 
     sfxDeny = new Howl({
-        src: ['/assets/sfx/deny.wav'],
+        src: ['/assets/sfx/denied.wav'],
         volume: volume.sfx * volume.master
     });
 
@@ -87,13 +93,28 @@ document.querySelector("#title-screen").addEventListener("click", function () {
         volume: volume.sfx * volume.master
     });
 
-    sfxUnquip = new Howl({
+    sfxUnequip = new Howl({
         src: ['/assets/sfx/unequip.wav'],
         volume: volume.sfx * volume.master
     });
 
     sfxOpen = new Howl({
         src: ['/assets/sfx/hover.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxPause = new Howl({
+        src: ['/assets/sfx/pause.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxUnpause = new Howl({
+        src: ['/assets/sfx/unpause.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxSell = new Howl({
+        src: ['/assets/sfx/sell.wav'],
         volume: volume.sfx * volume.master
     });
 });

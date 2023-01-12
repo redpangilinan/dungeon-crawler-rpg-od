@@ -10,6 +10,8 @@ const hpValidation = () => {
         playerDead = true;
         addCombatLog(`You died!`);
         document.querySelector("#battleButton").addEventListener("click", function () {
+            sfxConfirm.play();
+
             // Reset all the necessary stats and return to menu
             let dimDungeon = document.querySelector('#dungeon-main');
             dimDungeon.style.filter = "brightness(100%)";
@@ -56,6 +58,8 @@ const hpValidation = () => {
             addCombatLog(`${enemy.name} dropped ${itemDrop}.`)
         }
         document.querySelector("#battleButton").addEventListener("click", function () {
+            sfxConfirm.play();
+
             // Clear combat backlog and transition to dungeon exploration
             let dimDungeon = document.querySelector('#dungeon-main');
             dimDungeon.style.filter = "brightness(100%)";
@@ -173,6 +177,7 @@ const startCombat = () => {
     bgmDungeon.pause();
     sfxEncounter.play();
     bgmBattleMain.play();
+    player.inCombat = true;
 
     // Starts the timer for player and enemy attacks along with combat timer
     let dimDungeon = document.querySelector('#dungeon-main');
@@ -193,6 +198,7 @@ const startCombat = () => {
 const endCombat = () => {
     bgmBattleMain.stop();
     sfxCombatEnd.play();
+    player.inCombat = false;
 
     // Stops every timer in combat
     clearInterval(playerTimer);
