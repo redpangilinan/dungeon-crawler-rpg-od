@@ -10,10 +10,14 @@ window.addEventListener("load", function () {
     document.querySelector("#title-screen").addEventListener("click", function () {
         this.style.display = "none";
         const player = JSON.parse(localStorage.getItem("playerData"));
-        playerLoadStats();
-        initialDungeonLoad();
         runLoad("dungeon-main", "flex");
-        console.table(player);
+        initialDungeonLoad();
+        if (player.inCombat) {
+            generateRandomEnemy();
+            showCombatInfo();
+            startCombat();
+        }
+        playerLoadStats();
     });
 
     // Submit Name

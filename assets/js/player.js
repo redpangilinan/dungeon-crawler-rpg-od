@@ -47,7 +47,7 @@ const playerLoadStats = () => {
     player.stats.hpPercent = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
     player.exp.expPercent = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
 
-    if (player.inCombat) {
+    if (player.inCombat || playerDead) {
         const playerCombatHpElement = document.querySelector('#player-hp-battle');
         const playerExpElement = document.querySelector('#player-exp-bar');
         const playerInfoElement = document.querySelector('#player-combat-info');
