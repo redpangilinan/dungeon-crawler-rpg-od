@@ -15,7 +15,7 @@ let bgmBattleGuardian;
 let sfxEncounter;
 let sfxEnemyDeath;
 let sfxAttack;
-let sfxLevelUp;
+let sfxLvlUp;
 let sfxConfirm;
 let sfxDecline;
 let sfxDeny;
@@ -25,6 +25,7 @@ let sfxOpen;
 let sfxPause;
 let sfxUnpause;
 let sfxSell;
+let sfxItem;
 
 document.querySelector("#title-screen").addEventListener("click", function () {
     // ===== BGM =====
@@ -68,7 +69,7 @@ document.querySelector("#title-screen").addEventListener("click", function () {
         volume: volume.sfx * volume.master
     });
 
-    sfxLevelUp = new Howl({
+    sfxLvlUp = new Howl({
         src: ['/assets/sfx/level_up.wav'],
         volume: volume.sfx * volume.master
     });
@@ -115,6 +116,11 @@ document.querySelector("#title-screen").addEventListener("click", function () {
 
     sfxSell = new Howl({
         src: ['/assets/sfx/sell.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxItem = new Howl({
+        src: ['/assets/sfx/item_use.wav'],
         volume: volume.sfx * volume.master
     });
 });
