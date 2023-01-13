@@ -18,7 +18,6 @@ window.addEventListener("load", function () {
             startCombat();
         }
         playerLoadStats();
-        lvlupPopup();
     });
 
     // Submit Name
@@ -62,7 +61,14 @@ window.addEventListener("load", function () {
                         atkSpd: 0,
                         vamp: 0,
                         critRate: 0,
-                        critDmg: 0
+                        critDmg: 0,
+                        hpPct: 0,
+                        atkPct: 0,
+                        defPct: 0,
+                        atkSpdPct: 0,
+                        vampPct: 0,
+                        critRatePct: 0,
+                        critDmgPct: 0,
                     },
                     bonusStats: {
                         hp: 0,
@@ -113,11 +119,19 @@ const saveData = () => {
 }
 
 const calculateStats = () => {
-    player.stats.hpMax = player.baseStats.hp + player.equippedStats.hp;
-    player.stats.atk = player.baseStats.atk + player.equippedStats.atk;
-    player.stats.def = player.baseStats.def + player.equippedStats.def;
-    player.stats.atkSpd = player.baseStats.atkSpd + player.equippedStats.atkSpd;
-    player.stats.vamp = player.baseStats.vamp + player.equippedStats.vamp;
-    player.stats.critRate = player.baseStats.critRate + player.equippedStats.critRate;
-    player.stats.critDmg = player.baseStats.critDmg + player.equippedStats.critDmg;
+    let playerHpEquip = player.baseStats.hp + player.equippedStats.hp;
+    let playerAtkEquip = player.baseStats.atk + player.equippedStats.atk;
+    let playerDefEquip = player.baseStats.def + player.equippedStats.def;
+    let playerAtkSpdEquip = player.baseStats.atkSpd + player.equippedStats.atkSpd;
+    let playerVampEquip = player.baseStats.vamp + player.equippedStats.vamp;
+    let playerCRateEquip = player.baseStats.critRate + player.equippedStats.critRate;
+    let playerCDmgEquip = player.baseStats.critDmg + player.equippedStats.critDmg;
+
+    player.stats.hpMax = Math.round(playerHpEquip + playerHpEquip * (player.bonusStats.hp / 100));
+    player.stats.atk = Math.round(playerAtkEquip + playerAtkEquip * (player.bonusStats.atk / 100));
+    player.stats.def = Math.round(playerDefEquip + playerDefEquip * (player.bonusStats.def / 100));
+    player.stats.atkSpd = Math.round(playerAtkSpdEquip + playerAtkSpdEquip * (player.bonusStats.atkSpd / 100));
+    player.stats.vamp = Math.round(playerVampEquip + player.bonusStats.vamp);
+    player.stats.critRate = Math.round(playerCRateEquip + player.bonusStats.critRate);
+    player.stats.critDmg = Math.round(playerCDmgEquip + player.bonusStats.critDmg);
 };
