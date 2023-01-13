@@ -63,7 +63,15 @@ window.addEventListener("load", function () {
                         critRate: 0,
                         critDmg: 0
                     },
-                    bonusStats: [],
+                    bonusStats: {
+                        hp: 0,
+                        atk: 0,
+                        def: 0,
+                        atkSpd: 0,
+                        vamp: 0,
+                        critRate: 0,
+                        critDmg: 0
+                    },
                     exp: {
                         expCurr: 0,
                         expMax: 100,
