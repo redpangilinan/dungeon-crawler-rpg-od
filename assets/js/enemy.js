@@ -48,8 +48,8 @@ const generateRandomEnemy = () => {
     enemy.type = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
 
     // Calculate enemy level
-    const minLvl = (dungeon.progress.floor - 1) + dungeon.settings.enemyBaseLvl;
-    const maxLvl = (minLvl - 1) + dungeon.settings.enemyLvlGap;
+    const maxLvl = dungeon.progress.floor * dungeon.settings.enemyLvlGap + (dungeon.settings.enemyBaseLvl - 1);
+    const minLvl = maxLvl - (dungeon.settings.enemyLvlGap - 1);
     enemy.lvl = randomizeNum(minLvl, maxLvl);
 
     // Generate proper enemy info
