@@ -288,18 +288,18 @@ button:focus {
     min-width: 15rem;
 }
 
-#inventory .content-head {
+.content .content-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.4em 0.7em;
 }
 
-#inventory .content-head i {
+.content .content-head i {
     margin: 0;
 }
 
-#inventory .content-head p:hover {
+.content .content-head p:hover {
     cursor: pointer;
 }
 
@@ -323,6 +323,16 @@ button:focus {
     align-items: center;
 }
 
+#lvlupPanel .content {
+    width: 100%;
+    max-width: 25em;
+}
+
+#lvlupPanel h1 {
+    text-align: center;
+}
+
+/* Battle Bars */
 .battle-bar {
     font-size: 0.8rem;
     border-radius: 0.3rem;

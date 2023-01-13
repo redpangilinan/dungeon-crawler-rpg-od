@@ -107,3 +107,45 @@ const continueExploring = () => {
         dungeon.status.exploring = true;
     }
 };
+
+const lvlupPopup = () => {
+    const lvlupPanel = document.querySelector("#lvlupPanel");
+    const lvlupSelect = document.querySelector("#lvlupSelect");
+    lvlupPanel.style.display = "flex";
+    lvlupSelect.innerHTML = `
+        <h1>Level Up!</h1>
+        <div class="content-head">
+            <h4>Remaining: 0</h4>
+            <button id="lvlReroll">Reroll 1/1</button>
+        </div>
+    `;
+    let stats = ["hp", "atk", "def", "atkSpd", "vamp", "critRate", "critDmg"];
+    let percentage = 3;
+    let selectedStats = [];
+
+    while (selectedStats.length < 4) {
+        let randomIndex = Math.floor(Math.random() * stats.length);
+        if (!selectedStats.includes(stats[randomIndex])) {
+            selectedStats.push(stats[randomIndex]);
+        }
+    }
+
+    for (let i = 1; i <= 4; i++) {
+        let button = document.createElement("button");
+        button.id = "lvlSlot" + i;
+
+        let h3 = document.createElement("h3");
+        h3.innerText = selectedStats[i - 1];
+        button.appendChild(h3);
+
+        let p = document.createElement("p");
+        p.innerText = "Increase " + selectedStats[i - 1] + " by " + percentage + "%.";
+        button.appendChild(p);
+
+        button.addEventListener("click", function () {
+            player.bonusStats[selectedStats[i - 1]] += percentage;
+        });
+
+        lvlupSelect.appendChild(button);
+    }
+}

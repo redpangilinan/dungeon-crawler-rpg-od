@@ -18,6 +18,7 @@ window.addEventListener("load", function () {
             startCombat();
         }
         playerLoadStats();
+        lvlupPopup();
     });
 
     // Submit Name
