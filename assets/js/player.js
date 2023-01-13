@@ -1,5 +1,9 @@
 let player = JSON.parse(localStorage.getItem("playerData"));
 let inventoryOpen = false;
+let lvlGained = 0;
+let leveled = false;
+const lvlupSelect = document.querySelector("#lvlupSelect");
+const lvlupPanel = document.querySelector("#lvlupPanel");
 
 const playerExpGain = () => {
     let expGain = enemy.rewards.exp;
@@ -7,15 +11,20 @@ const playerExpGain = () => {
     player.exp.expCurrLvl += expGain;
 
     while (player.exp.expCurr >= player.exp.expMax) {
-        playerLevelUp();
+        playerLvlUp();
+    }
+    if (leveled) {
+        lvlupPopup();
+        leveled = false;
     }
 
     playerLoadStats();
 };
 
 // Levels up the player
-const playerLevelUp = () => {
-    sfxLevelUp.play();
+const playerLvlUp = () => {
+    sfxLvlUp.play();
+    leveled = true;
 
     // Calculates the excess exp and the new exp required to level up
     let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
@@ -25,6 +34,7 @@ const playerLevelUp = () => {
 
     // Increase player level and maximum exp
     player.lvl++;
+    lvlGained++;
     player.exp.expMax += expMaxIncrease;
 
     // Calculate stats based on trait then apply it to advanced stats then bring player hp and mp to full
@@ -47,6 +57,7 @@ const playerLoadStats = () => {
     player.stats.hpPercent = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
     player.exp.expPercent = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
 
+    // Generate battle info for player if in combat
     if (player.inCombat || playerDead) {
         const playerCombatHpElement = document.querySelector('#player-hp-battle');
         const playerExpElement = document.querySelector('#player-exp-bar');
@@ -108,44 +119,85 @@ const continueExploring = () => {
     }
 };
 
+// Shows the level up popup
 const lvlupPopup = () => {
-    const lvlupPanel = document.querySelector("#lvlupPanel");
-    const lvlupSelect = document.querySelector("#lvlupSelect");
     lvlupPanel.style.display = "flex";
-    lvlupSelect.innerHTML = `
-        <h1>Level Up!</h1>
-        <div class="content-head">
-            <h4>Remaining: 0</h4>
-            <button id="lvlReroll">Reroll 1/1</button>
-        </div>
-    `;
-    let stats = ["hp", "atk", "def", "atkSpd", "vamp", "critRate", "critDmg"];
-    let percentage = 3;
-    let selectedStats = [];
+    combatPanel.style.filter = "brightness(50%)";
+    const percentages = {
+        "hp": 10,
+        "atk": 5,
+        "def": 5,
+        "atkSpd": 5,
+        "vamp": 3,
+        "critRate": 1,
+        "critDmg": 3
+    }
+    generateLvlStats(2, percentages);
+}
 
-    while (selectedStats.length < 4) {
+// Generates random stats for level up popup
+const generateLvlStats = (rerolls, percentages) => {
+    let selectedStats = [];
+    let stats = ["hp", "atk", "def", "atkSpd", "vamp", "critRate", "critDmg"];
+    while (selectedStats.length < 3) {
         let randomIndex = Math.floor(Math.random() * stats.length);
         if (!selectedStats.includes(stats[randomIndex])) {
             selectedStats.push(stats[randomIndex]);
         }
     }
 
-    for (let i = 1; i <= 4; i++) {
-        let button = document.createElement("button");
-        button.id = "lvlSlot" + i;
-
-        let h3 = document.createElement("h3");
-        h3.innerText = selectedStats[i - 1];
-        button.appendChild(h3);
-
-        let p = document.createElement("p");
-        p.innerText = "Increase " + selectedStats[i - 1] + " by " + percentage + "%.";
-        button.appendChild(p);
-
-        button.addEventListener("click", function () {
-            player.bonusStats[selectedStats[i - 1]] += percentage;
-        });
-
-        lvlupSelect.appendChild(button);
+    const loadLvlHeader = () => {
+        lvlupSelect.innerHTML = `
+            <h1>Level Up!</h1>
+            <div class="content-head">
+                <h4>Remaining: ${lvlGained}</h4>
+                <button id="lvlReroll">Reroll ${rerolls}/2</button>
+            </div>
+        `;
     }
+    loadLvlHeader();
+
+    const lvlReroll = document.querySelector("#lvlReroll");
+    lvlReroll.addEventListener("click", function () {
+        if (rerolls > 0) {
+            sfxSell.play();
+            rerolls--;
+            loadLvlHeader();
+            generateLvlStats(rerolls, percentages);
+        } else {
+            sfxDeny.play();
+        }
+    });
+
+    try {
+        for (let i = 0; i < 4; i++) {
+            let button = document.createElement("button");
+            button.id = "lvlSlot" + i;
+
+            let h3 = document.createElement("h3");
+            h3.innerHTML = selectedStats[i].replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase() + " UP";
+            button.appendChild(h3);
+
+            let p = document.createElement("p");
+            p.innerHTML = `Increase base ${selectedStats[i].replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()} by ${percentages[selectedStats[i]]}%.`;
+            button.appendChild(p);
+
+            // Increase the selected stat for player
+            button.addEventListener("click", function () {
+                sfxItem.play();
+                player.bonusStats[selectedStats[i]] += percentages[selectedStats[i]];
+
+                lvlGained--;
+                if (lvlGained > 1) {
+                    generateLvlStats(2, percentages);
+                } else {
+                    lvlupPanel.style.display = "none";
+                    combatPanel.style.filter = "brightness(100%)";
+                }
+                playerLoadStats();
+            });
+
+            lvlupSelect.appendChild(button);
+        }
+    } catch (err) { }
 }
