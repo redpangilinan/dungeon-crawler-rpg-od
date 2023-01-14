@@ -98,9 +98,9 @@ const dungeonEvent = () => {
     if (dungeon.status.exploring && !dungeon.status.event) {
         dungeon.action++;
         let eventTypes = ["blessing", "trap", "enemy", "shop"];
-        if (dungeon.action > 10) {
+        if (dungeon.action > 5) {
             eventTypes.push("nextroom");
-        } else if (dungeon.action > 20) {
+        } else if (dungeon.action > 10) {
             eventTypes = ["nextroom"];
         }
         const event = eventTypes[Math.floor(Math.random() * eventTypes.length)];
@@ -128,7 +128,7 @@ const dungeonEvent = () => {
                     sfxConfirm.play();
 
                     dungeon.status.event = false;
-                    dungeon.action = 5;
+                    dungeon.action = 0;
                     addDungeonLog("You decided to stay.");
                 });
                 break;
