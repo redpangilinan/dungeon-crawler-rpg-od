@@ -33,12 +33,22 @@ let dungeon = {
 // Sets up the initial dungeon
 const initialDungeonLoad = () => {
     bgmDungeon.play();
+    if (localStorage.getItem("dungeonData") !== null) {
+        dungeon = JSON.parse(localStorage.getItem("dungeonData"));
+        dungeon.status = {
+            exploring: false,
+            paused: true,
+            event: false,
+        };
+        updateDungeonLog();
+    }
+    loadDungeonProgress();
+    dungeonTime.innerHTML = new Date(dungeon.runtime * 1000).toISOString().slice(11, 19);
     dungeonAction.innerHTML = "Resting...";
     dungeonActivity.innerHTML = "Explore";
     dungeonTime.innerHTML = "00:00:00";
-    dungeonTimer = setInterval(dungeonEvent, (1000));
-    loadDungeonProgress();
-    addDungeonLog("You arrived at the dungeon.");
+    dungeonTimer = setInterval(dungeonEvent, 1000);
+    playTimer = setInterval(dungeonCounter, 1000);
 };
 
 // Enables start and pause on button click
@@ -85,7 +95,6 @@ const loadDungeonProgress = () => {
 
 // ========== Events in the Dungeon ==========
 const dungeonEvent = () => {
-    dungeonCounter();
     if (dungeon.status.exploring && !dungeon.status.event) {
         dungeon.action++;
         let eventTypes = ["blessing", "trap", "enemy", "shop"];
