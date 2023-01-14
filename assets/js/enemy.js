@@ -344,6 +344,9 @@ const setEnemyImg = () => {
 const enemyLoadStats = () => {
     // Shows proper percentage for respective stats
     let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    if (enemy.stats.hp > enemy.stats.hpMax) {
+        enemy.stats.hp = enemy.stats.hpMax;
+    }
     enemy.stats.hpPercent = ((enemy.stats.hp / enemy.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
 
     const enemyHpElement = document.querySelector('#enemy-hp-battle');
