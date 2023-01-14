@@ -140,4 +140,9 @@ const calculateStats = () => {
     player.stats.vamp = playerVampEquip + player.bonusStats.vamp;
     player.stats.critRate = playerCRateEquip + player.bonusStats.critRate;
     player.stats.critDmg = playerCDmgEquip + player.bonusStats.critDmg;
+
+    // Caps attack speed to 3
+    if (player.stats.atkSpd > 3) {
+        player.stats.atkSpd = 3;
+    }
 };
