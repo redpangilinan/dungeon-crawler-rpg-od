@@ -8,57 +8,30 @@ const hpValidation = () => {
     if (player.stats.hp < 1) {
         player.stats.hp = 0;
         playerDead = true;
+        player.deaths++;
         addCombatLog(`You died!`);
         document.querySelector("#battleButton").addEventListener("click", function () {
             sfxConfirm.play();
+            playerDead = false;
 
             // Reset all the necessary stats and return to menu
             let dimDungeon = document.querySelector('#dungeon-main');
             dimDungeon.style.filter = "brightness(100%)";
             dimDungeon.style.display = "none";
+            combatPanel.style.display = "none";
             runLoad("title-screen", "flex");
 
             clearInterval(dungeonTimer);
             clearInterval(playTimer);
-            dungeon.start;
-            player.stats.hp = player.stats.hpMax;
-            player.lvl = 1;
-            player.exp = {
-                expCurr: 0,
-                expMax: 100,
-                expCurrLvl: 0,
-                expMaxLvl: 100,
-                lvlGained: 0
-            };
-            player.bonusStats = {
-                hp: 0,
-                atk: 0,
-                def: 0,
-                atkSpd: 0,
-                vamp: 0,
-                critRate: 0,
-                critDmg: 0
-            };
-            dungeon.progress.floor = 1;
-            dungeon.progress.room = 1;
-            dungeon.status = {
-                exploring: false,
-                paused: true,
-                event: false,
-            };
-            dungeon.backlog.length = 0;
-            dungeon.action = 0;
-            dungeon.runtime = 0;
-            combatBacklog.length = 0;
-            combatPanel.style.display = "none";
-            playerDead = false;
-            saveData();
+            progressReset();
         });
         endCombat();
     } else if (enemy.stats.hp < 1) {
         // Gives out all the reward and show the claim button
         enemy.stats.hp = 0;
         enemyDead = true;
+        player.kills++;
+        dungeon.statistics.kills++;
         addCombatLog(`${enemy.name} died! (${new Date(combatSeconds * 1000).toISOString().substring(14, 19)})`);
         addCombatLog(`You earned ${enemy.rewards.exp} exp.`)
         playerExpGain();
@@ -247,4 +220,4 @@ const showCombatInfo = () => {
         </div>
     </div>
     `;
-}
+};
