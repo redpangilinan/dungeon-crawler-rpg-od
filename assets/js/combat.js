@@ -69,6 +69,12 @@ const hpValidation = () => {
             let itemDrop = createEquipment();
             addCombatLog(`${enemy.name} dropped ${itemDrop}.`)
         }
+
+        // Heal 10% of players health
+        player.stats.hp += Math.round((player.stats.hpMax * 10) / 100);
+        playerLoadStats();
+
+        // Close the battle panel
         document.querySelector("#battleButton").addEventListener("click", function () {
             sfxConfirm.play();
 
@@ -77,8 +83,6 @@ const hpValidation = () => {
             dimDungeon.style.filter = "brightness(100%)";
             bgmDungeon.play();
 
-            player.stats.hp = player.stats.hpMax;
-            player.stats.hpPercent = ((player.stats.hp / player.stats.hpMax) * 100);
             dungeon.status.event = false;
             combatPanel.style.display = "none";
             enemyDead = false;
@@ -109,9 +113,6 @@ const playerAttack = () => {
 
     enemy.stats.hp -= damage;
     player.stats.hp += lifesteal;
-    if (player.stats.hp > player.stats.hpMax) {
-        player.stats.hp = player.stats.hpMax;
-    }
     addCombatLog(`${player.name} dealt ` + nFormatter(damage) + ` ${dmgtype} to ${enemy.name}.`);
     hpValidation();
     playerLoadStats();
@@ -138,9 +139,6 @@ const enemyAttack = () => {
 
     player.stats.hp -= damage;
     enemy.stats.hp += lifesteal;
-    if (enemy.stats.hp > enemy.stats.hpMax) {
-        enemy.stats.hp = enemy.stats.hpMax;
-    }
     addCombatLog(`${enemy.name} dealt ` + nFormatter(damage) + ` ${dmgtype} to ${player.name}.`);
     hpValidation();
     playerLoadStats();
