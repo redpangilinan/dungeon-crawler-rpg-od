@@ -19,14 +19,27 @@ const hpValidation = () => {
             runLoad("title-screen", "flex");
 
             clearInterval(dungeonTimer);
+            clearInterval(playTimer);
+            dungeon.start;
             player.stats.hp = player.stats.hpMax;
             player.lvl = 1;
             player.exp = {
                 expCurr: 0,
                 expMax: 100,
                 expCurrLvl: 0,
-                expMaxLvl: 100
+                expMaxLvl: 100,
+                lvlGained: 0
             };
+            player.bonusStats = {
+                hp: 0,
+                atk: 0,
+                def: 0,
+                atkSpd: 0,
+                vamp: 0,
+                critRate: 0,
+                critDmg: 0
+            };
+            player.gold = 0;
             dungeon.progress.floor = 1;
             dungeon.progress.room = 1;
             dungeon.status = {
@@ -102,6 +115,7 @@ const playerAttack = () => {
     }
     addCombatLog(`${player.name} dealt ` + nFormatter(damage) + ` ${dmgtype} to ${enemy.name}.`);
     hpValidation();
+    playerLoadStats();
     enemyLoadStats();
 };
 
@@ -110,7 +124,7 @@ const enemyAttack = () => {
 
     // Calculates the damage and attacks the player
     let damage = enemy.stats.atk * (enemy.stats.atk / (enemy.stats.atk + player.stats.def));
-    let lifesteal = enemy.stats.atk * (enemy.stats.vamp / 100);
+    let lifesteal = Math.round(enemy.stats.atk * (enemy.stats.vamp / 100));
     // Randomizes the damage by 90% - 110%
     let dmgRange = 0.9 + Math.random() * 0.2;
     damage = damage * dmgRange;
@@ -131,6 +145,7 @@ const enemyAttack = () => {
     addCombatLog(`${enemy.name} dealt ` + nFormatter(damage) + ` ${dmgtype} to ${player.name}.`);
     hpValidation();
     playerLoadStats();
+    enemyLoadStats();
 };
 
 // ========== Combat Backlog ==========
