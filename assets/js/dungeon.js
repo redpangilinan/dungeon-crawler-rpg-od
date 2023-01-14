@@ -24,8 +24,11 @@ let dungeon = {
         paused: true,
         event: false,
     },
+    statistics: {
+        kills: 0,
+        runtime: 0,
+    },
     backlog: [],
-    runtime: 0,
     action: 0,
 };
 
@@ -43,7 +46,7 @@ const initialDungeonLoad = () => {
         updateDungeonLog();
     }
     loadDungeonProgress();
-    dungeonTime.innerHTML = new Date(dungeon.runtime * 1000).toISOString().slice(11, 19);
+    dungeonTime.innerHTML = new Date(dungeon.statistics.runtime * 1000).toISOString().slice(11, 19);
     dungeonAction.innerHTML = "Resting...";
     dungeonActivity.innerHTML = "Explore";
     dungeonTime.innerHTML = "00:00:00";
@@ -78,8 +81,8 @@ const dungeonStartPause = () => {
 // Counts the total time for the current run and total playtime
 const dungeonCounter = () => {
     player.playtime++;
-    dungeon.runtime++;
-    dungeonTime.innerHTML = new Date(dungeon.runtime * 1000).toISOString().slice(11, 19);
+    dungeon.statistics.runtime++;
+    dungeonTime.innerHTML = new Date(dungeon.statistics.runtime * 1000).toISOString().slice(11, 19);
     saveData();
 };
 
