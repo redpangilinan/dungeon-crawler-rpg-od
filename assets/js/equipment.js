@@ -5,7 +5,6 @@ const createEquipment = () => {
         type: "",
         rarity: "",
         stats: [],
-        icon: null,
     };
 
     // Generate random equipment attribute
@@ -40,19 +39,19 @@ const createEquipment = () => {
     let loopCount;
     switch (equipment.rarity) {
         case "Common":
-            loopCount = 3;
+            loopCount = 2;
             break;
         case "Uncommon":
-            loopCount = 4;
+            loopCount = 3;
             break;
         case "Rare":
-            loopCount = 5;
+            loopCount = 4;
             break;
         case "Epic":
-            loopCount = 6;
+            loopCount = 5;
             break;
         case "Legendary":
-            loopCount = 7;
+            loopCount = 6;
             break;
         case "Mythical":
             loopCount = 8;
@@ -78,7 +77,23 @@ const createEquipment = () => {
     }
     for (let i = 0; i < loopCount; i++) {
         let statType = statTypes[Math.floor(Math.random() * statTypes.length)];
-        let statValue = Math.floor(Math.random() * 100);
+
+        // Set a randomized number to respective stats
+        if (statType === "hp") {
+            statValue = randomizeNum(15, 30);
+        } else if (statType === "atk") {
+            statValue = randomizeNum(5, 10);
+        } else if (statType === "def") {
+            statValue = randomizeNum(5, 10);
+        } else if (statType === "atkSpd") {
+            statValue = randomizeDecimal(1, 3);
+        } else if (statType === "vamp") {
+            statValue = randomizeDecimal(1, 2);
+        } else if (statType === "critRate") {
+            statValue = randomizeDecimal(0.4, 1.5);
+        } else if (statType === "critDmg") {
+            statValue = randomizeDecimal(1, 2);
+        }
 
         // Check if stat type already exists in stats array
         let statExists = false;
@@ -150,6 +165,7 @@ const showItemInfo = (item, icon, type, i) => {
 
     dungeon.status.exploring = false;
     let itemInfo = document.querySelector("#equipmentInfo");
+    let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
     let target = null;
     if (type == "Equip") {
         target = "#inventory";
@@ -164,7 +180,12 @@ const showItemInfo = (item, icon, type, i) => {
                 <h3 class="${item.rarity}">${icon}${item.rarity} ${item.category}</h3>
                 <ul>
                 ${item.stats.map(stat => {
-        return `<li>${Object.keys(stat)[0]}: ${stat[Object.keys(stat)[0]]}</li>`;
+        if (Object.keys(stat)[0] === "critRate" || Object.keys(stat)[0] === "critDmg" || Object.keys(stat)[0] === "atkSpd" || Object.keys(stat)[0] === "vamp") {
+            return `<li>${Object.keys(stat)[0].toString().replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()}+${stat[Object.keys(stat)[0]].toFixed(2).replace(rx, "$1")}%</li>`;
+        }
+        else {
+            return `<li>${Object.keys(stat)[0].toString().replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()}+${stat[Object.keys(stat)[0]]}</li>`;
+        }
     }).join('')}
                 </ul>
                 <div class="button-container">
