@@ -82,7 +82,7 @@ const playerAttack = () => {
 
     // Calculates the damage and attacks the enemy
     let damage = player.stats.atk * (player.stats.atk / (player.stats.atk + enemy.stats.def));
-    let lifesteal = player.stats.atk * (player.stats.vamp / 100);
+    let lifesteal = Math.round(player.stats.atk * (player.stats.vamp / 100));
     // Randomizes the damage by 90% - 110%
     let dmgRange = 0.9 + Math.random() * 0.2;
     damage = damage * dmgRange;
