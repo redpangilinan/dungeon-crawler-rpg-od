@@ -123,12 +123,12 @@ const lvlupPopup = () => {
     combatPanel.style.filter = "brightness(50%)";
     const percentages = {
         "hp": 10,
-        "atk": 5,
-        "def": 5,
-        "atkSpd": 5,
-        "vamp": 3,
-        "critRate": 1,
-        "critDmg": 3
+        "atk": 4,
+        "def": 4,
+        "atkSpd": 2,
+        "vamp": 1,
+        "critRate": 0.45,
+        "critDmg": 1
     }
     generateLvlStats(2, percentages);
 }
