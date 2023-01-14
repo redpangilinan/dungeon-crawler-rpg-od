@@ -83,7 +83,8 @@ window.addEventListener("load", function () {
                         expCurr: 0,
                         expMax: 100,
                         expCurrLvl: 0,
-                        expMaxLvl: 100
+                        expMaxLvl: 100,
+                        lvlGained: 0
                     },
                     inventory: {
                         consumables: [],
@@ -130,8 +131,8 @@ const calculateStats = () => {
     player.stats.hpMax = Math.round(playerHpEquip + playerHpEquip * (player.bonusStats.hp / 100));
     player.stats.atk = Math.round(playerAtkEquip + playerAtkEquip * (player.bonusStats.atk / 100));
     player.stats.def = Math.round(playerDefEquip + playerDefEquip * (player.bonusStats.def / 100));
-    player.stats.atkSpd = Math.round(playerAtkSpdEquip + playerAtkSpdEquip * (player.bonusStats.atkSpd / 100));
+    player.stats.atkSpd = playerAtkSpdEquip + playerAtkSpdEquip * (player.bonusStats.atkSpd / 100);
     player.stats.vamp = Math.round(playerVampEquip + player.bonusStats.vamp);
-    player.stats.critRate = Math.round(playerCRateEquip + player.bonusStats.critRate);
-    player.stats.critDmg = Math.round(playerCDmgEquip + player.bonusStats.critDmg);
+    player.stats.critRate = playerCRateEquip + player.bonusStats.critRate;
+    player.stats.critDmg = playerCDmgEquip + player.bonusStats.critDmg;
 };

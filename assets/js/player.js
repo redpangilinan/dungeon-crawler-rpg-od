@@ -5,9 +5,8 @@ const lvlupSelect = document.querySelector("#lvlupSelect");
 const lvlupPanel = document.querySelector("#lvlupPanel");
 
 const playerExpGain = () => {
-    let expGain = enemy.rewards.exp;
-    player.exp.expCurr += expGain;
-    player.exp.expCurrLvl += expGain;
+    player.exp.expCurr += enemy.rewards.exp;
+    player.exp.expCurrLvl += enemy.rewards.exp;
 
     while (player.exp.expCurr >= player.exp.expMax) {
         playerLvlUp();
@@ -45,8 +44,8 @@ const playerLoadStats = () => {
     if (player.stats.hp > player.stats.hpMax) {
         player.stats.hp = player.stats.hpMax;
     }
-    player.stats.hpPercent = ((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
-    player.exp.expPercent = ((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
+    player.stats.hpPercent = Number((player.stats.hp / player.stats.hpMax) * 100).toFixed(2).replace(rx, "$1");
+    player.exp.expPercent = Number((player.exp.expCurrLvl / player.exp.expMaxLvl) * 100).toFixed(2).replace(rx, "$1");
 
     // Generate battle info for player if in combat
     if (player.inCombat || playerDead) {
@@ -68,10 +67,10 @@ const playerLoadStats = () => {
     playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${player.stats.hpPercent}%)`;
     playerAtkElement.innerHTML = nFormatter(player.stats.atk);
     playerDefElement.innerHTML = nFormatter(player.stats.def);
-    playerAtkSpdElement.innerHTML = player.stats.atkSpd.replace(rx, "$1");
-    playerVampElement.innerHTML = (player.stats.vamp).toFixed(1).replace(rx, "$1") + "%";
-    playerCrateElement.innerHTML = (player.stats.critRate).replace(rx, "$1") + "%";
-    playerCdmgElement.innerHTML = (player.stats.critDmg).replace(rx, "$1") + "%";
+    playerAtkSpdElement.innerHTML = player.stats.atkSpd.toFixed(2).replace(rx, "$1");
+    playerVampElement.innerHTML = (player.stats.vamp).toFixed(2).replace(rx, "$1") + "%";
+    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(2).replace(rx, "$1") + "%";
+    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(2).replace(rx, "$1") + "%";
 };
 
 // Opens inventory
