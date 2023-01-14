@@ -195,7 +195,6 @@ const generateLvlStats = (rerolls, percentages) => {
                     leveled = false;
                 }
 
-
                 playerLoadStats();
                 saveData();
             });
