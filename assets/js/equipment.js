@@ -1,9 +1,11 @@
 const createEquipment = () => {
     const equipment = {
-        category: "",
-        attribute: "",
-        type: "",
-        rarity: "",
+        category: null,
+        attribute: null,
+        type: null,
+        rarity: null,
+        lvl: null,
+        value: null,
         stats: [],
     };
 
@@ -32,8 +34,25 @@ const createEquipment = () => {
     }
 
     // Generate random equipment rarity
-    const rarities = ["Common", "Uncommon", "Rare", "Epic", "Legendary", "Mythical"];
-    equipment.rarity = rarities[Math.floor(Math.random() * rarities.length)];
+    const rarityChances = {
+        "Common": 0.7,
+        "Uncommon": 0.2,
+        "Rare": 0.04,
+        "Epic": 0.03,
+        "Legendary": 0.02,
+        "Mythical": 0.01
+    };
+
+    const randomNumber = Math.random();
+    let cumulativeChance = 0;
+
+    for (let rarity in rarityChances) {
+        cumulativeChance += rarityChances[rarity];
+        if (randomNumber <= cumulativeChance) {
+            equipment.rarity = rarity;
+            break;
+        }
+    }
 
     // Determine number of times to loop based on equipment rarity
     let loopCount;
@@ -78,13 +97,22 @@ const createEquipment = () => {
     for (let i = 0; i < loopCount; i++) {
         let statType = statTypes[Math.floor(Math.random() * statTypes.length)];
 
-        // Set a randomized number to respective stats
+        // Stat scaling for equipment
+        const maxLvl = dungeon.progress.floor * dungeon.settings.enemyLvlGap + (dungeon.settings.enemyBaseLvl - 1);
+        const minLvl = maxLvl - (dungeon.settings.enemyLvlGap - 1);
+        equipment.lvl = randomizeNum(minLvl, maxLvl);
+        let statMultiplier = (dungeon.settings.enemyScaling - 1) * equipment.lvl;
+        let hpScaling = (20 * randomizeDecimal(0.5, 1.5)) + ((20 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let atkDefScaling = (5 * randomizeDecimal(0.5, 1.5)) + ((5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+
+
+        // Set randomized numbers to respective stats
         if (statType === "hp") {
-            statValue = randomizeNum(15, 30);
+            statValue = randomizeNum(hpScaling * 0.5, hpScaling);
         } else if (statType === "atk") {
-            statValue = randomizeNum(5, 10);
+            statValue = randomizeNum(atkDefScaling * 0.5, atkDefScaling);
         } else if (statType === "def") {
-            statValue = randomizeNum(5, 10);
+            statValue = randomizeNum(atkDefScaling * 0.5, atkDefScaling);
         } else if (statType === "atkSpd") {
             statValue = randomizeDecimal(1, 3);
         } else if (statType === "vamp") {
@@ -113,6 +141,7 @@ const createEquipment = () => {
                 }
             }
         }
+
         // If stat type does not exist, add new stat to stats array
         else {
             equipment.stats.push({ [statType]: statValue });
@@ -123,7 +152,6 @@ const createEquipment = () => {
     saveData();
     showInventory();
     showEquipment();
-
     return (`<span class="${equipment.rarity}">${equipmentIcon(equipment.category)}${equipment.rarity} ${equipment.category}</span>`);
 };
 
