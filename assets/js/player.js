@@ -114,15 +114,15 @@ const lvlupPopup = () => {
     sfxLvlUp.play();
     addCombatLog(`You leveled up! (Lv.${player.lvl - player.exp.lvlGained} > Lv.${player.lvl})`);
 
-    // Fill player hp and load stats
-    player.stats.hp = player.stats.hpMax;
+    // Recover 10% extra hp on level up
+    player.stats.hp += Math.round((player.stats.hpMax * 10) / 100);
     playerLoadStats();
 
     // Show popup choices
     lvlupPanel.style.display = "flex";
     combatPanel.style.filter = "brightness(50%)";
     const percentages = {
-        "hp": 10,
+        "hp": 5,
         "atk": 4,
         "def": 4,
         "atkSpd": 2,
