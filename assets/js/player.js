@@ -1,6 +1,5 @@
 let player = JSON.parse(localStorage.getItem("playerData"));
 let inventoryOpen = false;
-let lvlGained = 0;
 let leveled = false;
 const lvlupSelect = document.querySelector("#lvlupSelect");
 const lvlupPanel = document.querySelector("#lvlupPanel");
@@ -15,7 +14,6 @@ const playerExpGain = () => {
     }
     if (leveled) {
         lvlupPopup();
-        leveled = false;
     }
 
     playerLoadStats();
@@ -23,7 +21,6 @@ const playerExpGain = () => {
 
 // Levels up the player
 const playerLvlUp = () => {
-    sfxLvlUp.play();
     leveled = true;
 
     // Calculates the excess exp and the new exp required to level up
@@ -34,14 +31,8 @@ const playerLvlUp = () => {
 
     // Increase player level and maximum exp
     player.lvl++;
-    lvlGained++;
+    player.exp.lvlGained++;
     player.exp.expMax += expMaxIncrease;
-
-    // Calculate stats based on trait then apply it to advanced stats then bring player hp and mp to full
-    calculateStats();
-    player.stats.hp = player.stats.hpMax;
-    playerLoadStats();
-    addCombatLog(`You leveled up! (Lv.${player.lvl - 1} > Lv.${player.lvl})`)
 };
 
 // Refresh the player stats
@@ -77,10 +68,10 @@ const playerLoadStats = () => {
     playerHpElement.innerHTML = `${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)} (${player.stats.hpPercent}%)`;
     playerAtkElement.innerHTML = nFormatter(player.stats.atk);
     playerDefElement.innerHTML = nFormatter(player.stats.def);
-    playerAtkSpdElement.innerHTML = (player.stats.atkSpd).toFixed(1).replace(rx, "$1");
+    playerAtkSpdElement.innerHTML = player.stats.atkSpd.replace(rx, "$1");
     playerVampElement.innerHTML = (player.stats.vamp).toFixed(1).replace(rx, "$1") + "%";
-    playerCrateElement.innerHTML = (player.stats.critRate).toFixed(1).replace(rx, "$1") + "%";
-    playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(1).replace(rx, "$1") + "%";
+    playerCrateElement.innerHTML = (player.stats.critRate).replace(rx, "$1") + "%";
+    playerCdmgElement.innerHTML = (player.stats.critDmg).replace(rx, "$1") + "%";
 };
 
 // Opens inventory
@@ -121,6 +112,14 @@ const continueExploring = () => {
 
 // Shows the level up popup
 const lvlupPopup = () => {
+    sfxLvlUp.play();
+    addCombatLog(`You leveled up! (Lv.${player.lvl - player.exp.lvlGained} > Lv.${player.lvl})`);
+
+    // Fill player hp and load stats
+    player.stats.hp = player.stats.hpMax;
+    playerLoadStats();
+
+    // Show popup choices
     lvlupPanel.style.display = "flex";
     combatPanel.style.filter = "brightness(50%)";
     const percentages = {
@@ -150,7 +149,7 @@ const generateLvlStats = (rerolls, percentages) => {
         lvlupSelect.innerHTML = `
             <h1>Level Up!</h1>
             <div class="content-head">
-                <h4>Remaining: ${lvlGained}</h4>
+                <h4>Remaining: ${player.exp.lvlGained}</h4>
                 <button id="lvlReroll">Reroll ${rerolls}/2</button>
             </div>
         `;
@@ -187,14 +186,19 @@ const generateLvlStats = (rerolls, percentages) => {
                 sfxItem.play();
                 player.bonusStats[selectedStats[i]] += percentages[selectedStats[i]];
 
-                lvlGained--;
-                if (lvlGained > 1) {
+                if (player.exp.lvlGained > 1) {
+                    player.exp.lvlGained--;
                     generateLvlStats(2, percentages);
                 } else {
+                    player.exp.lvlGained = 0;
                     lvlupPanel.style.display = "none";
                     combatPanel.style.filter = "brightness(100%)";
+                    leveled = false;
                 }
+
+
                 playerLoadStats();
+                saveData();
             });
 
             lvlupSelect.appendChild(button);
