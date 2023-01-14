@@ -39,7 +39,6 @@ const hpValidation = () => {
                 critRate: 0,
                 critDmg: 0
             };
-            player.gold = 0;
             dungeon.progress.floor = 1;
             dungeon.progress.room = 1;
             dungeon.status = {
