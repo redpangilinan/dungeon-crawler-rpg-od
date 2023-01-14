@@ -124,10 +124,11 @@ const saveData = () => {
 };
 
 const calculateStats = () => {
+    let equipmentAtkSpd = player.baseStats.atkSpd * (player.equippedStats.atkSpd / 100);
     let playerHpEquip = player.baseStats.hp + player.equippedStats.hp;
     let playerAtkEquip = player.baseStats.atk + player.equippedStats.atk;
     let playerDefEquip = player.baseStats.def + player.equippedStats.def;
-    let playerAtkSpdEquip = player.baseStats.atkSpd + player.equippedStats.atkSpd;
+    let playerAtkSpdEquip = player.baseStats.atkSpd + equipmentAtkSpd + (equipmentAtkSpd * (player.equippedStats.atkSpd / 100));
     let playerVampEquip = player.baseStats.vamp + player.equippedStats.vamp;
     let playerCRateEquip = player.baseStats.critRate + player.equippedStats.critRate;
     let playerCDmgEquip = player.baseStats.critDmg + player.equippedStats.critDmg;
@@ -136,7 +137,7 @@ const calculateStats = () => {
     player.stats.atk = Math.round(playerAtkEquip + playerAtkEquip * (player.bonusStats.atk / 100));
     player.stats.def = Math.round(playerDefEquip + playerDefEquip * (player.bonusStats.def / 100));
     player.stats.atkSpd = playerAtkSpdEquip + playerAtkSpdEquip * (player.bonusStats.atkSpd / 100);
-    player.stats.vamp = Math.round(playerVampEquip + player.bonusStats.vamp);
+    player.stats.vamp = playerVampEquip + player.bonusStats.vamp;
     player.stats.critRate = playerCRateEquip + player.bonusStats.critRate;
     player.stats.critDmg = playerCDmgEquip + player.bonusStats.critDmg;
 };
