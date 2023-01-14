@@ -191,7 +191,7 @@ const setEnemyStats = (type) => {
         }
     }
 
-    // Calculate exp that the monster gives
+    // Calculate exp and gold that the monster gives
     const expYield = [];
 
     for (const stat in enemy.stats) {
@@ -206,7 +206,7 @@ const setEnemyStats = (type) => {
         expYield.push(statExp);
     }
 
-    enemy.rewards.exp = Math.round((expYield.reduce((acc, cur) => acc + cur, 0)) / 12);
+    enemy.rewards.exp = Math.round(((expYield.reduce((acc, cur) => acc + cur, 0)) / 12) * 0.9);
     enemy.rewards.gold = Math.round((enemy.rewards.exp * randomizeDecimal(0.9, 1.1)) * 1.5);
     enemy.rewards.drop = randomizeNum(1, 2);
     if (enemy.rewards.drop == 1) {
@@ -217,6 +217,11 @@ const setEnemyStats = (type) => {
 
     enemy.stats.hp = enemy.stats.hpMax;
     enemy.stats.hpPercent = 100;
+
+    // Caps attack speed to 3
+    if (enemy.stats.atkSpd > 3) {
+        enemy.stats.atkSpd = 3;
+    }
 }
 
 const setEnemyImg = () => {
