@@ -13,7 +13,7 @@ window.addEventListener("load", function () {
         runLoad("dungeon-main", "flex");
         initialDungeonLoad();
         if (player.inCombat) {
-            generateRandomEnemy();
+            enemy = JSON.parse(localStorage.getItem("enemyData"));
             showCombatInfo();
             startCombat();
         }
@@ -40,6 +40,7 @@ window.addEventListener("load", function () {
                         hpMax: null,
                         atk: null,
                         def: null,
+                        pen: null,
                         atkSpd: null,
                         vamp: null,
                         critRate: null,
@@ -49,6 +50,7 @@ window.addEventListener("load", function () {
                         hp: 500,
                         atk: 100,
                         def: 50,
+                        pen: 0,
                         atkSpd: 0.6,
                         vamp: 0,
                         critRate: 0,
@@ -58,6 +60,7 @@ window.addEventListener("load", function () {
                         hp: 0,
                         atk: 0,
                         def: 0,
+                        pen: 0,
                         atkSpd: 0,
                         vamp: 0,
                         critRate: 0,
@@ -65,10 +68,7 @@ window.addEventListener("load", function () {
                         hpPct: 0,
                         atkPct: 0,
                         defPct: 0,
-                        atkSpdPct: 0,
-                        vampPct: 0,
-                        critRatePct: 0,
-                        critDmgPct: 0,
+                        penPct: 0,
                     },
                     bonusStats: {
                         hp: 0,
@@ -112,12 +112,16 @@ const runLoad = (id, display) => {
         loader.style.display = "none";
         document.querySelector(`#${id}`).style.display = `${display}`;
     }, 1000);
-}
+};
 
 const saveData = () => {
-    let playerData = JSON.stringify(player);
+    const playerData = JSON.stringify(player);
+    const dungeonData = JSON.stringify(dungeon);
+    const enemyData = JSON.stringify(enemy);
     localStorage.setItem("playerData", playerData);
-}
+    localStorage.setItem("dungeonData", dungeonData);
+    localStorage.setItem("enemyData", enemyData);
+};
 
 const calculateStats = () => {
     let playerHpEquip = player.baseStats.hp + player.equippedStats.hp;
