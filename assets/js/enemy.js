@@ -181,7 +181,7 @@ const setEnemyStats = (type) => {
         if (["hpMax", "atk", "def"].includes(stat)) {
             enemy.stats[stat] += Math.round(enemy.stats[stat] * ((dungeon.settings.enemyScaling - 1) * enemy.lvl));
         } else if (["atkSpd", "critRate", "critDmg"].includes(stat)) {
-            enemy.stats[stat] += Math.round(enemy.stats[stat] * (((dungeon.settings.enemyScaling - 1) / 4) * enemy.lvl));
+            enemy.stats[stat] += enemy.stats[stat] * (((dungeon.settings.enemyScaling - 1) / 4) * enemy.lvl);
         }
     }
 
