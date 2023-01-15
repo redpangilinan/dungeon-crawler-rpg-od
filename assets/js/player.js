@@ -78,14 +78,46 @@ const openInventory = () => {
     sfxOpen.play();
 
     dungeon.status.exploring = false;
-    let scroll = document.querySelector('#playerInventory')
-    scroll.scrollBottom - scroll.clientHeight;
-
     inventoryOpen = true;
     let openInv = document.querySelector('#inventory');
     let dimDungeon = document.querySelector('#dungeon-main');
     openInv.style.display = "flex";
     dimDungeon.style.filter = "brightness(50%)";
+
+    sellAllElement.onclick = function () {
+        sfxOpen.play();
+        openInv.style.filter = "brightness(50%)";
+        let rarity = sellRarityElement.value;
+
+        defaultModalElement.style.display = "flex";
+        defaultModalElement.innerHTML = `
+        <div class="content">
+            <p>Sell all <span class="${rarity}">${rarity}</span> equipment?</p>
+            <div class="button-container">
+                <button id="sell-confirm">Sell All</button>
+                <button id="sell-cancel">Cancel</button>
+            </div>
+        </div>`;
+        let confirm = document.querySelector('#sell-confirm');
+        let cancel = document.querySelector('#sell-cancel');
+        confirm.onclick = function () {
+            sellAll(rarity);
+            defaultModalElement.style.display = "none";
+            defaultModalElement.innerHTML = "";
+            openInv.style.filter = "brightness(100%)";
+        };
+        cancel.onclick = function () {
+            sfxDecline.play();
+            defaultModalElement.style.display = "none";
+            defaultModalElement.innerHTML = "";
+            openInv.style.filter = "brightness(100%)";
+        };
+    };
+    sellRarityElement.onclick = function () {
+        sfxOpen.play();
+        let rarity = sellRarityElement.value;
+        sellRarityElement.className = rarity;
+    };
 };
 
 // Closes inventory
