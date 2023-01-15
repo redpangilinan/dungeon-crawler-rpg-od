@@ -158,7 +158,7 @@ const createEquipment = () => {
             equipment.stats.push({ [statType]: statValue });
         }
     }
-    equipment.value = Math.round(equipmentValue);
+    equipment.value = Math.round(equipmentValue * 2);
     player.inventory.equipment.push(JSON.stringify(equipment));
 
     saveData();
@@ -273,22 +273,48 @@ const showItemInfo = (item, icon, type, i) => {
     // Sell equipment
     let sell = document.querySelector("#sell-equip");
     sell.onclick = function () {
-        sfxSell.play();
+        sfxOpen.play();
+        itemInfo.style.filter = "brightness(50%)";
+        defaultModalElement.style.display = "flex";
+        defaultModalElement.innerHTML = `
+        <div class="content">
+            <p>Sell <span class="${item.rarity}">${icon}${item.rarity} ${item.category}</span>?</p>
+            <div class="button-container">
+                <button id="sell-confirm">Sell</button>
+                <button id="sell-cancel">Cancel</button>
+            </div>
+        </div>`;
 
-        // Sell the equipment
-        if (type == "Equip") {
-            player.gold += item.value;
-            player.inventory.equipment.splice(i, 1);
-        } else if (type == "Unequip") {
-            player.gold += item.value;
-            player.equipped.splice(i, 1);
+        let confirm = document.querySelector("#sell-confirm");
+        let cancel = document.querySelector("#sell-cancel");
+        confirm.onclick = function () {
+            sfxSell.play();
+
+            // Sell the equipment
+            if (type == "Equip") {
+                player.gold += item.value;
+                player.inventory.equipment.splice(i, 1);
+            } else if (type == "Unequip") {
+                player.gold += item.value;
+                player.equipped.splice(i, 1);
+            }
+
+            defaultModalElement.style.display = "none";
+            defaultModalElement.innerHTML = "";
+            itemInfo.style.filter = "brightness(100%)";
+            itemInfo.style.display = "none";
+            dimContainer.style.filter = "brightness(100%)";
+            playerLoadStats();
+            saveData();
+            continueExploring();
         }
-
-        itemInfo.style.display = "none";
-        dimContainer.style.filter = "brightness(100%)";
-        playerLoadStats();
-        saveData();
-        continueExploring();
+        cancel.onclick = function () {
+            sfxDecline.play();
+            defaultModalElement.style.display = "none";
+            defaultModalElement.innerHTML = "";
+            itemInfo.style.filter = "brightness(100%)";
+            continueExploring();
+        }
     };
 
     // Close item info
