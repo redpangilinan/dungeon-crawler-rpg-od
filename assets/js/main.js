@@ -112,6 +112,8 @@ window.addEventListener("load", function () {
     // Unequip all items
     document.querySelector("#unequip-all").addEventListener("click", function () {
         sfxOpen.play();
+
+        dungeon.status.exploring = false;
         let dimDungeon = document.querySelector('#dungeon-main');
         dimDungeon.style.filter = "brightness(50%)";
         defaultModalElement.style.display = "flex";
@@ -128,12 +130,14 @@ window.addEventListener("load", function () {
         confirm.onclick = function () {
             sfxUnequip.play();
             unequipAll();
+            continueExploring();
             defaultModalElement.style.display = "none";
             defaultModalElement.innerHTML = "";
             dimDungeon.style.filter = "brightness(100%)";
         };
         cancel.onclick = function () {
             sfxDecline.play();
+            continueExploring();
             defaultModalElement.style.display = "none";
             defaultModalElement.innerHTML = "";
             dimDungeon.style.filter = "brightness(100%)";
