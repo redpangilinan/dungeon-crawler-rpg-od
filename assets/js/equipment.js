@@ -40,7 +40,7 @@ const createEquipment = () => {
         "Rare": 0.04,
         "Epic": 0.03,
         "Legendary": 0.02,
-        "Mythical": 0.01
+        "Heirloom": 0.01
     };
 
     const randomNumber = Math.random();
@@ -72,7 +72,7 @@ const createEquipment = () => {
         case "Legendary":
             loopCount = 6;
             break;
-        case "Mythical":
+        case "Heirloom":
             loopCount = 8;
             break;
     }
@@ -82,18 +82,22 @@ const createEquipment = () => {
     const damageyStats = ["atk", "atk", "critRate", "critDmg", "critDmg"];
     const speedyStats = ["atkSpd", "atkSpd", "vamp", "critRate", "critDmg"];
     const defenseStats = ["hp", "hp", "def", "def", "atk"];
+    const dmgDefStats = ["hp", "def", "atk", "atk", "critRate", "critDmg"];
     let statTypes;
     if (equipment.attribute == "Damage") {
-        if (equipment.category == "Axe" || equipment.category == "Scythe" || equipment.category == "Hammer") {
+        if (equipment.category == "Axe" || equipment.category == "Scythe") {
             statTypes = damageyStats;
         } else if (equipment.category == "Dagger" || equipment.category == "Flail") {
             statTypes = speedyStats;
+        } else if (equipment.category == "Hammer") {
+            statTypes = dmgDefStats;
         } else {
             statTypes = physicalStats;
         }
     } else if (equipment.attribute == "Defense") {
         statTypes = defenseStats;
     }
+    let equipmentValue = 0;
     for (let i = 0; i < loopCount; i++) {
         let statType = statTypes[Math.floor(Math.random() * statTypes.length)];
 
@@ -102,25 +106,33 @@ const createEquipment = () => {
         const minLvl = maxLvl - (dungeon.settings.enemyLvlGap - 1);
         equipment.lvl = randomizeNum(minLvl, maxLvl);
         let statMultiplier = (dungeon.settings.enemyScaling - 1) * equipment.lvl;
-        let hpScaling = (20 * randomizeDecimal(0.5, 1.5)) + ((20 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
-        let atkDefScaling = (5 * randomizeDecimal(0.5, 1.5)) + ((5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let hpScaling = (25 * randomizeDecimal(0.5, 1.5)) + ((25 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let atkDefScaling = (10 * randomizeDecimal(0.5, 1.5)) + ((6 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let cdAtkSpdScaling = (3 * randomizeDecimal(0.5, 1.5)) + ((3 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let crVampScaling = (1.2 * randomizeDecimal(0.5, 1.5)) + ((1.2 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
 
-
-        // Set randomized numbers to respective stats
+        // Set randomized numbers to respective stats and increment sell value
         if (statType === "hp") {
             statValue = randomizeNum(hpScaling * 0.5, hpScaling);
+            equipmentValue += statValue;
         } else if (statType === "atk") {
             statValue = randomizeNum(atkDefScaling * 0.5, atkDefScaling);
+            equipmentValue += statValue * 2.5;
         } else if (statType === "def") {
             statValue = randomizeNum(atkDefScaling * 0.5, atkDefScaling);
+            equipmentValue += statValue * 2.5;
         } else if (statType === "atkSpd") {
-            statValue = randomizeDecimal(1, 3);
+            statValue = randomizeDecimal(cdAtkSpdScaling * 0.5, cdAtkSpdScaling);
+            equipmentValue += statValue * 8.33;
         } else if (statType === "vamp") {
-            statValue = randomizeDecimal(1, 2);
+            statValue = randomizeDecimal(crVampScaling * 0.5, crVampScaling);
+            equipmentValue += statValue * 20.83;
         } else if (statType === "critRate") {
-            statValue = randomizeDecimal(0.4, 1.5);
+            statValue = randomizeDecimal(crVampScaling * 0.5, crVampScaling);
+            equipmentValue += statValue * 20.83;
         } else if (statType === "critDmg") {
-            statValue = randomizeDecimal(1, 2);
+            statValue = randomizeDecimal(cdAtkSpdScaling * 0.5, cdAtkSpdScaling);
+            equipmentValue += statValue * 8.33;
         }
 
         // Check if stat type already exists in stats array
@@ -141,12 +153,12 @@ const createEquipment = () => {
                 }
             }
         }
-
         // If stat type does not exist, add new stat to stats array
         else {
             equipment.stats.push({ [statType]: statValue });
         }
     }
+    equipment.value = Math.round(equipmentValue);
     player.inventory.equipment.push(JSON.stringify(equipment));
 
     saveData();
@@ -218,7 +230,7 @@ const showItemInfo = (item, icon, type, i) => {
                 </ul>
                 <div class="button-container">
                     <button id="un-equip">${type}</button>
-                    <button id="discard">Discard</button>
+                    <button id="sell-equip"><i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(item.value)}</button>
                     <button id="close-item-info">Close</button>
                 </div>
             </div>`;
@@ -349,4 +361,40 @@ const applyEquipmentStats = () => {
         });
     }
     calculateStats();
+}
+
+const unequipAll = () => {
+    for (let i = player.equipped.length - 1; i >= 0; i--) {
+        const item = player.equipped[i];
+        player.equipped.splice(i, 1);
+        player.inventory.equipment.push(JSON.stringify(item));
+    }
+    playerLoadStats();
+    saveData();
+}
+
+const sellAll = (rarity) => {
+    let rarityCheck = false;
+    for (let i = 0; i < player.inventory.equipment.length; i++) {
+        const equipment = JSON.parse(player.inventory.equipment[i]);
+        if (equipment.rarity === rarity) {
+            rarityCheck = true;
+            break;
+        }
+    }
+    if (rarityCheck) {
+        sfxSell.play();
+        for (let i = 0; i < player.inventory.equipment.length; i++) {
+            const equipment = JSON.parse(player.inventory.equipment[i]);
+            if (equipment.rarity === rarity) {
+                player.gold += equipment.value;
+                player.inventory.equipment.splice(i, 1);
+                i--;
+            }
+        }
+        playerLoadStats();
+        saveData();
+    } else {
+        sfxDeny.play();
+    }
 }
