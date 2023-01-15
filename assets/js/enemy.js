@@ -39,7 +39,9 @@ const generateRandomEnemy = (condition) => {
         // Spider
         'Spider', 'Red Spider', 'Green Spider',
         // Skeleton
-        'Skeleton Archer', 'Skeleton Swordsmaster', 'Skeleton Knight', 'Skeleton Mage', 'Skeleton Pirate', 'Skeleton Samurai', 'Skeleton Warrior'
+        'Skeleton Archer', 'Skeleton Swordsmaster', 'Skeleton Knight', 'Skeleton Mage', 'Skeleton Pirate', 'Skeleton Samurai', 'Skeleton Warrior',
+        // Bosses
+        'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Cerberus Ptolemaios', 'Hellhound Inferni', 'Berthelot, the Undead King', 'Slime King', 'Zodiac Cancer', 'Alfadriel, the Light Titan', 'Tiamat, the Dragon Knight', 'Nameless Fallen King', 'Zodiac Aries', 'Yishar, Spider of the Dark', 'Llyrrad, the Ant Queen', 'Clockwork Spider', 'Aragorn, the Lethal Wolf'
     ];
     const enemyTypes = ['Offensive', 'Defensive', 'Balanced', 'Quick', 'Lethal'];
     let selectedEnemies = null;
@@ -60,118 +62,104 @@ const generateRandomEnemy = (condition) => {
     switch (enemy.type) {
         case "Offensive":
             // Select name and apply stats for Offensive enemies
-            selectedEnemies = enemyNames.filter(name => [
-                'Goblin Mage', 'Goblin Archer',
-                'Wolf', 'Black Wolf', 'Winter Wolf',
-                'Knight Slime',
-                'Orc Swordsmaster', 'Orc Axe', 'Orc Archer', 'Orc Mage',
-                'Red Spider',
-                'Skeleton Archer', 'Skeleton Swordsmaster', 'Skeleton Mage', 'Skeleton Pirate', 'Skeleton Samurai',
-            ].includes(name));
+            if (condition == "guardian") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Cerberus Ptolemaios', 'Hellhound Inferni', 'Berthelot, the Undead King'
+                ].includes(name));
+            } else {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Goblin Mage', 'Goblin Archer',
+                    'Wolf', 'Black Wolf', 'Winter Wolf',
+                    'Knight Slime',
+                    'Orc Swordsmaster', 'Orc Axe', 'Orc Archer', 'Orc Mage',
+                    'Red Spider',
+                    'Skeleton Archer', 'Skeleton Swordsmaster', 'Skeleton Mage', 'Skeleton Pirate', 'Skeleton Samurai',
+                ].includes(name));
+            }
             enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-            setEnemyStats(enemy.type);
+            setEnemyStats(enemy.type, condition);
             break;
         case "Defensive":
             // Select name and apply stats for Defensive enemies
-            selectedEnemies = enemyNames.filter(name => [
-                'Angel Slime', 'Knight Slime', 'Crusader Slime',
-                'Green Spider',
-                'Skeleton Knight', 'Skeleton Warrior'
-            ].includes(name));
+            if (condition == "guardian") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Slime King', 'Zodiac Cancer', 'Alfadriel, the Light Titan'
+                ].includes(name));
+            } else {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Angel Slime', 'Knight Slime', 'Crusader Slime',
+                    'Green Spider',
+                    'Skeleton Knight', 'Skeleton Warrior'
+                ].includes(name));
+            }
             enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-            setEnemyStats(enemy.type);
+            setEnemyStats(enemy.type, condition);
             break;
         case "Balanced":
             // Select name and apply stats for Balanced enemies
-            selectedEnemies = enemyNames.filter(name => [
-                'Goblin',
-                'Slime', 'Angel Slime', 'Knight Slime',
-                'Orc Swordsmaster', 'Orc Axe', 'Orc Archer', 'Orc Mage',
-                'Spider',
-                'Skeleton Knight', 'Skeleton Warrior'
-            ].includes(name));
+            if (condition == "guardian") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Tiamat, the Dragon Knight', 'Nameless Fallen King', 'Zodiac Aries'
+                ].includes(name));
+            } else {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Goblin',
+                    'Slime', 'Angel Slime', 'Knight Slime',
+                    'Orc Swordsmaster', 'Orc Axe', 'Orc Archer', 'Orc Mage',
+                    'Spider',
+                    'Skeleton Knight', 'Skeleton Warrior'
+                ].includes(name));
+            }
             enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-            setEnemyStats(enemy.type);
+            setEnemyStats(enemy.type, condition);
             break;
         case "Quick":
             // Select name and apply stats for Quick enemies
-            selectedEnemies = enemyNames.filter(name => [
-                'Goblin', 'Goblin Rogue', 'Goblin Archer',
-                'Wolf', 'Black Wolf', 'Winter Wolf',
-                'Orc Swordsmaster',
-                'Spider', 'Red Spider', 'Green Spider',
-                'Skeleton Swordsmaster', 'Skeleton Pirate', 'Skeleton Samurai'
-            ].includes(name));
+            if (condition == "guardian") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Yishar, Spider of the Dark', 'Llyrrad, the Ant Queen', 'Clockwork Spider'
+                ].includes(name));
+            } else {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Goblin', 'Goblin Rogue', 'Goblin Archer',
+                    'Wolf', 'Black Wolf', 'Winter Wolf',
+                    'Orc Swordsmaster',
+                    'Spider', 'Red Spider', 'Green Spider',
+                    'Skeleton Swordsmaster', 'Skeleton Pirate', 'Skeleton Samurai'
+                ].includes(name));
+            }
             enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-            setEnemyStats(enemy.type);
+            setEnemyStats(enemy.type, condition);
             break;
         case "Lethal":
             // Select name and apply stats for Lethal enemies
-            selectedEnemies = enemyNames.filter(name => [
-                'Goblin Rogue',
-                'Wolf', 'Black Wolf', 'Winter Wolf',
-                'Orc Swordsmaster', 'Orc Axe',
-                'Red Spider',
-                'Skeleton Swordsmaster', 'Skeleton Samurai'
-            ].includes(name));
+            if (condition == "guardian") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Aragorn, the Lethal Wolf'
+                ].includes(name));
+            } else {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Goblin Rogue',
+                    'Wolf', 'Black Wolf', 'Winter Wolf',
+                    'Orc Swordsmaster', 'Orc Axe',
+                    'Red Spider',
+                    'Skeleton Swordsmaster', 'Skeleton Samurai'
+                ].includes(name));
+            }
             enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-            setEnemyStats(enemy.type);
+            setEnemyStats(enemy.type, condition);
             break;
     }
     if (condition == "chest") {
         enemy.name = "Mimic";
     } else if (condition == "door") {
         enemy.name = "Door Mimic";
-    } else if (condition == "guardian") {
-        // Generate Boss
-        switch (enemy.type) {
-            case "Offensive":
-                // Select name and apply stats for Offensive enemies
-                selectedEnemies = enemyNames.filter(name => [
-                    'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Cerberus Ptolemaios', 'Hellhound Inferni', 'Berthelot, the Undead King'
-                ].includes(name));
-                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-                setEnemyStats(enemy.type);
-                break;
-            case "Defensive":
-                // Select name and apply stats for Defensive enemies
-                selectedEnemies = enemyNames.filter(name => [
-                    'Slime King', 'Zodiac Cancer', 'Alfadriel, the Light Titan'
-                ].includes(name));
-                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-                setEnemyStats(enemy.type);
-                break;
-            case "Balanced":
-                // Select name and apply stats for Balanced enemies
-                selectedEnemies = enemyNames.filter(name => [
-                    'Tiamat, the Dragon Knight', 'Nameless Fallen King', 'Zodiac Aries'
-                ].includes(name));
-                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-                setEnemyStats(enemy.type);
-                break;
-            case "Quick":
-                // Select name and apply stats for Quick enemies
-                selectedEnemies = enemyNames.filter(name => [
-                    'Yishar, Spider of the Dark', 'Llyrrad, the Ant Queen', 'Clockwork Spider'
-                ].includes(name));
-                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-                setEnemyStats(enemy.type);
-                break;
-            case "Lethal":
-                // Select name and apply stats for Lethal enemies
-                selectedEnemies = enemyNames.filter(name => [
-                    'Aragorn, the Lethal Wolf',
-                ].includes(name));
-                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
-                setEnemyStats(enemy.type);
-                break;
-        }
-        setEnemyImg();
     }
+    setEnemyImg();
 }
 
 // Set a randomly generated stat for the enemy
-const setEnemyStats = (type) => {
+const setEnemyStats = (type, condition) => {
     if (type == "Offensive") {
         enemy.stats = {
             hp: 0,
