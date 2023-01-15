@@ -41,7 +41,7 @@ const generateRandomEnemy = (condition) => {
         // Skeleton
         'Skeleton Archer', 'Skeleton Swordsmaster', 'Skeleton Knight', 'Skeleton Mage', 'Skeleton Pirate', 'Skeleton Samurai', 'Skeleton Warrior',
         // Bosses
-        'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Cerberus Ptolemaios', 'Hellhound Inferni', 'Berthelot, the Undead King', 'Slime King', 'Zodiac Cancer', 'Alfadriel, the Light Titan', 'Tiamat, the Dragon Knight', 'Nameless Fallen King', 'Zodiac Aries', 'Yishar, Spider of the Dark', 'Llyrrad, the Ant Queen', 'Clockwork Spider', 'Aragorn, the Lethal Wolf'
+        'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Cerberus Ptolemaios', 'Hellhound Inferni', 'Berthelot, the Undead King', 'Slime King', 'Zodiac Cancer', 'Alfadriel, the Light Titan', 'Tiamat, the Dragon Knight', 'Nameless Fallen King', 'Zodiac Aries', 'Llyrrad, the Ant Queen', 'Clockwork Spider', 'Aragorn, the Lethal Wolf'
     ];
     const enemyTypes = ['Offensive', 'Defensive', 'Balanced', 'Quick', 'Lethal'];
     let selectedEnemies = null;
@@ -117,7 +117,7 @@ const generateRandomEnemy = (condition) => {
             // Select name and apply stats for Quick enemies
             if (condition == "guardian") {
                 selectedEnemies = enemyNames.filter(name => [
-                    'Yishar, Spider of the Dark', 'Llyrrad, the Ant Queen', 'Clockwork Spider'
+                    'Llyrrad, the Ant Queen', 'Clockwork Spider'
                 ].includes(name));
             } else {
                 selectedEnemies = enemyNames.filter(name => [
@@ -436,6 +436,10 @@ const setEnemyImg = () => {
             enemy.image.name = 'zodiac_cancer';
             enemy.image.size = '50%';
             break;
+        case 'Alfadriel, the Light Titan':
+            enemy.image.name = 'alfadriel';
+            enemy.image.size = '50%';
+            break;
         case 'Tiamat, the Dragon Knight':
             enemy.image.name = 'tiamat';
             enemy.image.size = '50%';
@@ -446,10 +450,6 @@ const setEnemyImg = () => {
             break;
         case 'Zodiac Aries':
             enemy.image.name = 'zodiac_aries';
-            enemy.image.size = '50%';
-            break;
-        case 'Yishar, Spider of the Dark':
-            enemy.image.name = 'spider_spirit';
             enemy.image.size = '50%';
             break;
         case 'Clockwork Spider':
