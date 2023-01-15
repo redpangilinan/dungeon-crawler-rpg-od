@@ -14,7 +14,7 @@ window.addEventListener("load", function () {
         if (player.inCombat) {
             enemy = JSON.parse(localStorage.getItem("enemyData"));
             showCombatInfo();
-            startCombat();
+            startCombat(bgmBattleMain);
         } else {
             bgmDungeon.play();
         }
