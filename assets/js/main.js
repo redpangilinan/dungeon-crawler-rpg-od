@@ -108,6 +108,37 @@ window.addEventListener("load", function () {
             }
         }
     });
+
+    // Unequip all items
+    document.querySelector("#unequip-all").addEventListener("click", function () {
+        sfxOpen.play();
+        let dimDungeon = document.querySelector('#dungeon-main');
+        dimDungeon.style.filter = "brightness(50%)";
+        defaultModalElement.style.display = "flex";
+        defaultModalElement.innerHTML = `
+        <div class="content">
+            <p>Unequip all your items?</p>
+            <div class="button-container">
+                <button id="unequip-confirm">Unequip</button>
+                <button id="unequip-cancel">Cancel</button>
+            </div>
+        </div>`;
+        let confirm = document.querySelector('#unequip-confirm');
+        let cancel = document.querySelector('#unequip-cancel');
+        confirm.onclick = function () {
+            sfxUnequip.play();
+            unequipAll();
+            defaultModalElement.style.display = "none";
+            defaultModalElement.innerHTML = "";
+            dimDungeon.style.filter = "brightness(100%)";
+        };
+        cancel.onclick = function () {
+            sfxDecline.play();
+            defaultModalElement.style.display = "none";
+            defaultModalElement.innerHTML = "";
+            dimDungeon.style.filter = "brightness(100%)";
+        };
+    });
 });
 
 const runLoad = (id, display) => {
