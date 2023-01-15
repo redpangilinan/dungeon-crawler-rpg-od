@@ -11,7 +11,7 @@ let dungeon = {
         floor: 1,
         room: 1,
         floorLimit: 100,
-        roomLimit: 10,
+        roomLimit: 5,
     },
     settings: {
         enemyBaseLvl: 1,
@@ -35,7 +35,6 @@ let dungeon = {
 // ===== Dungeon Setup =====
 // Sets up the initial dungeon
 const initialDungeonLoad = () => {
-    bgmDungeon.play();
     if (localStorage.getItem("dungeonData") !== null) {
         dungeon = JSON.parse(localStorage.getItem("dungeonData"));
         dungeon.status = {
@@ -100,6 +99,7 @@ const loadDungeonProgress = () => {
 const dungeonEvent = () => {
     if (dungeon.status.exploring && !dungeon.status.event) {
         dungeon.action++;
+        let choices;
         let eventTypes = ["blessing", "trap", "enemy", "shop"];
         if (dungeon.action > 5) {
             eventTypes.push("nextroom");
@@ -111,29 +111,71 @@ const dungeonEvent = () => {
         switch (event) {
             case "nextroom":
                 dungeon.status.event = true;
-                let choices = `
+                choices = `
                 <div class="decision-panel">
-                    <button id="choice1">Go to next room</button>
-                    <button id="choice2">Stay</button>
+                    <button id="choice1">Enter the room</button>
+                    <button id="choice2">Ignore</button>
                 </div>`;
-                addDungeonLog("You found the door to the next room.", choices);
+                addDungeonLog("You found a door.", choices);
 
-                document.querySelector("#choice1").addEventListener("click", function () {
+                document.querySelector("#choice1").onclick = function () {
+                    sfxConfirm.play();
+                    let eventRoll = randomizeNum(1, 3);
+                    if (eventRoll == 1) {
+                        dungeon.action = 0;
+                        generateRandomEnemy("door");
+                        showCombatInfo();
+                        startCombat();
+                        addCombatLog(`You got ambushed by ${enemy.name}.`);
+                        addDungeonLog(`You got ambushed by ${enemy.name}.`)
+                    } else if (eventRoll == 2) {
+                        dungeon.action = 0;
+                        loadDungeonProgress();
+                        choices = `
+                        <div class="decision-panel">
+                            <button id="choice1">Open the chest</button>
+                            <button id="choice2">Ignore</button>
+                        </div>`;
+                        addDungeonLog(`The room led to a treasure chamber. You found a <i class="fa fa-toolbox"></i>Chest inside.`, choices);
+                        document.querySelector("#choice1").onclick = function () {
+                            let eventRoll = randomizeNum(1, 2);
+                            if (eventRoll == 1) {
+                                generateRandomEnemy("chest");
+                                showCombatInfo();
+                                startCombat();
+                                addCombatLog(`You got ambushed by ${enemy.name}.`);
+                                addDungeonLog(`You got ambushed by ${enemy.name}.`)
+                            } else {
+                                sfxConfirm.play();
+                                if (dungeon.progress.floor == 1) {
+                                    addDungeonLog("The chest is empty.");
+                                } else {
+                                    let eventRoll = randomizeNum(1, 2);
+                                    if (eventRoll == 1) {
+                                        let itemDrop = createEquipment();
+                                        addDungeonLog(`You got ${itemDrop}.`)
+                                    } else {
+                                        addDungeonLog("The chest is empty.");
+                                    }
+                                }
+                                dungeon.status.event = false;
+                            }
+                        }
+                    } else {
+                        dungeon.status.event = false;
+                        dungeon.progress.room++;
+                        dungeon.action = 0;
+                        loadDungeonProgress();
+                        addDungeonLog("You moved to the next room.");
+                    }
+                };
+                document.querySelector("#choice2").onclick = function () {
                     sfxConfirm.play();
 
                     dungeon.status.event = false;
-                    dungeon.progress.room++;
                     dungeon.action = 0;
-                    loadDungeonProgress();
-                    addDungeonLog("You moved to the next room.");
-                });
-                document.querySelector("#choice2").addEventListener("click", function () {
-                    sfxConfirm.play();
-
-                    dungeon.status.event = false;
-                    dungeon.action = 0;
-                    addDungeonLog("You decided to stay.");
-                });
+                    addDungeonLog("You ignored it and decided to move on.");
+                };
                 break;
             case "blessing":
                 addDungeonLog("You encountered a blessing.");
@@ -142,10 +184,36 @@ const dungeonEvent = () => {
                 addDungeonLog("You encountered a trap.");
                 break;
             case "enemy":
-                addDungeonLog("You encountered an enemy.");
+                dungeon.status.event = true;
+                choices = `
+                <div class="decision-panel">
+                    <button id="choice1">Engage</button>
+                    <button id="choice2">Flee</button>
+                </div>`;
                 generateRandomEnemy();
-                showCombatInfo();
-                startCombat();
+                addDungeonLog(`You encountered ${enemy.name}.`, choices);
+                player.inCombat = true;
+                document.querySelector("#choice1").onclick = function () {
+                    showCombatInfo();
+                    startCombat();
+                    addCombatLog(`You encountered ${enemy.name}.`);
+                    updateDungeonLog();
+                }
+                document.querySelector("#choice2").onclick = function () {
+                    let eventRoll = randomizeNum(1, 2);
+                    if (eventRoll == 1) {
+                        sfxConfirm.play();
+                        addDungeonLog(`You managed to flee.`);
+                        player.inCombat = false;
+                        dungeon.status.event = false;
+                    } else {
+                        addDungeonLog(`You failed to escape!`);
+                        showCombatInfo();
+                        startCombat();
+                        addCombatLog(`You encountered ${enemy.name}.`);
+                        addCombatLog(`You failed to escape!`);
+                    }
+                }
                 break;
             case "shop":
                 addDungeonLog("You encountered a shop.");
