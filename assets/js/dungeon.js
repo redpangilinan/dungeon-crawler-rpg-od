@@ -124,8 +124,7 @@ const dungeonEvent = () => {
                 document.querySelector("#choice1").onclick = function () {
                     sfxConfirm.play();
                     if (dungeon.progress.room == dungeon.progress.roomLimit) {
-                        dungeon.progress.room++;
-                        dungeon.action = 0;
+                        incrementRoom();
                         generateRandomEnemy("guardian");
                         showCombatInfo();
                         startCombat(bgmBattleGuardian);
@@ -134,17 +133,14 @@ const dungeonEvent = () => {
                     } else {
                         let eventRoll = randomizeNum(1, 3);
                         if (eventRoll == 1) {
-                            dungeon.progress.room++;
-                            dungeon.action = 0;
+                            incrementRoom();
                             generateRandomEnemy("door");
                             showCombatInfo();
                             startCombat(bgmBattleMain);
                             addCombatLog(`You got ambushed by ${enemy.name}.`);
                             addDungeonLog("You moved to the next floor.");
                         } else if (eventRoll == 2) {
-                            dungeon.progress.room++;
-                            dungeon.action = 0;
-                            loadDungeonProgress();
+                            incrementRoom();
                             choices = `
                             <div class="decision-panel">
                                 <button id="choice1">Open the chest</button>
@@ -178,9 +174,7 @@ const dungeonEvent = () => {
 
                         } else {
                             dungeon.status.event = false;
-                            dungeon.progress.room++;
-                            dungeon.action = 0;
-                            loadDungeonProgress();
+                            incrementRoom();
                             addDungeonLog("You moved to the next room.");
                         }
                     }
@@ -310,3 +304,10 @@ const addDungeonLog = (message, choices) => {
     dungeon.backlog.push(message);
     updateDungeonLog(choices);
 };
+
+// Dungeon Progression
+const incrementRoom = () => {
+    dungeon.progress.room++;
+    dungeon.action = 0;
+    loadDungeonProgress();
+}
