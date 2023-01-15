@@ -101,7 +101,7 @@ const dungeonEvent = () => {
         dungeon.action++;
         let choices;
         let eventTypes = ["treasure", "enemy", "enemy", "nothing", "nothing", "nothing", "nothing"];
-        if (dungeon.action > 2) {
+        if (dungeon.action > 2 && dungeon.action < 6) {
             eventTypes.push("nextroom");
         } else if (dungeon.action > 5) {
             eventTypes = ["nextroom"];
