@@ -11,6 +11,10 @@
     user-select: none;
 }
 
+*:focus {
+    outline: none;
+}
+
 h1 {
     font-size: 2em;
 }
@@ -51,6 +55,30 @@ i {
 
 input {
     font-size: 1rem;
+}
+
+select {
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    padding: 0.4rem;
+    background: transparent;
+    border: solid 1px white;
+    color: white;
+    border-radius: 0.3rem;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    -ms-border-radius: 0.3rem;
+    -o-border-radius: 0.3rem;
+    text-indent: 1px;
+    text-overflow: '';
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+option {
+    background-color: #030303;
 }
 
 img {
@@ -219,7 +247,7 @@ button:focus {
     color: #ffd700;
 }
 
-.Mythical {
+.Heirloom {
     color: #e30b5c;
 }
 
@@ -284,8 +312,10 @@ button:focus {
 /* Inventory */
 #inventory .content {
     padding: 0;
+    gap: 0;
     height: 30rem;
     min-width: 15rem;
+
 }
 
 .content .content-head {
@@ -293,6 +323,7 @@ button:focus {
     justify-content: space-between;
     align-items: center;
     padding: 0.4em 0.7em;
+    gap: 0.3rem;
 }
 
 .content .content-head i {
@@ -475,9 +506,7 @@ header button i {
     -o-border-radius: 0.3rem;
     width: 100%;
     padding: 0.5rem;
-    overflow: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    overflow: hidden;
 }
 
 .stat-panel .box::-webkit-scrollbar {
@@ -493,6 +522,22 @@ header button i {
     display: flex;
     gap: 1rem;
     margin: 0.5rem;
+}
+
+/* Box Header */
+.box-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+.box-head i {
+    margin: 0;
+}
+
+.box-head p:hover {
+    cursor: pointer;
 }
 
 /* loader */
