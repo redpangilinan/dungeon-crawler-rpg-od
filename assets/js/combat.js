@@ -158,10 +158,10 @@ const updateCombatLog = () => {
 // Combat Timer
 let combatSeconds = 0;
 
-const startCombat = () => {
+const startCombat = (battleMusic) => {
     bgmDungeon.pause();
     sfxEncounter.play();
-    bgmBattleMain.play();
+    battleMusic.play();
     player.inCombat = true;
 
     // Starts the timer for player and enemy attacks along with combat timer
@@ -181,6 +181,8 @@ const startCombat = () => {
 
 const endCombat = () => {
     bgmBattleMain.stop();
+    bgmBattleGuardian.stop();
+    bgmBattleBoss.stop();
     sfxCombatEnd.play();
     player.inCombat = false;
 
