@@ -237,7 +237,7 @@ const showItemInfo = (item, icon, type, i) => {
 
     // Equip/Unequip button for the item
     let unEquip = document.querySelector("#un-equip");
-    unEquip.addEventListener('click', function () {
+    unEquip.onclick = function () {
         if (type == "Equip") {
             // Remove the item from the inventory and add it to the equipment
             if (player.equipped.length >= 6) {
@@ -259,25 +259,47 @@ const showItemInfo = (item, icon, type, i) => {
             sfxUnequip.play();
 
             // Remove the item from the equipment and add it to the inventory
-            itemInfo.style.display = "none";
-            dimContainer.style.filter = "brightness(100%)";
             player.equipped.splice(i, 1);
             player.inventory.equipment.push(JSON.stringify(item));
+
+            itemInfo.style.display = "none";
+            dimContainer.style.filter = "brightness(100%)";
             playerLoadStats();
             saveData();
             continueExploring();
         }
-    });
+    };
+
+    // Sell equipment
+    let sell = document.querySelector("#sell-equip");
+    sell.onclick = function () {
+        sfxSell.play();
+
+        // Sell the equipment
+        if (type == "Equip") {
+            player.gold += item.value;
+            player.inventory.equipment.splice(i, 1);
+        } else if (type == "Unequip") {
+            player.gold += item.value;
+            player.equipped.splice(i, 1);
+        }
+
+        itemInfo.style.display = "none";
+        dimContainer.style.filter = "brightness(100%)";
+        playerLoadStats();
+        saveData();
+        continueExploring();
+    };
 
     // Close item info
     let close = document.querySelector("#close-item-info");
-    close.addEventListener('click', function () {
+    close.onclick = function () {
         sfxDecline.play();
 
         itemInfo.style.display = "none";
         dimContainer.style.filter = "brightness(100%)";
         continueExploring();
-    });
+    };
 };
 
 // Show inventory
