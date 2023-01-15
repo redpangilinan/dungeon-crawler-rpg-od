@@ -55,7 +55,10 @@
                     <p><i class="ra ra-focused-lightning"></i>C.DMG: <span id="player-cdmg"></span></p>
                 </div>
                 <div class="box">
-                    <h4>Equipment</h4>
+                    <div class="box-head">
+                        <h4>Equipment</h4>
+                        <p id="unequip-all"><i class="fa fa-circle-xmark"></i></p>
+                    </div>
                     <div id="playerEquipment"></div>
                 </div>
             </div>
@@ -83,6 +86,18 @@
                     <h3>Inventory</h3>
                     <p onclick="closeInventory()"><i class="fa fa-xmark"></i></p>
                 </div>
+                <div class="content-head">
+                    <button id="sell-all">Sell</button>
+                    <select id="sell-rarity">
+                        <option class="Common" value="Common">Common</option>
+                        <option class="Uncommon" value="Uncommon">Uncommon</option>
+                        <option class="Rare" value="Rare">Rare</option>
+                        <option class="Epic" value="Epic">Epic</option>
+                        <option class="Legendary" value="Legendary">Legendary</option>
+                        <option class="Heirloom" value="Heirloom">Heirloom</option>
+                    </select>
+                </div>
+
                 <div class="inventorySlots" id="playerInventory"></div>
             </div>
         </div>
@@ -91,6 +106,7 @@
         <div class="modal-container" id="lvlupPanel">
             <div class="content" id="lvlupSelect"></div>
         </div>
+        <div class="modal-container" id="defaultModal"></div>
     </main>
 
     <script src="./assets/js/utility.js"></script>
