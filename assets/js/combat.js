@@ -173,7 +173,6 @@ const startCombat = () => {
 
     dungeon.status.event = true;
     combatPanel.style.display = "flex";
-    addCombatLog(`You encountered ${enemy.name}.`);
 
     playerTimer = setInterval(playerAttack, (1000 / player.stats.atkSpd));
     enemyTimer = setInterval(enemyAttack, (1000 / enemy.stats.atkSpd));
