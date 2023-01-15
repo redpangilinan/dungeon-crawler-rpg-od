@@ -43,7 +43,7 @@ const hpValidation = () => {
             addCombatLog(`${enemy.name} dropped ${itemDrop}.`)
         }
 
-        // Heal 20% of players health
+        // Recover 20% of players health
         player.stats.hp += Math.round((player.stats.hpMax * 20) / 100);
         playerLoadStats();
 
