@@ -25,7 +25,7 @@ let enemy = {
     }
 };
 
-const generateRandomEnemy = () => {
+const generateRandomEnemy = (condition) => {
     // List of possible enemy names
     const enemyNames = [
         // Goblin
@@ -50,7 +50,11 @@ const generateRandomEnemy = () => {
     // Calculate enemy level
     const maxLvl = dungeon.progress.floor * dungeon.settings.enemyLvlGap + (dungeon.settings.enemyBaseLvl - 1);
     const minLvl = maxLvl - (dungeon.settings.enemyLvlGap - 1);
-    enemy.lvl = randomizeNum(minLvl, maxLvl);
+    if (condition == "guardian") {
+        enemy.lvl = maxLvl;
+    } else {
+        enemy.lvl = randomizeNum(minLvl, maxLvl);
+    }
 
     // Generate proper enemy info
     switch (enemy.type) {
@@ -114,7 +118,56 @@ const generateRandomEnemy = () => {
             setEnemyStats(enemy.type);
             break;
     }
-    setEnemyImg();
+    if (condition == "chest") {
+        enemy.name = "Mimic";
+    } else if (condition == "door") {
+        enemy.name = "Door Mimic";
+    } else if (condition == "guardian") {
+        // Generate Boss
+        switch (enemy.type) {
+            case "Offensive":
+                // Select name and apply stats for Offensive enemies
+                selectedEnemies = enemyNames.filter(name => [
+                    'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Cerberus Ptolemaios', 'Hellhound Inferni', 'Berthelot, the Undead King'
+                ].includes(name));
+                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+                setEnemyStats(enemy.type);
+                break;
+            case "Defensive":
+                // Select name and apply stats for Defensive enemies
+                selectedEnemies = enemyNames.filter(name => [
+                    'Slime King', 'Zodiac Cancer', 'Alfadriel, the Light Titan'
+                ].includes(name));
+                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+                setEnemyStats(enemy.type);
+                break;
+            case "Balanced":
+                // Select name and apply stats for Balanced enemies
+                selectedEnemies = enemyNames.filter(name => [
+                    'Tiamat, the Dragon Knight', 'Nameless Fallen King', 'Zodiac Aries'
+                ].includes(name));
+                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+                setEnemyStats(enemy.type);
+                break;
+            case "Quick":
+                // Select name and apply stats for Quick enemies
+                selectedEnemies = enemyNames.filter(name => [
+                    'Yishar, Spider of the Dark', 'Llyrrad, the Ant Queen', 'Clockwork Spider'
+                ].includes(name));
+                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+                setEnemyStats(enemy.type);
+                break;
+            case "Lethal":
+                // Select name and apply stats for Lethal enemies
+                selectedEnemies = enemyNames.filter(name => [
+                    'Aragorn, the Lethal Wolf',
+                ].includes(name));
+                enemy.name = selectedEnemies[Math.floor(Math.random() * selectedEnemies.length)];
+                setEnemyStats(enemy.type);
+                break;
+        }
+        setEnemyImg();
+    }
 }
 
 // Set a randomly generated stat for the enemy
@@ -189,6 +242,14 @@ const setEnemyStats = (type) => {
             enemy.stats[stat] = 50;
             enemy.stats[stat] += enemy.stats[stat] * (((dungeon.settings.enemyScaling - 1) / 4) * enemy.lvl);
         }
+    }
+
+    if (condition == "guardian") {
+        enemy.stats.hpMax = enemy.stats.hpMax * 2;
+        enemy.stats.atk = enemy.stats.atk * 1.3;
+        enemy.stats.def = enemy.stats.def * 1.3;
+        enemy.stats.critRate = enemy.stats.critRate * 1.1;
+        enemy.stats.critDmg = enemy.stats.critDmg * 1.2;
     }
 
     // Calculate exp and gold that the monster gives
@@ -341,6 +402,78 @@ const setEnemyImg = () => {
             break;
         case 'Skeleton Warrior':
             enemy.image.name = 'skeleton_warrior';
+            enemy.image.size = '50%';
+            break;
+
+        // Mimic
+        case 'Mimic':
+            enemy.image.name = 'mimic';
+            enemy.image.size = '50%';
+            break;
+        case 'Door Mimic':
+            enemy.image.name = 'mimic_door';
+            enemy.image.size = '50%';
+            break;
+
+        // Bosses
+        case 'Zaart, the Dominator Goblin':
+            enemy.image.name = 'goblin_boss';
+            enemy.image.size = '50%';
+            break;
+        case 'Banshee, Skeleton Lord':
+            enemy.image.name = 'skeleton_boss';
+            enemy.image.size = '50%';
+            break;
+        case 'Molten Spider':
+            enemy.image.name = 'spider_fire';
+            enemy.image.size = '50%';
+            break;
+        case 'Cerberus Ptolemaios':
+            enemy.image.name = 'cerberus_ptolemaios';
+            enemy.image.size = '50%';
+            break;
+        case 'Hellhound Inferni':
+            enemy.image.name = 'hellhound';
+            enemy.image.size = '50%';
+            break;
+        case 'Berthelot, the Undead King':
+            enemy.image.name = 'berthelot';
+            enemy.image.size = '50%';
+            break;
+        case 'Slime King':
+            enemy.image.name = 'slime_boss';
+            enemy.image.size = '50%';
+            break;
+        case 'Zodiac Cancer':
+            enemy.image.name = 'zodiac_cancer';
+            enemy.image.size = '50%';
+            break;
+        case 'Tiamat, the Dragon Knight':
+            enemy.image.name = 'tiamat';
+            enemy.image.size = '50%';
+            break;
+        case 'Nameless Fallen King':
+            enemy.image.name = 'fallen_king';
+            enemy.image.size = '50%';
+            break;
+        case 'Zodiac Aries':
+            enemy.image.name = 'zodiac_aries';
+            enemy.image.size = '50%';
+            break;
+        case 'Yishar, Spider of the Dark':
+            enemy.image.name = 'spider_spirit';
+            enemy.image.size = '50%';
+            break;
+        case 'Clockwork Spider':
+            enemy.image.name = 'spider_boss';
+            enemy.image.size = '50%';
+            break;
+        case 'Llyrrad, the Ant Queen':
+            enemy.image.name = 'ant_queen';
+            enemy.image.size = '50%';
+            break;
+        case 'Aragorn, the Lethal Wolf':
+            enemy.image.name = 'wolf_boss';
             enemy.image.size = '50%';
             break;
     };
