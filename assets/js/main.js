@@ -15,6 +15,8 @@ window.addEventListener("load", function () {
             enemy = JSON.parse(localStorage.getItem("enemyData"));
             showCombatInfo();
             startCombat();
+        } else {
+            bgmDungeon.play();
         }
         if (player.stats.hp == 0) {
             progressReset();
