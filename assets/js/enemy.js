@@ -53,7 +53,7 @@ const generateRandomEnemy = (condition) => {
     const maxLvl = dungeon.progress.floor * dungeon.settings.enemyLvlGap + (dungeon.settings.enemyBaseLvl - 1);
     const minLvl = maxLvl - (dungeon.settings.enemyLvlGap - 1);
     if (condition == "guardian") {
-        enemy.lvl = maxLvl;
+        enemy.lvl = minLvl;
     } else {
         enemy.lvl = randomizeNum(minLvl, maxLvl);
     }
