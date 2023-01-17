@@ -217,7 +217,7 @@ const showItemInfo = (item, icon, type, i) => {
     dimContainer.style.filter = "brightness(50%)";
     itemInfo.innerHTML = `
             <div class="content">
-                <h3 class="${item.rarity}">${icon}${item.rarity} ${item.category}</h3>
+                <h3 class="${item.rarity}">${icon}${item.rarity} ${item.category} Lv.${item.lvl}</h3>
                 <ul>
                 ${item.stats.map(stat => {
         if (Object.keys(stat)[0] === "critRate" || Object.keys(stat)[0] === "critDmg" || Object.keys(stat)[0] === "atkSpd" || Object.keys(stat)[0] === "vamp") {
