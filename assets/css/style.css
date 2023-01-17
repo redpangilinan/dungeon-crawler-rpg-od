@@ -3,6 +3,7 @@
     padding: 0;
     text-decoration: none;
     list-style: none;
+    box-sizing: border-box;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -301,6 +302,7 @@ button:focus {
 
 .modal-container .content .button-container {
     display: flex;
+    justify-content: center;
     gap: 0.5rem;
 }
 
