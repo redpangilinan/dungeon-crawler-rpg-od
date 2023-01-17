@@ -1,6 +1,6 @@
 # Dungeon Crawler On Demand!
 
-Quickly and easily access a thrilling dungeon crawling experience at any time. With a simple click of a button, players can enter a fully-realized, randomly generated dungeon filled with monsters and diablo inspired equipment looting system!
+Quickly and easily access a thrilling dungeon-crawling experience at any time. With a simple click of a button, players can enter a fully-realized, randomly generated dungeon filled with monsters and diablo inspired equipment looting system!
 
 ## How to play
 
@@ -20,6 +20,17 @@ If you encounter any issues or have any questions or suggestions, please reach o
 
 - Discord - Bernkastel#6861
 - [Facebook](https://www.facebook.com/redpangilinan715)
+
+## Future updates
+
+- Volume adjustment settings
+- Add reset run option
+- Adjustable dungeon difficulty
+- More dungeon events
+- Usage for gold (Offerings and Blessings dungeon events to buff player stats for the run)
+- More menu options that shows stats about the current run and player statistics
+- Add more monsters and bosses
+- Create desktop and mobile version
 
 ## Credits
 
