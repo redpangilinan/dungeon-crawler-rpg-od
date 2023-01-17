@@ -1,2 +1,30 @@
-# dungeon-crawler-rpg-od
- Quick dungeon crawler experience on demand!
+# Dungeon Crawler On Demand!
+
+Quickly and easily access a thrilling dungeon crawling experience at any time. With a simple click of a button, players can enter a fully-realized, randomly generated dungeon filled with monsters and diablo inspired equipment looting system!
+
+## How to play
+
+- Just visit the [Official Website](https://dungeoncrawler-od.netlify.app/) and play on the get go.
+
+## Gameplay Mechanics
+
+- Roguelite gameplay where the progress is reset when the player dies, but equipment is carried over.
+- Players navigate through the dungeon by climbing the floors that features randomized events.
+- Players can upgrade their stats upon level up, choosing 3 possible upgrades and 2 reroll chances per level.
+- Players has 6 slots of equipment that they can equip.
+- There are 6 equipment rarities which are Common, Uncommon, Rare, Epic, Legendary, and Heirloom.
+
+## Support
+
+If you encounter any issues or have any questions or suggestions, please reach out to me!
+
+- Discord - Bernkastel#6861
+- [Facebook](https://www.facebook.com/redpangilinan715)
+
+## Credits
+
+- [Aekashics](https://aekashics.itch.io/) - Monster Sprites
+- [Leohpaz](https://leohpaz.itch.io/) - RPG SFX
+- [phoenix1291](https://phoenix1291.itch.io/sound-effects-pack-2) - Level up SFX
+- [Leviathan_Music](https://soundcloud.com/leviathan254) - Battle Music
+- [Sara Garrard](https://sonatina.itch.io/letsadventure) - Dungeon Music
