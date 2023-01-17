@@ -30,6 +30,7 @@ If you encounter any issues or have any questions or suggestions, please reach o
 - Usage for gold (Offerings and Blessings dungeon events to buff player stats for the run)
 - More menu options that shows stats about the current run and player statistics
 - Add more monsters and bosses
+- Equipment locking system
 - Create desktop and mobile version
 
 ## Credits
