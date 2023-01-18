@@ -459,7 +459,7 @@ const createEquipmentPrint = () => {
     let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
     let item = createEquipment();
     addCombatLog(`
-        ${enemy.name} dropped <span class="${item.rarity}">${item.rarity} ${item.category}</span>.<br>
+        You got <span class="${item.rarity}">${item.rarity} ${item.category}</span>.<br>
         <div class="primary-panel" style="padding: 0.5rem; margin-top: 0.5rem;">
             <h4 class="${item.rarity}">${item.icon}${item.rarity} ${item.category} Lv.${item.lvl}</h4>
             <ul>
