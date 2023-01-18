@@ -13,6 +13,7 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 - Players can upgrade their stats upon level up, choosing 3 possible upgrades and 2 reroll chances per level.
 - Players has 6 slots of equipment that they can equip.
 - There are 6 equipment rarities which are Common, Uncommon, Rare, Epic, Legendary, and Heirloom.
+- Gold has no usage yet. (But it will be used for stat buffs and buying equipments for future updates)
 
 ## Support
 
