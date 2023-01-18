@@ -164,7 +164,15 @@ const createEquipment = () => {
     saveData();
     showInventory();
     showEquipment();
-    return (`<span class="${equipment.rarity}">${equipmentIcon(equipment.category)}${equipment.rarity} ${equipment.category}</span>`);
+
+    const itemShow = {
+        category: equipment.category,
+        rarity: equipment.rarity,
+        lvl: equipment.lvl,
+        icon: equipmentIcon(equipment.category),
+        stats: equipment.stats
+    }
+    return itemShow;
 };
 
 const equipmentIcon = (equipment) => {
@@ -409,7 +417,7 @@ const applyEquipmentStats = () => {
         });
     }
     calculateStats();
-}
+};
 
 const unequipAll = () => {
     for (let i = player.equipped.length - 1; i >= 0; i--) {
@@ -419,7 +427,7 @@ const unequipAll = () => {
     }
     playerLoadStats();
     saveData();
-}
+};
 
 const sellAll = (rarity) => {
     let rarityCheck = false;
@@ -445,4 +453,24 @@ const sellAll = (rarity) => {
     } else {
         sfxDeny.play();
     }
-}
+};
+
+const createEquipmentPrint = () => {
+    let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    let item = createEquipment();
+    addCombatLog(`
+        ${enemy.name} dropped <span class="${item.rarity}">${item.rarity} ${item.category}</span>.<br>
+        <div class="primary-panel" style="padding: 0.5rem; margin-top: 0.5rem;">
+            <h4 class="${item.rarity}">${item.icon}${item.rarity} ${item.category} Lv.${item.lvl}</h4>
+            <ul>
+            ${item.stats.map(stat => {
+        if (Object.keys(stat)[0] === "critRate" || Object.keys(stat)[0] === "critDmg" || Object.keys(stat)[0] === "atkSpd" || Object.keys(stat)[0] === "vamp") {
+            return `<li>${Object.keys(stat)[0].toString().replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()}+${stat[Object.keys(stat)[0]].toFixed(2).replace(rx, "$1")}%</li>`;
+        }
+        else {
+            return `<li>${Object.keys(stat)[0].toString().replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()}+${stat[Object.keys(stat)[0]]}</li>`;
+        }
+    }).join('')}
+            </ul>
+        </div>`);
+};
