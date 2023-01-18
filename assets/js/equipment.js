@@ -108,8 +108,8 @@ const createEquipment = () => {
         let statMultiplier = (dungeon.settings.enemyScaling - 1) * equipment.lvl;
         let hpScaling = (25 * randomizeDecimal(0.5, 1.5)) + ((25 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
         let atkDefScaling = (10 * randomizeDecimal(0.5, 1.5)) + ((6 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
-        let cdAtkSpdScaling = (3 * randomizeDecimal(0.5, 1.5)) + ((3 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
-        let crVampScaling = (1.2 * randomizeDecimal(0.5, 1.5)) + ((1.2 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let cdAtkSpdScaling = (3.5 * randomizeDecimal(0.5, 1.5)) + ((3.5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let crVampScaling = (2 * randomizeDecimal(0.5, 1.5)) + ((2 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
 
         // Set randomized numbers to respective stats and increment sell value
         if (statType === "hp") {
