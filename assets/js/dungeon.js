@@ -162,8 +162,7 @@ const dungeonEvent = () => {
                                     } else {
                                         let eventRoll = randomizeNum(1, 2);
                                         if (eventRoll == 1) {
-                                            let itemDrop = createEquipment();
-                                            addDungeonLog(`You got ${itemDrop}.`)
+                                            createEquipmentPrint();
                                         } else {
                                             addDungeonLog("The chest is empty.");
                                         }

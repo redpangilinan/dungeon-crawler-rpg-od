@@ -39,8 +39,7 @@ const hpValidation = () => {
         player.gold += enemy.rewards.gold;
         playerLoadStats();
         if (enemy.rewards.drop) {
-            let itemDrop = createEquipment();
-            addCombatLog(`${enemy.name} dropped ${itemDrop}.`)
+            createEquipmentPrint();
         }
 
         // Recover 20% of players health
