@@ -64,7 +64,7 @@ const generateRandomEnemy = (condition) => {
             // Select name and apply stats for Offensive enemies
             if (condition == "guardian") {
                 selectedEnemies = enemyNames.filter(name => [
-                    'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Cerberus Ptolemaios', 'Hellhound Inferni', 'Berthelot, the Undead King'
+                    'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Berthelot, the Undead King'
                 ].includes(name));
             } else {
                 selectedEnemies = enemyNames.filter(name => [
@@ -135,7 +135,7 @@ const generateRandomEnemy = (condition) => {
             // Select name and apply stats for Lethal enemies
             if (condition == "guardian") {
                 selectedEnemies = enemyNames.filter(name => [
-                    'Aragorn, the Lethal Wolf'
+                    'Aragorn, the Lethal Wolf', 'Cerberus Ptolemaios', 'Hellhound Inferni'
                 ].includes(name));
             } else {
                 selectedEnemies = enemyNames.filter(name => [
