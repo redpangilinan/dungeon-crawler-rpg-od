@@ -39,7 +39,7 @@ const hpValidation = () => {
         player.gold += enemy.rewards.gold;
         playerLoadStats();
         if (enemy.rewards.drop) {
-            createEquipmentPrint();
+            createEquipmentPrint("combat");
         }
 
         // Recover 20% of players health
