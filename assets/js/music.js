@@ -26,6 +26,7 @@ let sfxPause;
 let sfxUnpause;
 let sfxSell;
 let sfxItem;
+let sfxBuff;
 
 document.querySelector("#title-screen").addEventListener("click", function () {
     // ===== BGM =====
@@ -121,6 +122,11 @@ document.querySelector("#title-screen").addEventListener("click", function () {
 
     sfxItem = new Howl({
         src: ['/assets/sfx/item_use.wav'],
+        volume: volume.sfx * volume.master
+    });
+
+    sfxBuff = new Howl({
+        src: ['/assets/sfx/buff.wav'],
         volume: volume.sfx * volume.master
     });
 });
