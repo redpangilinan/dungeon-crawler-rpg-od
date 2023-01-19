@@ -157,9 +157,9 @@ const lvlupPopup = () => {
         "hp": 12,
         "atk": 8,
         "def": 12,
-        "atkSpd": 6,
-        "vamp": 4,
-        "critRate": 4,
+        "atkSpd": 5,
+        "vamp": 2.5,
+        "critRate": 2.5,
         "critDmg": 8
     }
     generateLvlStats(2, percentages);
