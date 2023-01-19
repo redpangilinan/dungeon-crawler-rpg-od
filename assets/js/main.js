@@ -193,6 +193,7 @@ const calculateStats = () => {
 const progressReset = () => {
     player.stats.hp = player.stats.hpMax;
     player.lvl = 1;
+    player.blessing = 1;
     player.exp = {
         expCurr: 0,
         expMax: 100,
