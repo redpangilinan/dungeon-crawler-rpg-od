@@ -6,6 +6,12 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 
 - Just visit the [Official Website](https://dungeoncrawler-od.netlify.app/) and play on the get go.
 
+## Links
+
+- [Github](https://github.com/redpangilinan/dungeon-crawler-rpg-od)
+- [Itch.io](https://repulzor.itch.io/dungeon-crawler-od)
+- [Official Website](https://dungeoncrawler-od.netlify.app)
+
 ## Gameplay Mechanics
 
 - Roguelite gameplay where the progress is reset when the player dies, but equipment is carried over.
