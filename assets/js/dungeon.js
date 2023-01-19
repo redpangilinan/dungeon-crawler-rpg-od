@@ -124,20 +124,12 @@ const dungeonEvent = () => {
                 document.querySelector("#choice1").onclick = function () {
                     sfxConfirm.play();
                     if (dungeon.progress.room == dungeon.progress.roomLimit) {
-                        incrementRoom();
-                        generateRandomEnemy("guardian");
-                        showCombatInfo();
-                        startCombat(bgmBattleGuardian);
-                        addCombatLog(`Floor Guardian ${enemy.name} is blocking your way.`);
-                        addDungeonLog("You moved to the next floor.");
+                        guardianBattle();
                     } else {
                         let eventRoll = randomizeNum(1, 3);
                         if (eventRoll == 1) {
                             incrementRoom();
-                            generateRandomEnemy("door");
-                            showCombatInfo();
-                            startCombat(bgmBattleMain);
-                            addCombatLog(`You got ambushed by ${enemy.name}.`);
+                            mimicBattle("door");
                             addDungeonLog("You moved to the next floor.");
                         } else if (eventRoll == 2) {
                             incrementRoom();
@@ -148,29 +140,8 @@ const dungeonEvent = () => {
                             </div>`;
                             addDungeonLog(`You moved to the next room and found a treasure chamber. There is a <i class="fa fa-toolbox"></i>Chest inside.`, choices);
                             document.querySelector("#choice1").onclick = function () {
-                                let eventRoll = randomizeNum(1, 2);
-                                if (eventRoll == 1) {
-                                    generateRandomEnemy("chest");
-                                    showCombatInfo();
-                                    startCombat(bgmBattleMain);
-                                    addCombatLog(`You got ambushed by ${enemy.name}.`);
-                                    addDungeonLog(`You got ambushed by ${enemy.name}.`)
-                                } else {
-                                    sfxConfirm.play();
-                                    if (dungeon.progress.floor == 1) {
-                                        addDungeonLog("The chest is empty.");
-                                    } else {
-                                        let eventRoll = randomizeNum(1, 2);
-                                        if (eventRoll == 1) {
-                                            createEquipmentPrint("dungeon");
-                                        } else {
-                                            addDungeonLog("The chest is empty.");
-                                        }
-                                    }
-                                    dungeon.status.event = false;
-                                }
+                                chestEvent();
                             }
-
                         } else {
                             dungeon.status.event = false;
                             incrementRoom();
@@ -179,11 +150,7 @@ const dungeonEvent = () => {
                     }
                 };
                 document.querySelector("#choice2").onclick = function () {
-                    sfxConfirm.play();
-
-                    dungeon.status.event = false;
-                    dungeon.action = 0;
-                    addDungeonLog("You ignored it and decided to move on.");
+                    ignoreEvent();
                 };
                 break;
             case "treasure":
@@ -195,34 +162,10 @@ const dungeonEvent = () => {
                 </div>`;
                 addDungeonLog(`You found a treasure chamber. There is a <i class="fa fa-toolbox"></i>Chest inside.`, choices);
                 document.querySelector("#choice1").onclick = function () {
-                    let eventRoll = randomizeNum(1, 2);
-                    if (eventRoll == 1) {
-                        generateRandomEnemy("chest");
-                        showCombatInfo();
-                        startCombat(bgmBattleMain);
-                        addCombatLog(`You got ambushed by ${enemy.name}.`);
-                        addDungeonLog(`You got ambushed by ${enemy.name}.`)
-                    } else {
-                        sfxConfirm.play();
-                        if (dungeon.progress.floor == 1) {
-                            addDungeonLog("The chest is empty.");
-                        } else {
-                            let eventRoll = randomizeNum(1, 2);
-                            if (eventRoll == 1) {
-                                createEquipmentPrint("dungeon");
-                            } else {
-                                addDungeonLog("The chest is empty.");
-                            }
-                        }
-                        dungeon.status.event = false;
-                    }
+                    chestEvent();
                 }
                 document.querySelector("#choice2").onclick = function () {
-                    sfxConfirm.play();
-
-                    dungeon.status.event = false;
-                    dungeon.action = 0;
-                    addDungeonLog("You ignored it and decided to move on.");
+                    ignoreEvent();
                 };
                 break;
             case "nothing":
@@ -250,29 +193,93 @@ const dungeonEvent = () => {
                 addDungeonLog(`You encountered ${enemy.name}.`, choices);
                 player.inCombat = true;
                 document.querySelector("#choice1").onclick = function () {
-                    showCombatInfo();
-                    startCombat(bgmBattleMain);
-                    addCombatLog(`You encountered ${enemy.name}.`);
-                    updateDungeonLog();
+                    engageBattle();
                 }
                 document.querySelector("#choice2").onclick = function () {
-                    let eventRoll = randomizeNum(1, 2);
-                    if (eventRoll == 1) {
-                        sfxConfirm.play();
-                        addDungeonLog(`You managed to flee.`);
-                        player.inCombat = false;
-                        dungeon.status.event = false;
-                    } else {
-                        addDungeonLog(`You failed to escape!`);
-                        showCombatInfo();
-                        startCombat(bgmBattleMain);
-                        addCombatLog(`You encountered ${enemy.name}.`);
-                        addCombatLog(`You failed to escape!`);
-                    }
+                    fleeBattle();
                 }
                 break;
         }
     }
+}
+
+// ========= Dungeon Choice Events ==========
+// Starts the battle
+const engageBattle = () => {
+    showCombatInfo();
+    startCombat(bgmBattleMain);
+    addCombatLog(`You encountered ${enemy.name}.`);
+    updateDungeonLog();
+}
+
+// Mimic encounter
+const mimicBattle = (type) => {
+    generateRandomEnemy(type);
+    showCombatInfo();
+    startCombat(bgmBattleMain);
+    addCombatLog(`You got ambushed by ${enemy.name}.`);
+    addDungeonLog(`You got ambushed by ${enemy.name}.`);
+}
+
+// Guardian boss fight
+const guardianBattle = () => {
+    incrementRoom();
+    generateRandomEnemy("guardian");
+    showCombatInfo();
+    startCombat(bgmBattleGuardian);
+    addCombatLog(`Floor Guardian ${enemy.name} is blocking your way.`);
+    addDungeonLog("You moved to the next floor.");
+}
+
+// Flee from the monster
+const fleeBattle = () => {
+    let eventRoll = randomizeNum(1, 2);
+    if (eventRoll == 1) {
+        sfxConfirm.play();
+        addDungeonLog(`You managed to flee.`);
+        player.inCombat = false;
+        dungeon.status.event = false;
+    } else {
+        addDungeonLog(`You failed to escape!`);
+        showCombatInfo();
+        startCombat(bgmBattleMain);
+        addCombatLog(`You encountered ${enemy.name}.`);
+        addCombatLog(`You failed to escape!`);
+    }
+}
+
+// Chest event randomizer
+const chestEvent = () => {
+    sfxConfirm.play();
+    let eventRoll = randomizeNum(1, 3);
+    if (eventRoll == 1) {
+        mimicBattle("chest");
+    } else if (eventRoll == 2) {
+        if (dungeon.progress.floor == 1) {
+            addDungeonLog("The chest is empty.");
+        } else {
+            createEquipmentPrint("dungeon");
+        }
+        dungeon.status.event = false;
+    } else {
+        addDungeonLog("The chest is empty.");
+        dungeon.status.event = false;
+    }
+}
+
+// Ignore event and proceed exploring
+const ignoreEvent = () => {
+    sfxConfirm.play();
+    dungeon.status.event = false;
+    dungeon.action = 0;
+    addDungeonLog("You ignored it and decided to move on.");
+}
+
+// Increase room or floor accordingly
+const incrementRoom = () => {
+    dungeon.progress.room++;
+    dungeon.action = 0;
+    loadDungeonProgress();
 }
 
 // ========= Dungeon Backlog ==========
@@ -302,10 +309,3 @@ const addDungeonLog = (message, choices) => {
     dungeon.backlog.push(message);
     updateDungeonLog(choices);
 };
-
-// Dungeon Progression
-const incrementRoom = () => {
-    dungeon.progress.room++;
-    dungeon.action = 0;
-    loadDungeonProgress();
-}
