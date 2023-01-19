@@ -255,7 +255,7 @@ const setEnemyStats = (type, condition) => {
         expYield.push(statExp);
     }
 
-    enemy.rewards.exp = Math.round((expYield.reduce((acc, cur) => acc + cur, 0)) / 12);
+    enemy.rewards.exp = Math.round((expYield.reduce((acc, cur) => acc + cur, 0)) / 10);
     enemy.rewards.gold = Math.round((enemy.rewards.exp * randomizeDecimal(0.9, 1.1)) * 1.5);
     enemy.rewards.drop = randomizeNum(1, 3);
     if (enemy.rewards.drop == 1) {
