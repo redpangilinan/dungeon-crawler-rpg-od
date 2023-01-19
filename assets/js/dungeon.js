@@ -100,7 +100,8 @@ const dungeonEvent = () => {
     if (dungeon.status.exploring && !dungeon.status.event) {
         dungeon.action++;
         let choices;
-        let eventTypes = ["treasure", "enemy", "enemy", "nothing", "nothing", "nothing", "nothing"];
+        let eventRoll;
+        let eventTypes = ["blessing", "treasure", "enemy", "enemy", "nothing", "nothing", "nothing", "nothing"];
         if (dungeon.action > 2 && dungeon.action < 6) {
             eventTypes.push("nextroom");
         } else if (dungeon.action > 5) {
@@ -126,7 +127,7 @@ const dungeonEvent = () => {
                     if (dungeon.progress.room == dungeon.progress.roomLimit) {
                         guardianBattle();
                     } else {
-                        let eventRoll = randomizeNum(1, 3);
+                        eventRoll = randomizeNum(1, 3);
                         if (eventRoll == 1) {
                             incrementRoom();
                             mimicBattle("door");
@@ -134,10 +135,10 @@ const dungeonEvent = () => {
                         } else if (eventRoll == 2) {
                             incrementRoom();
                             choices = `
-                            <div class="decision-panel">
-                                <button id="choice1">Open the chest</button>
-                                <button id="choice2">Ignore</button>
-                            </div>`;
+                                <div class="decision-panel">
+                                    <button id="choice1">Open the chest</button>
+                                    <button id="choice2">Ignore</button>
+                                </div>`;
                             addDungeonLog(`You moved to the next room and found a treasure chamber. There is a <i class="fa fa-toolbox"></i>Chest inside.`, choices);
                             document.querySelector("#choice1").onclick = function () {
                                 chestEvent();
@@ -150,16 +151,17 @@ const dungeonEvent = () => {
                     }
                 };
                 document.querySelector("#choice2").onclick = function () {
+                    dungeon.action = 0;
                     ignoreEvent();
                 };
                 break;
             case "treasure":
                 dungeon.status.event = true;
                 choices = `
-                <div class="decision-panel">
-                    <button id="choice1">Open the chest</button>
-                    <button id="choice2">Ignore</button>
-                </div>`;
+                    <div class="decision-panel">
+                        <button id="choice1">Open the chest</button>
+                        <button id="choice2">Ignore</button>
+                    </div>`;
                 addDungeonLog(`You found a treasure chamber. There is a <i class="fa fa-toolbox"></i>Chest inside.`, choices);
                 document.querySelector("#choice1").onclick = function () {
                     chestEvent();
@@ -169,26 +171,15 @@ const dungeonEvent = () => {
                 };
                 break;
             case "nothing":
-                let eventRoll = randomizeNum(1, 5);
-                if (eventRoll == 1) {
-                    addDungeonLog("You explored and found nothing.");
-                } else if (eventRoll == 2) {
-                    addDungeonLog("You found an empty chest.");
-                } else if (eventRoll == 3) {
-                    addDungeonLog("You found a monster corpse.");
-                } else if (eventRoll == 4) {
-                    addDungeonLog("You found a corpse.");
-                } else if (eventRoll == 5) {
-                    addDungeonLog("There is nothing in this area.");
-                }
+                nothingEvent();
                 break;
             case "enemy":
                 dungeon.status.event = true;
                 choices = `
-                <div class="decision-panel">
-                    <button id="choice1">Engage</button>
-                    <button id="choice2">Flee</button>
-                </div>`;
+                    <div class="decision-panel">
+                        <button id="choice1">Engage</button>
+                        <button id="choice2">Flee</button>
+                    </div>`;
                 generateRandomEnemy();
                 addDungeonLog(`You encountered ${enemy.name}.`, choices);
                 player.inCombat = true;
@@ -197,6 +188,36 @@ const dungeonEvent = () => {
                 }
                 document.querySelector("#choice2").onclick = function () {
                     fleeBattle();
+                }
+                break;
+            case "blessing":
+                eventRoll = randomizeNum(1, 2);
+                if (eventRoll == 1) {
+                    dungeon.status.event = true;
+                    blessingValidation();
+                    let cost = player.blessing * (500 * (player.blessing * 0.5)) + 750;
+                    choices = `
+                        <div class="decision-panel">
+                            <button id="choice1">Offer</button>
+                            <button id="choice2">Ignore</button>
+                        </div>`;
+                    addDungeonLog(`You found a Statue of Blessing. Do you want to offer <i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(cost)} to gain blessings? (Blessing Lv.${player.blessing})`, choices);
+                    document.querySelector("#choice1").onclick = function () {
+                        if (player.gold < cost) {
+                            sfxDeny.play();
+                            addDungeonLog("You don't have enough gold.");
+                        } else {
+                            player.gold -= cost;
+                            sfxConfirm.play();
+                            statBlessing();
+                        }
+                        dungeon.status.event = false;
+                    }
+                    document.querySelector("#choice2").onclick = function () {
+                        ignoreEvent();
+                    };
+                } else {
+                    nothingEvent();
                 }
                 break;
         }
@@ -267,11 +288,68 @@ const chestEvent = () => {
     }
 }
 
+// Non choices dungeon event messages
+const nothingEvent = () => {
+    let eventRoll = randomizeNum(1, 5);
+    if (eventRoll == 1) {
+        addDungeonLog("You explored and found nothing.");
+    } else if (eventRoll == 2) {
+        addDungeonLog("You found an empty chest.");
+    } else if (eventRoll == 3) {
+        addDungeonLog("You found a monster corpse.");
+    } else if (eventRoll == 4) {
+        addDungeonLog("You found a corpse.");
+    } else if (eventRoll == 5) {
+        addDungeonLog("There is nothing in this area.");
+    }
+}
+
+// Random stat buff
+const statBlessing = () => {
+    sfxBuff.play();
+    let stats = ["hp", "atk", "def", "atkSpd", "vamp", "critRate", "critDmg"];
+    let buff = stats[Math.floor(Math.random() * stats.length)];
+    let value;
+    switch (buff) {
+        case "hp":
+            value = 12;
+            player.bonusStats.hp += value;
+            break;
+        case "atk":
+            value = 8;
+            player.bonusStats.atk += value;
+            break;
+        case "def":
+            value = 12;
+            player.bonusStats.def += value;
+            break;
+        case "atkSpd":
+            value = 5;
+            player.bonusStats.atkSpd += value;
+            break;
+        case "vamp":
+            value = 2.5;
+            player.bonusStats.vamp += value;
+            break;
+        case "critRate":
+            value = 2.5;
+            player.bonusStats.critRate += value;
+            break;
+        case "critDmg":
+            value = 8;
+            player.bonusStats.critDmg += value;
+            break;
+    }
+    addDungeonLog(`You gained ${value}% base ${buff.replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()} from the blessing.`);
+    blessingUp();
+    playerLoadStats();
+    saveData();
+}
+
 // Ignore event and proceed exploring
 const ignoreEvent = () => {
     sfxConfirm.play();
     dungeon.status.event = false;
-    dungeon.action = 0;
     addDungeonLog("You ignored it and decided to move on.");
 }
 
@@ -280,6 +358,19 @@ const incrementRoom = () => {
     dungeon.progress.room++;
     dungeon.action = 0;
     loadDungeonProgress();
+}
+
+// Increases player total blessing
+const blessingUp = () => {
+    blessingValidation();
+    player.blessing++;
+}
+
+// Validates whether blessing exists or not
+const blessingValidation = () => {
+    if (player.blessing == undefined) {
+        player.blessing = 1;
+    }
 }
 
 // ========= Dungeon Backlog ==========
