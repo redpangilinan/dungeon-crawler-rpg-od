@@ -238,8 +238,8 @@ const mimicBattle = (type) => {
     generateRandomEnemy(type);
     showCombatInfo();
     startCombat(bgmBattleMain);
-    addCombatLog(`You got ambushed by ${enemy.name}.`);
-    addDungeonLog(`You got ambushed by ${enemy.name}.`);
+    addCombatLog(`You encountered ${enemy.name}.`);
+    addDungeonLog(`You encountered ${enemy.name}.`);
 }
 
 // Guardian boss fight
@@ -272,20 +272,32 @@ const fleeBattle = () => {
 // Chest event randomizer
 const chestEvent = () => {
     sfxConfirm.play();
-    let eventRoll = randomizeNum(1, 3);
+    let eventRoll = randomizeNum(1, 4);
     if (eventRoll == 1) {
         mimicBattle("chest");
     } else if (eventRoll == 2) {
         if (dungeon.progress.floor == 1) {
-            addDungeonLog("The chest is empty.");
+            goldDrop();
         } else {
             createEquipmentPrint("dungeon");
         }
+        dungeon.status.event = false;
+    } else if (eventRoll == 3) {
+        goldDrop();
         dungeon.status.event = false;
     } else {
         addDungeonLog("The chest is empty.");
         dungeon.status.event = false;
     }
+}
+
+// Calculates Gold Drop
+const goldDrop = () => {
+    sfxSell.play();
+    let goldValue = randomizeNum(50, 500) * dungeon.progress.floor;
+    addDungeonLog(`You found <i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(goldValue)}.`);
+    player.gold += goldValue;
+    playerLoadStats();
 }
 
 // Non choices dungeon event messages
