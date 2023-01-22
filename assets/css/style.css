@@ -162,6 +162,10 @@ main {
     overflow: auto;
 }
 
+#playerInventory {
+    height: 100%;
+}
+
 .inventorySlots {
     display: flex;
     flex-direction: column;
@@ -184,8 +188,14 @@ main {
     cursor: pointer;
 }
 
-#inventory .content .inventorySlots {
-    padding: 0 0.7em 0.4em;
+#menuModal content {
+    background-color: red;
+}
+
+#menu-btn {
+    width: 15rem;
+    max-width: calc(100% - 1rem);
+    margin: 0.5rem;
 }
 
 /* Shadows */
@@ -312,15 +322,37 @@ button:focus {
 }
 
 /* Inventory */
+#inventory {
+    flex-direction: column;
+}
+
 #inventory .content {
     padding: 0;
     gap: 0;
     height: 30rem;
     min-width: 15rem;
-
 }
 
-.content .content-head {
+#inventory .content .inventorySlots {
+    padding: 0 0.7em 0.4em;
+}
+
+/* Menu Modal */
+#menuModal .content {
+    min-width: 15rem;
+}
+
+#menuModal .content-head {
+    padding: 0;
+}
+
+/* Default Modal */
+#defaultModal .content-head {
+    padding: 0;
+}
+
+/* General Content */
+.content-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
