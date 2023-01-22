@@ -391,7 +391,8 @@ const updateDungeonLog = (choices) => {
     let dungeonLog = document.querySelector("#dungeonLog");
     dungeonLog.innerHTML = "";
 
-    for (let message of dungeon.backlog) {
+    // Display the recent 50 dungeon logs
+    for (let message of dungeon.backlog.slice(-50)) {
         let logElement = document.createElement("p");
         logElement.innerHTML = message;
         dungeonLog.appendChild(logElement);
