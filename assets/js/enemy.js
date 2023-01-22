@@ -268,9 +268,9 @@ const setEnemyStats = (type, condition) => {
     enemy.stats.hp = enemy.stats.hpMax;
     enemy.stats.hpPercent = 100;
 
-    // Caps attack speed to 3
-    if (enemy.stats.atkSpd > 3) {
-        enemy.stats.atkSpd = 3;
+    // Caps attack speed to 2.5
+    if (enemy.stats.atkSpd > 2.5) {
+        enemy.stats.atkSpd = 2.5;
     }
 }
 
