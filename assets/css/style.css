@@ -133,10 +133,6 @@ main {
     width: 100%;
 }
 
-#name-input {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 /* Combat Log */
 .logBox {
     margin: 0.5rem;
@@ -447,6 +443,7 @@ button:focus {
 }
 
 #character-creation input {
+    font-family: Arial, Helvetica, sans-serif;
     width: 20rem;
     max-width: calc(100% - 2rem);
     padding: 0.4rem;
@@ -454,6 +451,10 @@ button:focus {
     background: transparent;
     border: solid 1px;
     color: white;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 /* Header */
