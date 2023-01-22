@@ -33,9 +33,9 @@ const hpValidation = () => {
         player.kills++;
         dungeon.statistics.kills++;
         addCombatLog(`${enemy.name} died! (${new Date(combatSeconds * 1000).toISOString().substring(14, 19)})`);
-        addCombatLog(`You earned ${enemy.rewards.exp} exp.`)
+        addCombatLog(`You earned ${nFormatter(enemy.rewards.exp)} exp.`)
         playerExpGain();
-        addCombatLog(`${enemy.name} dropped <i class="fas fa-coins" style="color: #FFD700;"></i>${enemy.rewards.gold} gold.`)
+        addCombatLog(`${enemy.name} dropped <i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(enemy.rewards.gold)} gold.`)
         player.gold += enemy.rewards.gold;
         playerLoadStats();
         if (enemy.rewards.drop) {
