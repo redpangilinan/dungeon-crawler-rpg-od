@@ -25,6 +25,7 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 If you encounter any issues or have any questions or suggestions, please reach out to me!
 
 - Discord - Bernkastel#6861
+- [Twitter](https://twitter.com/_rdev7)
 - [Facebook](https://www.facebook.com/redpangilinan715)
 
 ## Future updates
