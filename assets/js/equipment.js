@@ -158,7 +158,7 @@ const createEquipment = () => {
             equipment.stats.push({ [statType]: statValue });
         }
     }
-    equipment.value = Math.round(equipmentValue * 2);
+    equipment.value = Math.round(equipmentValue * 3);
     player.inventory.equipment.push(JSON.stringify(equipment));
 
     saveData();
