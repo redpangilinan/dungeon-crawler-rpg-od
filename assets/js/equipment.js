@@ -153,6 +153,7 @@ const createEquipment = () => {
                 }
             }
         }
+
         // If stat type does not exist, add new stat to stats array
         else {
             equipment.stats.push({ [statType]: statValue });
