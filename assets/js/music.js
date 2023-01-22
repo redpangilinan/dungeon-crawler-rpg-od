@@ -1,9 +1,15 @@
 // Volume settings
-let volume = {
-    master: 100 / 100,
-    bgm: (80 / 100) / 2,
-    sfx: 100 / 100
+let volume;
+if (JSON.parse(localStorage.getItem("volumeData")) == undefined) {
+    volume = {
+        master: 100 / 100,
+        bgm: (80 / 100) / 2,
+        sfx: 100 / 100
+    }
+} else {
+    volume = JSON.parse(localStorage.getItem("volumeData"));
 }
+
 
 // BGM
 let bgmDungeon;
@@ -28,7 +34,7 @@ let sfxSell;
 let sfxItem;
 let sfxBuff;
 
-document.querySelector("#title-screen").addEventListener("click", function () {
+const setVolume = () => {
     // ===== BGM =====
     bgmDungeon = new Howl({
         src: ['/assets/bgm/dungeon.wav'],
@@ -129,4 +135,8 @@ document.querySelector("#title-screen").addEventListener("click", function () {
         src: ['/assets/sfx/buff.wav'],
         volume: volume.sfx * volume.master
     });
+}
+
+document.querySelector("#title-screen").addEventListener("click", function () {
+    setVolume();
 });
