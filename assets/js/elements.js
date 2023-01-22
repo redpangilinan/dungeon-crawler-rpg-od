@@ -11,3 +11,4 @@ const playerCdmgElement = document.querySelector('#player-cdmg');
 const defaultModalElement = document.querySelector('#defaultModal');
 const sellAllElement = document.querySelector("#sell-all");
 const sellRarityElement = document.querySelector('#sell-rarity');
+const menuModalElement = document.querySelector('#menuModal');
