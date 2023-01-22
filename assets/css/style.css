@@ -133,6 +133,10 @@ main {
     width: 100%;
 }
 
+#name-input {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 /* Combat Log */
 .logBox {
     margin: 0.5rem;
