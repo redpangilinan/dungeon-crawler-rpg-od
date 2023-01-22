@@ -283,7 +283,7 @@ const showItemInfo = (item, icon, type, i) => {
     let sell = document.querySelector("#sell-equip");
     sell.onclick = function () {
         sfxOpen.play();
-        itemInfo.style.filter = "brightness(50%)";
+        itemInfo.style.display = "none";
         defaultModalElement.style.display = "flex";
         defaultModalElement.innerHTML = `
         <div class="content">
@@ -310,8 +310,6 @@ const showItemInfo = (item, icon, type, i) => {
 
             defaultModalElement.style.display = "none";
             defaultModalElement.innerHTML = "";
-            itemInfo.style.filter = "brightness(100%)";
-            itemInfo.style.display = "none";
             dimContainer.style.filter = "brightness(100%)";
             playerLoadStats();
             saveData();
@@ -321,7 +319,7 @@ const showItemInfo = (item, icon, type, i) => {
             sfxDecline.play();
             defaultModalElement.style.display = "none";
             defaultModalElement.innerHTML = "";
-            itemInfo.style.filter = "brightness(100%)";
+            itemInfo.style.display = "flex";
             continueExploring();
         }
     };
