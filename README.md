@@ -38,10 +38,15 @@ If you encounter any issues or have any questions or suggestions, please reach o
 - [Twitter](https://twitter.com/_rdev7)
 - [Facebook](https://www.facebook.com/redpangilinan715)
 
+## Latest Update (v1.1)
+
+- Added an in-game menu
+- Added basic statistics about player and current run
+- Players can now end their runs and restart
+- Players can now adjust their volume settings
+
 ## Future updates
 
-- Volume adjustment settings
-- Add reset run option
 - Adjustable dungeon difficulty
 - More dungeon events
 - More menu options that shows stats about the current run and player statistics
