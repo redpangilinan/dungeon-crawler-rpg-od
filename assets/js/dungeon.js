@@ -143,6 +143,10 @@ const dungeonEvent = () => {
                             document.querySelector("#choice1").onclick = function () {
                                 chestEvent();
                             }
+                            document.querySelector("#choice2").onclick = function () {
+                                dungeon.action = 0;
+                                ignoreEvent();
+                            };
                         } else {
                             dungeon.status.event = false;
                             incrementRoom();
