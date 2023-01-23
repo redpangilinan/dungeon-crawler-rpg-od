@@ -1,6 +1,7 @@
 # Dungeon Crawler On Demand!
 
 Quickly and easily access a thrilling dungeon-crawling experience at any time. With a simple click of a button, players can enter a fully-realized, randomly generated dungeon filled with monsters and diablo inspired equipment looting system!
+<br>[![Buy Me a Coffee at ko-fi.com](https://storage.ko-fi.com/cdn/kofi3.png?v=3)](https://ko-fi.com/W7W4I2XU6)
 
 ## How to play
 
