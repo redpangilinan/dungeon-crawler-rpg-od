@@ -479,7 +479,7 @@ const exportData = () => {
 const importData = (importedData) => {
     try {
         let playerImport = JSON.parse(atob(importedData));
-        if (playerImport.inventory !== undefined || dungeonImport.progress !== undefined) {
+        if (playerImport.inventory !== undefined) {
             sfxOpen.play();
             defaultModalElement.style.display = "none";
             confirmationModalElement.style.display = "flex";
