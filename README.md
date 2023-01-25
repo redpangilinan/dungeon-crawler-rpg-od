@@ -39,12 +39,13 @@ If you encounter any issues or have any questions or suggestions, please reach o
 - [Twitter](https://twitter.com/_rdev7)
 - [Facebook](https://www.facebook.com/redpangilinan715)
 
-## Latest Update (v1.1)
+## Recent Changelog
 
-- Added an in-game menu
-- Added basic statistics about player and current run
-- Players can now end their runs and restart
-- Players can now adjust their volume settings
+- v1.1.1: Implemented a data export and import system (1/25/2023)
+- v1.1.1: Added an in-game menu (1/23/2023)
+- v1.1.1: Added basic statistics about player and current run (1/23/2023)
+- v1.1.1: Players can now end their runs and restart (1/23/2023)
+- v1.1.1: Players can now adjust their volume settings (1/23/2023)
 
 ## Future updates
 
