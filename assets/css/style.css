@@ -56,6 +56,15 @@ i {
 
 input {
     font-size: 1rem;
+    padding: 0.4rem;
+    margin: 1rem 0 0.5rem 0;
+    background: transparent;
+    border: solid 1px;
+    color: white;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 select {
@@ -478,15 +487,6 @@ button:focus {
     font-family: Arial, Helvetica, sans-serif;
     width: 20rem;
     max-width: calc(100% - 2rem);
-    padding: 0.4rem;
-    margin: 1rem 0 0.5rem 0;
-    background: transparent;
-    border: solid 1px;
-    color: white;
-    user-select: text;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
 }
 
 /* Header */
