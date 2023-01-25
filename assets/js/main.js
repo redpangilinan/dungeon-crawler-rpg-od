@@ -165,12 +165,14 @@ window.addEventListener("load", function () {
             <button id="stats">Current Run</button>
             <button id="quit-run">Quit Run</button>
             <button id="volume-btn">Volume Settings</button>
+            <button id="export-import">Export/Import Data</button>
         </div>`;
 
         let close = document.querySelector('#close-menu');
         let playerMenu = document.querySelector('#player-menu');
         let runMenu = document.querySelector('#stats');
         let quitRun = document.querySelector('#quit-run');
+        let exportImport = document.querySelector('#export-import');
         let volumeSettings = document.querySelector('#volume-btn');
 
         // Player profile click function
@@ -333,6 +335,50 @@ window.addEventListener("load", function () {
             };
         };
 
+        // Export/Import Save Data
+        exportImport.onclick = function () {
+            sfxOpen.play();
+            let exportedData = exportData();
+            menuModalElement.style.display = "none";
+            defaultModalElement.style.display = "flex";
+            defaultModalElement.innerHTML = `
+            <div class="content" id="ei-tab">
+                <div class="content-head">
+                    <h3>Export/Import Data</h3>
+                    <p id="ei-close"><i class="fa fa-xmark"></i></p>
+                </div>
+                <h4>Export Data</h4>
+                <input type="text" id="export-input" autocomplete="off" value="${exportedData}" readonly>
+                <button id="copy-export">Copy</button>
+                <h4>Import Data</h4>
+                <input type="text" id="import-input" autocomplete="off">
+                <button id="data-import">Import</button>
+            </div>`;
+            let eiTab = document.querySelector('#ei-tab');
+            eiTab.style.width = "15rem";
+            let eiClose = document.querySelector('#ei-close');
+            let copyExport = document.querySelector('#copy-export')
+            let dataImport = document.querySelector('#data-import');
+            let importInput = document.querySelector('#import-input');
+            copyExport.onclick = function () {
+                sfxConfirm.play();
+                let copyText = document.querySelector('#export-input');
+                copyText.select();
+                copyText.setSelectionRange(0, 99999);
+                navigator.clipboard.writeText(copyText.value);
+                copyExport.innerHTML = "Copied!";
+            }
+            dataImport.onclick = function () {
+                importData(importInput.value);
+            };
+            eiClose.onclick = function () {
+                sfxDecline.play();
+                defaultModalElement.style.display = "none";
+                defaultModalElement.innerHTML = "";
+                menuModalElement.style.display = "flex";
+            };
+        };
+
         // Close menu
         close.onclick = function () {
             sfxDecline.play();
@@ -422,4 +468,60 @@ const progressReset = () => {
     dungeon.statistics.runtime = 0;
     combatBacklog.length = 0;
     saveData();
-}
+};
+
+// Export and Import Save Data
+const exportData = () => {
+    const exportedData = btoa(JSON.stringify(player));
+    return exportedData;
+};
+
+const importData = (importedData) => {
+    try {
+        let playerImport = JSON.parse(atob(importedData));
+        if (playerImport.inventory !== undefined || dungeonImport.progress !== undefined) {
+            sfxOpen.play();
+            defaultModalElement.style.display = "none";
+            confirmationModalElement.style.display = "flex";
+            confirmationModalElement.innerHTML = `
+            <div class="content">
+                <p>Are you sure you want to import this data? This will erase the current data and reset your dungeon progress.</p>
+                <div class="button-container">
+                    <button id="import-btn">Import</button>
+                    <button id="cancel-btn">Cancel</button>
+                </div>
+            </div>`;
+            let confirm = document.querySelector("#import-btn");
+            let cancel = document.querySelector("#cancel-btn");
+            confirm.onclick = function () {
+                sfxConfirm.play();
+                player = playerImport;
+                saveData();
+                bgmDungeon.stop();
+                let dimDungeon = document.querySelector('#dungeon-main');
+                dimDungeon.style.filter = "brightness(100%)";
+                dimDungeon.style.display = "none";
+                menuModalElement.style.display = "none";
+                menuModalElement.innerHTML = "";
+                confirmationModalElement.style.display = "none";
+                confirmationModalElement.innerHTML = "";
+                defaultModalElement.style.display = "none";
+                defaultModalElement.innerHTML = "";
+                runLoad("title-screen", "flex");
+                clearInterval(dungeonTimer);
+                clearInterval(playTimer);
+                progressReset();
+            }
+            cancel.onclick = function () {
+                sfxDecline.play();
+                confirmationModalElement.style.display = "none";
+                confirmationModalElement.innerHTML = "";
+                defaultModalElement.style.display = "flex";
+            }
+        } else {
+            sfxDeny.play();
+        }
+    } catch (err) {
+        sfxDeny.play();
+    }
+};
