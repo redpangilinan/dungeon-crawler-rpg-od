@@ -168,9 +168,9 @@ const lvlupPopup = () => {
     lvlupPanel.style.display = "flex";
     combatPanel.style.filter = "brightness(50%)";
     const percentages = {
-        "hp": 12,
+        "hp": 10,
         "atk": 8,
-        "def": 12,
+        "def": 10,
         "atkSpd": 5,
         "vamp": 2.5,
         "critRate": 2.5,
