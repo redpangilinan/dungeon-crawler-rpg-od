@@ -627,3 +627,12 @@ header button i {
 .scrollable::-webkit-scrollbar {
     display: none;
 }
+
+/* Volume Tab */
+#volume-tab {
+    gap: 0;
+}
+
+#volume-tab input {
+    margin: 0;
+}
