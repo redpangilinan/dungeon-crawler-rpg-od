@@ -41,6 +41,8 @@ If you encounter any issues or have any questions or suggestions, please reach o
 
 ## Recent Changelog
 
+- v1.1.2: Hard capped equipment percentage stats at higher scaling (1/27/2023)
+- v1.1.2: Capped player exp scaling after Lv.100 (1/27/2023)
 - v1.1.2: Buffed enemy exp scaling (1/26/2023)
 - v1.1.2: Moved equipment tab to inventory for better comparing of gears (1/26/2023)
 - v1.1.2: Player bonus stats are now shown beside stats (1/26/2023)
