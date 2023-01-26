@@ -80,7 +80,7 @@ const createEquipment = () => {
     // Generate and append random stats to the stats array
     const physicalStats = ["atk", "atkSpd", "vamp", "critRate", "critDmg"];
     const damageyStats = ["atk", "atk", "critRate", "critDmg", "critDmg"];
-    const speedyStats = ["atkSpd", "atkSpd", "vamp", "critRate", "critDmg"];
+    const speedyStats = ["atkSpd", "atkSpd", "atkSpd", "atk", "vamp", "critRate", "critRate", "critDmg"];
     const defenseStats = ["hp", "hp", "def", "def", "atk"];
     const dmgDefStats = ["hp", "def", "atk", "atk", "critRate", "critDmg"];
     let statTypes;
@@ -100,6 +100,7 @@ const createEquipment = () => {
     let equipmentValue = 0;
     for (let i = 0; i < loopCount; i++) {
         let statType = statTypes[Math.floor(Math.random() * statTypes.length)];
+        let capped = false;
 
         // Stat scaling for equipment
         const maxLvl = dungeon.progress.floor * dungeon.settings.enemyLvlGap + (dungeon.settings.enemyBaseLvl - 1);
@@ -123,15 +124,35 @@ const createEquipment = () => {
             equipmentValue += statValue * 2.5;
         } else if (statType === "atkSpd") {
             statValue = randomizeDecimal(cdAtkSpdScaling * 0.5, cdAtkSpdScaling);
+            if (statValue > 50) {
+                statValue = 50 * randomizeDecimal(0.5, 1.2);
+                loopCount++;
+                capped = true;
+            }
             equipmentValue += statValue * 8.33;
         } else if (statType === "vamp") {
             statValue = randomizeDecimal(crVampScaling * 0.5, crVampScaling);
+            if (statValue > 30) {
+                statValue = 30 * randomizeDecimal(0.5, 1.5);
+                loopCount++;
+                capped = true;
+            }
             equipmentValue += statValue * 20.83;
         } else if (statType === "critRate") {
             statValue = randomizeDecimal(crVampScaling * 0.5, crVampScaling);
+            if (statValue > 40) {
+                statValue = 40 * randomizeDecimal(0.5, 1.5);
+                loopCount++;
+                capped = true;
+            }
             equipmentValue += statValue * 20.83;
         } else if (statType === "critDmg") {
             statValue = randomizeDecimal(cdAtkSpdScaling * 0.5, cdAtkSpdScaling);
+            if (statValue > 90) {
+                statValue = 90 * randomizeDecimal(0.6, 1.5);
+                loopCount++;
+                capped = true;
+            }
             equipmentValue += statValue * 8.33;
         }
 
@@ -149,6 +170,9 @@ const createEquipment = () => {
             for (let j = 0; j < equipment.stats.length; j++) {
                 if (Object.keys(equipment.stats[j])[0] == statType) {
                     equipment.stats[j][statType] += statValue;
+                    if (capped) {
+                        equipment.stats[j][statType] -= statValue;
+                    }
                     break;
                 }
             }
