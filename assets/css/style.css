@@ -182,7 +182,7 @@ main {
 }
 
 #playerEquipment i {
-    margin: 0 0.3rem;
+    margin: 0 0.4rem;
 }
 
 .inventorySlots {
@@ -349,7 +349,7 @@ button:focus {
     padding: 0;
     gap: 0;
     height: 35rem;
-    width: 15rem;
+    width: 16rem;
 }
 
 #inventory .content .inventorySlots {
