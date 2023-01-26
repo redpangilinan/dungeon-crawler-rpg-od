@@ -215,13 +215,7 @@ const showItemInfo = (item, icon, type, i) => {
     dungeon.status.exploring = false;
     let itemInfo = document.querySelector("#equipmentInfo");
     let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-    let target = null;
-    if (type == "Equip") {
-        target = "#inventory";
-    } else if (type == "Unequip") {
-        target = "#dungeon-main";
-    }
-    let dimContainer = document.querySelector(`${target}`);
+    let dimContainer = document.querySelector(`#inventory`);
     itemInfo.style.display = "flex";
     dimContainer.style.filter = "brightness(50%)";
     itemInfo.innerHTML = `
@@ -381,7 +375,7 @@ const showEquipment = () => {
         let equipDiv = document.createElement('div');
         let icon = equipmentIcon(item.category);
         equipDiv.className = "items";
-        equipDiv.innerHTML = `<p class="${item.rarity}">${icon}${item.rarity} ${item.category}</p>`;
+        equipDiv.innerHTML = `<button class="${item.rarity}">${icon}</button>`;
         equipDiv.addEventListener('click', function () {
             let type = "Unequip";
             showItemInfo(item, icon, type, i);
