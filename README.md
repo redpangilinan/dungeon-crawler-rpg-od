@@ -41,6 +41,9 @@ If you encounter any issues or have any questions or suggestions, please reach o
 
 ## Recent Changelog
 
+- v1.1.2: Buffed enemy exp scaling (1/26/2023)
+- v1.1.2: Moved equipment tab to inventory for better comparing of gears (1/26/2023)
+- v1.1.2: Player bonus stats are now shown beside stats (1/26/2023)
 - v1.1.1: Implemented a data export and import system (1/25/2023)
 - v1.1.1: Added an in-game menu (1/23/2023)
 - v1.1.1: Added basic statistics about player and current run (1/23/2023)
