@@ -24,9 +24,6 @@ const playerLvlUp = () => {
 
     // Calculates the excess exp and the new exp required to level up
     let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
-    if (player.lvl > 100) {
-        expMaxIncrease = 1000000;
-    }
     let excessExp = player.exp.expCurr - player.exp.expMax;
     player.exp.expCurrLvl = excessExp;
     player.exp.expMaxLvl = expMaxIncrease;
