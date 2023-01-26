@@ -24,6 +24,9 @@ const playerLvlUp = () => {
 
     // Calculates the excess exp and the new exp required to level up
     let expMaxIncrease = Math.floor(((player.exp.expMax * 1.1) + 100) - player.exp.expMax);
+    if (player.lvl > 100) {
+        expMaxIncrease = 1000000;
+    }
     let excessExp = player.exp.expCurr - player.exp.expMax;
     player.exp.expCurrLvl = excessExp;
     player.exp.expMaxLvl = expMaxIncrease;
@@ -71,6 +74,17 @@ const playerLoadStats = () => {
     playerVampElement.innerHTML = (player.stats.vamp).toFixed(2).replace(rx, "$1") + "%";
     playerCrateElement.innerHTML = (player.stats.critRate).toFixed(2).replace(rx, "$1") + "%";
     playerCdmgElement.innerHTML = (player.stats.critDmg).toFixed(2).replace(rx, "$1") + "%";
+
+    // Player Bonus Stats
+    document.querySelector("#bonus-stats").innerHTML = `
+        <h4>Bonus Stats</h4>
+        <p><i class="fas fa-heart"></i>HP+${player.bonusStats.hp}%</p>
+        <p><i class="ra ra-sword"></i>ATK+${player.bonusStats.atk}%</p>
+        <p><i class="ra ra-round-shield"></i>DEF+${player.bonusStats.def}%</p>
+        <p><i class="ra ra-plain-dagger"></i>ATK.SPD+${player.bonusStats.atkSpd}%</p>
+        <p><i class="ra ra-dripping-blade"></i>VAMP+${player.bonusStats.vamp}%</p>
+        <p><i class="ra ra-lightning-bolt"></i>C.RATE+${player.bonusStats.critRate}%</p>
+        <p><i class="ra ra-focused-lightning"></i>C.DMG+${player.bonusStats.critDmg}%</p>`;
 };
 
 // Opens inventory
