@@ -175,6 +175,16 @@ main {
     height: 100%;
 }
 
+#playerEquipment {
+    display: flex;
+    gap: 0.5rem;
+    flex-flow: row wrap;
+}
+
+#playerEquipment i {
+    margin: 0 0.3rem;
+}
+
 .inventorySlots {
     display: flex;
     flex-direction: column;
@@ -338,8 +348,8 @@ button:focus {
 #inventory .content {
     padding: 0;
     gap: 0;
-    height: 30rem;
-    min-width: 15rem;
+    height: 35rem;
+    width: 15rem;
 }
 
 #inventory .content .inventorySlots {
