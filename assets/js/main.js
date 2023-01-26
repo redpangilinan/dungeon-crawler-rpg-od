@@ -116,8 +116,8 @@ window.addEventListener("load", function () {
         sfxOpen.play();
 
         dungeon.status.exploring = false;
-        let dimDungeon = document.querySelector('#dungeon-main');
-        dimDungeon.style.filter = "brightness(50%)";
+        let dimTarget = document.querySelector('#inventory');
+        dimTarget.style.filter = "brightness(50%)";
         defaultModalElement.style.display = "flex";
         defaultModalElement.innerHTML = `
         <div class="content">
@@ -135,14 +135,14 @@ window.addEventListener("load", function () {
             continueExploring();
             defaultModalElement.style.display = "none";
             defaultModalElement.innerHTML = "";
-            dimDungeon.style.filter = "brightness(100%)";
+            dimTarget.style.filter = "brightness(100%)";
         };
         cancel.onclick = function () {
             sfxDecline.play();
             continueExploring();
             defaultModalElement.style.display = "none";
             defaultModalElement.innerHTML = "";
-            dimDungeon.style.filter = "brightness(100%)";
+            dimTarget.style.filter = "brightness(100%)";
         };
     });
 
