@@ -441,11 +441,13 @@ button:focus {
 
 .bb-hp .current {
     background-color: red;
+    transition: .2s;
 }
 
 .bb-xb .current {
     color: transparent;
     background-color: gold;
+    transition: .2s;
 }
 
 /* Title Screen */
