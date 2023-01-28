@@ -53,10 +53,12 @@ const playerLoadStats = () => {
     // Generate battle info for player if in combat
     if (player.inCombat || playerDead) {
         const playerCombatHpElement = document.querySelector('#player-hp-battle');
+        const playerHpDamageElement = document.querySelector('#player-hp-dmg');
         const playerExpElement = document.querySelector('#player-exp-bar');
         const playerInfoElement = document.querySelector('#player-combat-info');
         playerCombatHpElement.innerHTML = `&nbsp${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)}(${player.stats.hpPercent}%)`;
         playerCombatHpElement.style.width = `${player.stats.hpPercent}%`;
+        playerHpDamageElement.style.width = `${player.stats.hpPercent}%`;
         playerExpElement.style.width = `${player.exp.expPercent}%`;
         playerInfoElement.innerHTML = `${player.name} Lv.${player.lvl} (${player.exp.expPercent}%)`;
     }

@@ -202,14 +202,20 @@ const showCombatInfo = () => {
         <div class="battle-info-panel center" id="enemyPanel">
             <p>${enemy.name} Lv.${enemy.lvl}</p>
             <div class="battle-bar empty-bar hp bb-hp">
-                <div class="battle-bar current bb-hp" id="enemy-hp-battle">&nbsp${nFormatter(enemy.stats.hp)}/${nFormatter(enemy.stats.hpMax)}<br>(${enemy.stats.hpPercent}%)</div>
+                <div class="battle-bar dmg bb-hp" id="enemy-hp-dmg"></div>
+                <div class="battle-bar current bb-hp" id="enemy-hp-battle">
+                    &nbsp${nFormatter(enemy.stats.hp)}/${nFormatter(enemy.stats.hpMax)}<br>(${enemy.stats.hpPercent}%)
+                </div>
             </div>
             <img src="./assets/sprites/${enemy.image.name}${enemy.image.type}" alt="${enemy.name}" width="${enemy.image.size}">
         </div>
         <div class="battle-info-panel primary-panel">
             <p id="player-combat-info"></p>
             <div class="battle-bar empty-bar bb-hp">
-                <div class="battle-bar current bb-hp" id="player-hp-battle">&nbsp${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)}(${player.stats.hpPercent}%)</div>
+                <div class="battle-bar dmg bb-hp" id="player-hp-dmg"></div>
+                <div class="battle-bar current bb-hp" id="player-hp-battle">
+                    &nbsp${nFormatter(player.stats.hp)}/${nFormatter(player.stats.hpMax)}(${player.stats.hpPercent}%)
+                </div>
             </div>
             <div class="battle-bar empty-bar bb-xb">
                 <div class="battle-bar current bb-xb" id="player-exp-bar">exp</div>
