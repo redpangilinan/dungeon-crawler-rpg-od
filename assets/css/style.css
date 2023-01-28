@@ -179,6 +179,7 @@ main {
     display: flex;
     gap: 0.5rem;
     flex-flow: row wrap;
+    margin-left: 0.5rem;
 }
 
 #playerEquipment i {
