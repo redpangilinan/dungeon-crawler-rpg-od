@@ -328,31 +328,31 @@ const statBlessing = () => {
     let value;
     switch (buff) {
         case "hp":
-            value = 12;
+            value = 3;
             player.bonusStats.hp += value;
             break;
         case "atk":
-            value = 8;
+            value = 2;
             player.bonusStats.atk += value;
             break;
         case "def":
-            value = 12;
+            value = 3;
             player.bonusStats.def += value;
             break;
         case "atkSpd":
-            value = 5;
+            value = 1;
             player.bonusStats.atkSpd += value;
             break;
         case "vamp":
-            value = 2.5;
+            value = 1;
             player.bonusStats.vamp += value;
             break;
         case "critRate":
-            value = 2.5;
+            value = 0.5;
             player.bonusStats.critRate += value;
             break;
         case "critDmg":
-            value = 8;
+            value = 2;
             player.bonusStats.critDmg += value;
             break;
     }
@@ -417,3 +417,9 @@ const addDungeonLog = (message, choices) => {
     dungeon.backlog.push(message);
     updateDungeonLog(choices);
 };
+
+// Evaluate a dungeon difficulty
+const evaluateDungeon = () => {
+    let base = 500;
+
+}
