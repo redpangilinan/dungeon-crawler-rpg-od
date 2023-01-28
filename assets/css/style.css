@@ -398,7 +398,7 @@ button:focus {
 .battle-info-panel {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.3rem;
     padding: 0.7rem;
     margin: 0 0.5rem;
 }
@@ -440,14 +440,29 @@ button:focus {
 }
 
 .bb-hp .current {
-    background-color: red;
-    transition: .2s;
+    background-color: #e40000;
+    margin-top: -1rem;
+    transition: .1s;
+    -webkit-transition: .1s;
+    -moz-transition: .1s;
+    -ms-transition: .1s;
+    -o-transition: .1s;
 }
 
 .bb-xb .current {
     color: transparent;
-    background-color: gold;
-    transition: .2s;
+    background-color: #9a00b9;
+    transition: .1s;
+    -webkit-transition: .1s;
+    -moz-transition: .1s;
+    -ms-transition: .1s;
+    -o-transition: .1s;
+}
+
+.bb-hp .dmg {
+    background-color: #dbc72a;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(1, 0.1, 0.1, 0.1);
 }
 
 /* Title Screen */
