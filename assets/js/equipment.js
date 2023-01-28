@@ -124,35 +124,30 @@ const createEquipment = () => {
             equipmentValue += statValue * 2.5;
         } else if (statType === "atkSpd") {
             statValue = randomizeDecimal(cdAtkSpdScaling * 0.5, cdAtkSpdScaling);
-            if (statValue > 50) {
-                statValue = 50 * randomizeDecimal(0.5, 1.2);
+            if (statValue > 51) {
+                statValue = 51 * randomizeDecimal(0.5, 1);
                 loopCount++;
                 capped = true;
             }
             equipmentValue += statValue * 8.33;
         } else if (statType === "vamp") {
             statValue = randomizeDecimal(crVampScaling * 0.5, crVampScaling);
-            if (statValue > 30) {
-                statValue = 30 * randomizeDecimal(0.5, 1.5);
+            if (statValue > 41) {
+                statValue = 41 * randomizeDecimal(0.5, 1);
                 loopCount++;
                 capped = true;
             }
             equipmentValue += statValue * 20.83;
         } else if (statType === "critRate") {
             statValue = randomizeDecimal(crVampScaling * 0.5, crVampScaling);
-            if (statValue > 40) {
-                statValue = 40 * randomizeDecimal(0.5, 1.5);
+            if (statValue > 51) {
+                statValue = 51 * randomizeDecimal(0.5, 1);
                 loopCount++;
                 capped = true;
             }
             equipmentValue += statValue * 20.83;
         } else if (statType === "critDmg") {
             statValue = randomizeDecimal(cdAtkSpdScaling * 0.5, cdAtkSpdScaling);
-            if (statValue > 90) {
-                statValue = 90 * randomizeDecimal(0.6, 1.5);
-                loopCount++;
-                capped = true;
-            }
             equipmentValue += statValue * 8.33;
         }
 
