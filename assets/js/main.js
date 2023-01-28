@@ -463,6 +463,7 @@ const progressReset = () => {
         paused: true,
         event: false,
     };
+    delete dungeon.enemyMultipliers;
     dungeon.backlog.length = 0;
     dungeon.action = 0;
     dungeon.statistics.runtime = 0;

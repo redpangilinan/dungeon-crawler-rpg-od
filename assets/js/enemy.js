@@ -217,6 +217,18 @@ const setEnemyStats = (type, condition) => {
         };
     }
 
+    if (dungeon.enemyMultipliers == undefined) {
+        dungeon.enemyMultipliers = {
+            hp: 1,
+            atk: 1,
+            def: 1,
+            atkSpd: 1,
+            vamp: 1,
+            critRate: 1,
+            critDmg: 1
+        }
+    }
+
     // Apply stat scaling for enemies each level
     for (const stat in enemy.stats) {
         if (["hpMax", "atk", "def"].includes(stat)) {
@@ -239,6 +251,15 @@ const setEnemyStats = (type, condition) => {
         enemy.stats.critRate = enemy.stats.critRate * 1.1;
         enemy.stats.critDmg = enemy.stats.critDmg * 1.2;
     }
+
+    // Apply stat multipliers for every stat
+    enemy.stats.hpMax = enemy.stats.hpMax * dungeon.enemyMultipliers.hp;
+    enemy.stats.atk = enemy.stats.atk * dungeon.enemyMultipliers.atk;
+    enemy.stats.def = enemy.stats.def * dungeon.enemyMultipliers.def;
+    enemy.stats.atkSpd = enemy.stats.atkSpd * dungeon.enemyMultipliers.atkSpd;
+    enemy.stats.vamp = enemy.stats.vamp * dungeon.enemyMultipliers.vamp;
+    enemy.stats.critRate = enemy.stats.critRate * dungeon.enemyMultipliers.critRate;
+    enemy.stats.critDmg = enemy.stats.critDmg * dungeon.enemyMultipliers.critDmg;
 
     // Calculate exp and gold that the monster gives
     const expYield = [];
