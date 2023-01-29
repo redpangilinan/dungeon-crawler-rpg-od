@@ -41,6 +41,7 @@ If you encounter any issues or have any questions or suggestions, please reach o
 
 ## Recent Changelog
 
+- v1.1.2: Added a new dungeon event called Cursed Totem to increase enemy scaling and improve loot quality (1/30/2023)
 - v1.1.2: Added damage popup numbers (1/29/2023)
 - v1.1.2: Added health bar effects and animations (1/29/2023)
 - v1.1.2: Nerfed level up and blessing bonus stats (1/29/2023)
