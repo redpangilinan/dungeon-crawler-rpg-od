@@ -463,6 +463,12 @@ const progressReset = () => {
         paused: true,
         event: false,
     };
+    dungeon.settings = {
+        enemyBaseLvl: 1,
+        enemyLvlGap: 5,
+        enemyBaseStats: 1,
+        enemyScaling: 1.1,
+    };
     delete dungeon.enemyMultipliers;
     dungeon.backlog.length = 0;
     dungeon.action = 0;
