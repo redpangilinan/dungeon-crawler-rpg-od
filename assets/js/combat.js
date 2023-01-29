@@ -106,9 +106,9 @@ const playerAttack = () => {
     dmgNumber.classList.add("dmg-numbers");
     if (crit) {
         dmgNumber.style.color = "gold";
-        dmgNumber.innerHTML = damage + "!";
+        dmgNumber.innerHTML = nFormatter(damage) + "!";
     } else {
-        dmgNumber.innerHTML = damage;
+        dmgNumber.innerHTML = nFormatter(damage);
     }
     dmgContainer.appendChild(dmgNumber);
     setTimeout(() => {
