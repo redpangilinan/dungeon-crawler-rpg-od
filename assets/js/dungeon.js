@@ -101,7 +101,7 @@ const dungeonEvent = () => {
         dungeon.action++;
         let choices;
         let eventRoll;
-        let eventTypes = ["blessing", "treasure", "enemy", "enemy", "nothing", "nothing", "nothing", "nothing"];
+        let eventTypes = ["blessing", "curse", "treasure", "enemy", "enemy", "nothing", "nothing", "nothing", "nothing"];
         if (dungeon.action > 2 && dungeon.action < 6) {
             eventTypes.push("nextroom");
         } else if (dungeon.action > 5) {
@@ -214,6 +214,36 @@ const dungeonEvent = () => {
                             player.gold -= cost;
                             sfxConfirm.play();
                             statBlessing();
+                        }
+                        dungeon.status.event = false;
+                    }
+                    document.querySelector("#choice2").onclick = function () {
+                        ignoreEvent();
+                    };
+                } else {
+                    nothingEvent();
+                }
+                break;
+            case "curse":
+                eventRoll = randomizeNum(1, 3);
+                if (eventRoll == 1) {
+                    dungeon.status.event = true;
+                    let curseLvl = Math.round((dungeon.settings.enemyScaling - 1) * 10);
+                    let cost = curseLvl * (10000 * (curseLvl * 0.5)) + 5000;
+                    choices = `
+                            <div class="decision-panel">
+                                <button id="choice1">Offer</button>
+                                <button id="choice2">Ignore</button>
+                            </div>`;
+                    addDungeonLog(`You found a Cursed Totem. Do you want to offer <i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(cost)}? This will strengthen the monsters but will also improve the loot quality. (Curse Lv.${curseLvl})`, choices);
+                    document.querySelector("#choice1").onclick = function () {
+                        if (player.gold < cost) {
+                            sfxDeny.play();
+                            addDungeonLog("You don't have enough gold.");
+                        } else {
+                            player.gold -= cost;
+                            sfxConfirm.play();
+                            cursedTotem(curseLvl);
                         }
                         dungeon.status.event = false;
                     }
@@ -356,9 +386,17 @@ const statBlessing = () => {
             player.bonusStats.critDmg += value;
             break;
     }
-    addDungeonLog(`You gained ${value}% base ${buff.replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()} from the blessing.`);
+    addDungeonLog(`You gained ${value}% base ${buff.replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()} from the blessing. (Blessing Lv.${player.blessing} > Blessing Lv.${player.blessing + 1})`);
     blessingUp();
     playerLoadStats();
+    saveData();
+}
+
+// Cursed totem offering
+const cursedTotem = (curseLvl) => {
+    sfxBuff.play();
+    dungeon.settings.enemyScaling += 0.1;
+    addDungeonLog(`The monsters in the dungeon became stronger and the loot quality improved. (Curse Lv.${curseLvl} > Curse Lv.${curseLvl + 1})`);
     saveData();
 }
 
@@ -421,5 +459,5 @@ const addDungeonLog = (message, choices) => {
 // Evaluate a dungeon difficulty
 const evaluateDungeon = () => {
     let base = 500;
-
+    // Work in Progress
 }
