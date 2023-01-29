@@ -41,6 +41,7 @@ If you encounter any issues or have any questions or suggestions, please reach o
 
 ## Recent Changelog
 
+- v1.1.2: Added damage popup numbers (1/29/2023)
 - v1.1.2: Added health bar effects and animations (1/29/2023)
 - v1.1.2: Nerfed level up and blessing bonus stats (1/29/2023)
 - v1.1.2: Hard capped equipment percentage stats at higher scaling (1/27/2023)
@@ -48,7 +49,6 @@ If you encounter any issues or have any questions or suggestions, please reach o
 - v1.1.2: Buffed enemy exp scaling (1/26/2023)
 - v1.1.2: Moved equipment tab to inventory for better comparing of gears (1/26/2023)
 - v1.1.2: Player bonus stats are now shown beside stats (1/26/2023)
-- v1.1.1: Implemented a data export and import system (1/25/2023)
 
 ## Future updates
 
