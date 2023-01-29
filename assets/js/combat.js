@@ -69,6 +69,7 @@ const playerAttack = () => {
     sfxAttack.play();
 
     // Calculates the damage and attacks the enemy
+    let crit;
     let damage = player.stats.atk * (player.stats.atk / (player.stats.atk + enemy.stats.def));
     let lifesteal = Math.round(player.stats.atk * (player.stats.vamp / 100));
     // Randomizes the damage by 90% - 110%
@@ -76,9 +77,11 @@ const playerAttack = () => {
     damage = damage * dmgRange;
     // Check if the attack is a critical hit
     if (Math.floor(Math.random() * 101) <= player.stats.critRate) {
+        crit = true;
         dmgtype = "crit damage";
         damage = Math.round(damage * (1 + (player.stats.critDmg / 100)));
     } else {
+        crit = false;
         dmgtype = "damage";
         damage = Math.round(damage);
     }
@@ -89,6 +92,28 @@ const playerAttack = () => {
     hpValidation();
     playerLoadStats();
     enemyLoadStats();
+
+    // Damage effect
+    let enemySprite = document.querySelector("#enemy-sprite");
+    enemySprite.classList.add("animation-shake");
+    setTimeout(() => {
+        enemySprite.classList.remove("animation-shake");
+    }, 200);
+
+    // Damage numbers
+    const dmgContainer = document.querySelector("#dmg-container");
+    const dmgNumber = document.createElement("p");
+    dmgNumber.classList.add("dmg-numbers");
+    if (crit) {
+        dmgNumber.style.color = "gold";
+        dmgNumber.innerHTML = damage + "!";
+    } else {
+        dmgNumber.innerHTML = damage;
+    }
+    dmgContainer.appendChild(dmgNumber);
+    setTimeout(() => {
+        dmgContainer.removeChild(dmgContainer.lastElementChild);
+    }, 650);
 };
 
 const enemyAttack = () => {
@@ -115,6 +140,13 @@ const enemyAttack = () => {
     hpValidation();
     playerLoadStats();
     enemyLoadStats();
+
+    // Damage effect
+    let playerPanel = document.querySelector('#playerPanel');
+    playerPanel.classList.add("animation-shake");
+    setTimeout(() => {
+        playerPanel.classList.remove("animation-shake");
+    }, 200);
 };
 
 // ========== Combat Backlog ==========
@@ -207,9 +239,10 @@ const showCombatInfo = () => {
                     &nbsp${nFormatter(enemy.stats.hp)}/${nFormatter(enemy.stats.hpMax)}<br>(${enemy.stats.hpPercent}%)
                 </div>
             </div>
-            <img src="./assets/sprites/${enemy.image.name}${enemy.image.type}" alt="${enemy.name}" width="${enemy.image.size}">
+            <div id="dmg-container"></div>
+            <img src="./assets/sprites/${enemy.image.name}${enemy.image.type}" alt="${enemy.name}" width="${enemy.image.size}" id="enemy-sprite">
         </div>
-        <div class="battle-info-panel primary-panel">
+        <div class="battle-info-panel primary-panel" id="playerPanel">
             <p id="player-combat-info"></p>
             <div class="battle-bar empty-bar bb-hp">
                 <div class="battle-bar dmg bb-hp" id="player-hp-dmg"></div>

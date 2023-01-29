@@ -654,3 +654,142 @@ header button i {
 #volume-tab input {
     margin: 0;
 }
+
+/* ===== Animations ===== */
+/* Shake Animation */
+.animation-shake {
+    animation: shake 0.2s;
+    -webkit-animation: shake 0.2s;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+        -webkit-transform: translate(1px, 1px) rotate(0deg);
+        -moz-transform: translate(1px, 1px) rotate(0deg);
+        -ms-transform: translate(1px, 1px) rotate(0deg);
+        -o-transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+        -webkit-transform: translate(-1px, -2px) rotate(-1deg);
+        -moz-transform: translate(-1px, -2px) rotate(-1deg);
+        -ms-transform: translate(-1px, -2px) rotate(-1deg);
+        -o-transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+        -webkit-transform: translate(-3px, 0px) rotate(1deg);
+        -moz-transform: translate(-3px, 0px) rotate(1deg);
+        -ms-transform: translate(-3px, 0px) rotate(1deg);
+        -o-transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+        -webkit-transform: translate(3px, 2px) rotate(0deg);
+        -moz-transform: translate(3px, 2px) rotate(0deg);
+        -ms-transform: translate(3px, 2px) rotate(0deg);
+        -o-transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+        -webkit-transform: translate(1px, -1px) rotate(1deg);
+        -moz-transform: translate(1px, -1px) rotate(1deg);
+        -ms-transform: translate(1px, -1px) rotate(1deg);
+        -o-transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+        -webkit-transform: translate(-1px, 2px) rotate(-1deg);
+        -moz-transform: translate(-1px, 2px) rotate(-1deg);
+        -ms-transform: translate(-1px, 2px) rotate(-1deg);
+        -o-transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+        -webkit-transform: translate(-3px, 1px) rotate(0deg);
+        -moz-transform: translate(-3px, 1px) rotate(0deg);
+        -ms-transform: translate(-3px, 1px) rotate(0deg);
+        -o-transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+        -webkit-transform: translate(3px, 1px) rotate(-1deg);
+        -moz-transform: translate(3px, 1px) rotate(-1deg);
+        -ms-transform: translate(3px, 1px) rotate(-1deg);
+        -o-transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+        -webkit-transform: translate(-1px, -1px) rotate(1deg);
+        -moz-transform: translate(-1px, -1px) rotate(1deg);
+        -ms-transform: translate(-1px, -1px) rotate(1deg);
+        -o-transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+        -webkit-transform: translate(1px, 2px) rotate(0deg);
+        -moz-transform: translate(1px, 2px) rotate(0deg);
+        -ms-transform: translate(1px, 2px) rotate(0deg);
+        -o-transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+        -webkit-transform: translate(1px, -2px) rotate(-1deg);
+        -moz-transform: translate(1px, -2px) rotate(-1deg);
+        -ms-transform: translate(1px, -2px) rotate(-1deg);
+        -o-transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+/* Damage Numbers */
+.dmg-container {
+    position: relative;
+}
+
+.dmg-numbers {
+    color: white;
+    font-size: 1.8em;
+    font-weight: 500;
+    animation: dmg-numbers 0.7s;
+    -webkit-animation: dmg-numbers 0.7s;
+    position: absolute;
+}
+
+@keyframes dmg-numbers {
+    100% {
+        opacity: 0;
+        transform: translateY(-3rem);
+        -webkit-transform: translateY(-3rem);
+        -moz-transform: translateY(-3rem);
+        -ms-transform: translateY(-3rem);
+        -o-transform: translateY(-3rem);
+    }
+
+    15% {
+        opacity: 1;
+        transform: translateY(0);
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+    }
+
+    0% {
+        transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+    }
+}
