@@ -412,21 +412,21 @@ const saveData = () => {
 
 const calculateStats = () => {
     let equipmentAtkSpd = player.baseStats.atkSpd * (player.equippedStats.atkSpd / 100);
-    let playerHpEquip = player.baseStats.hp + player.equippedStats.hp;
-    let playerAtkEquip = player.baseStats.atk + player.equippedStats.atk;
-    let playerDefEquip = player.baseStats.def + player.equippedStats.def;
-    let playerAtkSpdEquip = player.baseStats.atkSpd + equipmentAtkSpd + (equipmentAtkSpd * (player.equippedStats.atkSpd / 100));
-    let playerVampEquip = player.baseStats.vamp + player.equippedStats.vamp;
-    let playerCRateEquip = player.baseStats.critRate + player.equippedStats.critRate;
-    let playerCDmgEquip = player.baseStats.critDmg + player.equippedStats.critDmg;
+    let playerHpBase = player.baseStats.hp;
+    let playerAtkBase = player.baseStats.atk;
+    let playerDefBase = player.baseStats.def;
+    let playerAtkSpdBase = player.baseStats.atkSpd;
+    let playerVampBase = player.baseStats.vamp;
+    let playerCRateBase = player.baseStats.critRate;
+    let playerCDmgBase = player.baseStats.critDmg;
 
-    player.stats.hpMax = Math.round(playerHpEquip + playerHpEquip * (player.bonusStats.hp / 100));
-    player.stats.atk = Math.round(playerAtkEquip + playerAtkEquip * (player.bonusStats.atk / 100));
-    player.stats.def = Math.round(playerDefEquip + playerDefEquip * (player.bonusStats.def / 100));
-    player.stats.atkSpd = playerAtkSpdEquip + playerAtkSpdEquip * (player.bonusStats.atkSpd / 100);
-    player.stats.vamp = playerVampEquip + player.bonusStats.vamp;
-    player.stats.critRate = playerCRateEquip + player.bonusStats.critRate;
-    player.stats.critDmg = playerCDmgEquip + player.bonusStats.critDmg;
+    player.stats.hpMax = Math.round((playerHpBase + playerHpBase * (player.bonusStats.hp / 100)) + player.equippedStats.hp);
+    player.stats.atk = Math.round((playerAtkBase + playerAtkBase * (player.bonusStats.atk / 100)) + player.equippedStats.atk);
+    player.stats.def = Math.round((playerDefBase + playerDefBase * (player.bonusStats.def / 100)) + player.equippedStats.def);
+    player.stats.atkSpd = (playerAtkSpdBase + playerAtkSpdBase * (player.bonusStats.atkSpd / 100)) + equipmentAtkSpd + (equipmentAtkSpd * (player.equippedStats.atkSpd / 100));
+    player.stats.vamp = playerVampBase + player.bonusStats.vamp + player.equippedStats.vamp;
+    player.stats.critRate = playerCRateBase + player.bonusStats.critRate + player.equippedStats.critRate;
+    player.stats.critDmg = playerCDmgBase + player.bonusStats.critDmg + player.equippedStats.critDmg;
 
     // Caps attack speed to 2.5
     if (player.stats.atkSpd > 2.5) {
