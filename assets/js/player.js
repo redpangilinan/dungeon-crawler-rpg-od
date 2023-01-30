@@ -16,7 +16,7 @@ const playerExpGain = () => {
     }
 
     playerLoadStats();
-};
+}
 
 // Levels up the player
 const playerLvlUp = () => {
@@ -35,7 +35,7 @@ const playerLvlUp = () => {
     player.lvl++;
     player.exp.lvlGained++;
     player.exp.expMax += expMaxIncrease;
-};
+}
 
 // Refresh the player stats
 const playerLoadStats = () => {
@@ -87,7 +87,7 @@ const playerLoadStats = () => {
         <p><i class="ra ra-dripping-blade"></i>VAMP+${player.bonusStats.vamp}%</p>
         <p><i class="ra ra-lightning-bolt"></i>C.RATE+${player.bonusStats.critRate}%</p>
         <p><i class="ra ra-focused-lightning"></i>C.DMG+${player.bonusStats.critDmg}%</p>`;
-};
+}
 
 // Opens inventory
 const openInventory = () => {
@@ -134,7 +134,7 @@ const openInventory = () => {
         let rarity = sellRarityElement.value;
         sellRarityElement.className = rarity;
     };
-};
+}
 
 // Closes inventory
 const closeInventory = () => {
@@ -148,14 +148,14 @@ const closeInventory = () => {
     if (!dungeon.status.paused) {
         dungeon.status.exploring = true;
     }
-};
+}
 
 // Continue exploring if inventory is not open and the game is not paused
 const continueExploring = () => {
     if (!inventoryOpen && !dungeon.status.paused) {
         dungeon.status.exploring = true;
     }
-};
+}
 
 // Shows the level up popup
 const lvlupPopup = () => {
@@ -170,14 +170,14 @@ const lvlupPopup = () => {
     lvlupPanel.style.display = "flex";
     combatPanel.style.filter = "brightness(50%)";
     const percentages = {
-        "hp": 6,
-        "atk": 4,
+        "hp": 10,
+        "atk": 6,
         "def": 6,
         "atkSpd": 2,
         "vamp": 2,
         "critRate": 1,
-        "critDmg": 4
-    }
+        "critDmg": 6
+    };
     generateLvlStats(2, percentages);
 }
 
