@@ -8,21 +8,12 @@ window.addEventListener("load", function () {
 
     // Title Screen Validation
     document.querySelector("#title-screen").addEventListener("click", function () {
-        this.style.display = "none";
         const player = JSON.parse(localStorage.getItem("playerData"));
-        runLoad("dungeon-main", "flex");
-        if (player.inCombat) {
-            enemy = JSON.parse(localStorage.getItem("enemyData"));
-            showCombatInfo();
-            startCombat(bgmBattleMain);
+        if (player.allocated) {
+            enterDungeon();
         } else {
-            bgmDungeon.play();
+            allocationPopup();
         }
-        if (player.stats.hp == 0) {
-            progressReset();
-        }
-        initialDungeonLoad();
-        playerLoadStats();
     });
 
     // Submit Name
@@ -390,6 +381,7 @@ window.addEventListener("load", function () {
     });
 });
 
+// Loading Screen
 const runLoad = (id, display) => {
     let loader = document.querySelector("#loading");
     loader.style.display = "flex";
@@ -397,8 +389,28 @@ const runLoad = (id, display) => {
         loader.style.display = "none";
         document.querySelector(`#${id}`).style.display = `${display}`;
     }, 1000);
-};
+}
 
+// Start the game
+const enterDungeon = () => {
+    sfxConfirm.play();
+    document.querySelector("#title-screen").style.display = "none";
+    runLoad("dungeon-main", "flex");
+    if (player.inCombat) {
+        enemy = JSON.parse(localStorage.getItem("enemyData"));
+        showCombatInfo();
+        startCombat(bgmBattleMain);
+    } else {
+        bgmDungeon.play();
+    }
+    if (player.stats.hp == 0) {
+        progressReset();
+    }
+    initialDungeonLoad();
+    playerLoadStats();
+}
+
+// Save all the data into local storage
 const saveData = () => {
     const playerData = JSON.stringify(player);
     const dungeonData = JSON.stringify(dungeon);
@@ -408,8 +420,9 @@ const saveData = () => {
     localStorage.setItem("dungeonData", dungeonData);
     localStorage.setItem("enemyData", enemyData);
     localStorage.setItem("volumeData", volumeData);
-};
+}
 
+// Calculate every player stat
 const calculateStats = () => {
     let equipmentAtkSpd = player.baseStats.atkSpd * (player.equippedStats.atkSpd / 100);
     let playerHpBase = player.baseStats.hp;
@@ -432,7 +445,7 @@ const calculateStats = () => {
     if (player.stats.atkSpd > 2.5) {
         player.stats.atkSpd = 2.5;
     }
-};
+}
 
 // Resets the progress back to start
 const progressReset = () => {
@@ -470,18 +483,19 @@ const progressReset = () => {
         enemyScaling: 1.1,
     };
     delete dungeon.enemyMultipliers;
+    delete player.allocated;
     dungeon.backlog.length = 0;
     dungeon.action = 0;
     dungeon.statistics.runtime = 0;
     combatBacklog.length = 0;
     saveData();
-};
+}
 
 // Export and Import Save Data
 const exportData = () => {
     const exportedData = btoa(JSON.stringify(player));
     return exportedData;
-};
+}
 
 const importData = (importedData) => {
     try {
@@ -531,4 +545,182 @@ const importData = (importedData) => {
     } catch (err) {
         sfxDeny.play();
     }
-};
+}
+
+// Player Stat Allocation
+const allocationPopup = () => {
+    let allocation = {
+        hp: 5,
+        atk: 5,
+        def: 5,
+        atkSpd: 5
+    }
+    const updateStats = () => {
+        stats = {
+            hp: 50 * allocation.hp,
+            atk: 10 * allocation.atk,
+            def: 10 * allocation.def,
+            atkSpd: 0.4 + (0.02 * allocation.atkSpd)
+        }
+    }
+    updateStats();
+    let points = 20;
+    const loadContent = function () {
+        defaultModalElement.innerHTML = `
+        <div class="content" id="allocate-stats">
+            <div class="content-head">
+                <h3>Allocate Stats</h3>
+                <p id="allocate-close"><i class="fa fa-xmark"></i></p>
+            </div>
+            <div class="row">
+                <p><i class="fas fa-heart"></i><span id="hpDisplay">HP: ${stats.hp}</span></p>
+                <div class="row">
+                    <button id="hpMin">-</button>
+                    <span id="hpAllo">${allocation.hp}</span>
+                    <button id="hpAdd">+</button>
+                </div>
+            </div>
+            <div class="row">
+                <p><i class="ra ra-sword"></i><span id="atkDisplay">ATK: ${stats.atk}</span></p>
+                <div class="row">
+                    <button id="atkMin">-</button>
+                    <span id="atkAllo">${allocation.atk}</span>
+                    <button id="atkAdd">+</button>
+                </div>
+            </div>
+            <div class="row">
+                <p><i class="ra ra-round-shield"></i><span id="defDisplay">DEF: ${stats.def}</span></p>
+                <div class="row">
+                    <button id="defMin">-</button>
+                    <span id="defAllo">${allocation.def}</span>
+                    <button id="defAdd">+</button>
+                </div>
+            </div>
+            <div class="row">
+                <p><i class="ra ra-plain-dagger"></i><span id="atkSpdDisplay">ATK.SPD: ${stats.atkSpd}</span></p>
+                <div class="row">
+                    <button id="atkSpdMin">-</button>
+                    <span id="atkSpdAllo">${allocation.atkSpd}</span>
+                    <button id="atkSpdAdd">+</button>
+                </div>
+            </div>
+            <div class="row">
+                <p id="alloPts">Stat Points: ${points}</p>
+                <button id="allocate-reset">Reset</button>
+            </div>
+            <button id="allocate-confirm">Confirm</button>
+        </div>`;
+    }
+    defaultModalElement.style.display = "flex";
+    document.querySelector("#title-screen").style.filter = "brightness(50%)";
+    loadContent();
+
+    // Stat Allocation
+    const handleStatButtons = (e) => {
+        let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+        if (e.includes("Add")) {
+            let stat = e.split("Add")[0];
+            if (points > 0) {
+                sfxConfirm.play();
+                allocation[stat]++;
+                points--;
+                updateStats();
+                document.querySelector(`#${stat}Display`).innerHTML = `${stat.replace(/([A-Z])/g, ' $1').trim().replace(/ /g, '.').toUpperCase()}: ${stats[stat].toFixed(2).replace(rx, "$1")}`;
+                document.querySelector(`#${stat}Allo`).innerHTML = allocation[stat];
+                document.querySelector(`#alloPts`).innerHTML = `Stat Points: ${points}`;
+            } else {
+                sfxDeny.play();
+            }
+        } else if (e.includes("Min")) {
+            let stat = e.split("Min")[0];
+            if (allocation[stat] > 5) {
+                sfxConfirm.play();
+                allocation[stat]--;
+                points++;
+                updateStats();
+                document.querySelector(`#${stat}Display`).innerHTML = `${stat.replace(/([A-Z])/g, ' $1').trim().replace(/ /g, '.').toUpperCase()}: ${stats[stat].toFixed(2).replace(rx, "$1")}`;
+                document.querySelector(`#${stat}Allo`).innerHTML = allocation[stat];
+                document.querySelector(`#alloPts`).innerHTML = `Stat Points: ${points}`;
+            } else {
+                sfxDeny.play();
+            }
+        }
+    }
+    document.querySelector("#hpAdd").onclick = function () {
+        handleStatButtons("hpAdd")
+    };
+    document.querySelector("#hpMin").onclick = function () {
+        handleStatButtons("hpMin")
+    };
+    document.querySelector("#atkAdd").onclick = function () {
+        handleStatButtons("atkAdd")
+    };
+    document.querySelector("#atkMin").onclick = function () {
+        handleStatButtons("atkMin")
+    };
+    document.querySelector("#defAdd").onclick = function () {
+        handleStatButtons("defAdd")
+    };
+    document.querySelector("#defMin").onclick = function () {
+        handleStatButtons("defMin")
+    };
+    document.querySelector("#atkSpdAdd").onclick = function () {
+        handleStatButtons("atkSpdAdd")
+    };
+    document.querySelector("#atkSpdMin").onclick = function () {
+        handleStatButtons("atkSpdMin")
+    };
+
+    // Operation Buttons
+    let confirm = document.querySelector("#allocate-confirm");
+    let reset = document.querySelector("#allocate-reset");
+    let close = document.querySelector("#allocate-close");
+    confirm.onclick = function () {
+        // Set allocated stats to player base stats
+        player.baseStats = {
+            hp: stats.hp,
+            atk: stats.atk,
+            def: stats.def,
+            pen: 0,
+            atkSpd: stats.atkSpd,
+            vamp: 0,
+            critRate: 0,
+            critDmg: 50
+        }
+        player.allocated = true;
+        enterDungeon();
+        player.stats.hp = player.stats.hpMax;
+        playerLoadStats();
+        defaultModalElement.style.display = "none";
+        defaultModalElement.innerHTML = "";
+        document.querySelector("#title-screen").style.filter = "brightness(100%)";
+    }
+    reset.onclick = function () {
+        sfxDecline.play();
+        allocation = {
+            hp: 5,
+            atk: 5,
+            def: 5,
+            atkSpd: 5
+        };
+        points = 20;
+        updateStats();
+
+        // Display Reset
+        document.querySelector(`#hpDisplay`).innerHTML = `HP: ${stats.hp}`;
+        document.querySelector(`#atkDisplay`).innerHTML = `ATK: ${stats.atk}`;
+        document.querySelector(`#defDisplay`).innerHTML = `DEF: ${stats.def}`;
+        document.querySelector(`#atkSpdDisplay`).innerHTML = `ATK.SPD: ${stats.atkSpd}`;
+        document.querySelector(`#hpAllo`).innerHTML = allocation.hp;
+        document.querySelector(`#atkAllo`).innerHTML = allocation.atk;
+        document.querySelector(`#defAllo`).innerHTML = allocation.def;
+        document.querySelector(`#atkSpdAllo`).innerHTML = allocation.atkSpd;
+        document.querySelector(`#alloPts`).innerHTML = `Stat Points: ${points}`;
+    }
+    close.onclick = function () {
+        sfxDecline.play();
+        defaultModalElement.style.display = "none";
+        defaultModalElement.innerHTML = "";
+        document.querySelector("#title-screen").style.filter = "brightness(100%)";
+    }
+}
