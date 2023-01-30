@@ -62,7 +62,7 @@ const hpValidation = () => {
         });
         endCombat();
     }
-};
+}
 
 // ========== Attack Functions ==========
 const playerAttack = () => {
@@ -114,7 +114,7 @@ const playerAttack = () => {
     setTimeout(() => {
         dmgContainer.removeChild(dmgContainer.lastElementChild);
     }, 650);
-};
+}
 
 const enemyAttack = () => {
     sfxAttack.play();
@@ -147,7 +147,7 @@ const enemyAttack = () => {
     setTimeout(() => {
         playerPanel.classList.remove("animation-shake");
     }, 200);
-};
+}
 
 // ========== Combat Backlog ==========
 const combatBacklog = [];
@@ -156,7 +156,7 @@ const combatBacklog = [];
 const addCombatLog = (message) => {
     combatBacklog.push(message);
     updateCombatLog();
-};
+}
 
 // Displays every combat activity
 const updateCombatLog = () => {
@@ -184,7 +184,7 @@ const updateCombatLog = () => {
     }
 
     combatLogBox.scrollTop = combatLogBox.scrollHeight;
-};
+}
 
 // Combat Timer
 let combatSeconds = 0;
@@ -208,7 +208,7 @@ const startCombat = (battleMusic) => {
     playerTimer = setInterval(playerAttack, (1000 / player.stats.atkSpd));
     enemyTimer = setInterval(enemyAttack, (1000 / enemy.stats.atkSpd));
     combatTimer = setInterval(combatCounter, 1000);
-};
+}
 
 const endCombat = () => {
     bgmBattleMain.stop();
@@ -222,11 +222,11 @@ const endCombat = () => {
     clearInterval(enemyTimer);
     clearInterval(combatTimer);
     combatSeconds = 0;
-};
+}
 
 const combatCounter = () => {
     combatSeconds++;
-};
+}
 
 const showCombatInfo = () => {
     document.querySelector('#combatPanel').innerHTML = `
@@ -259,4 +259,4 @@ const showCombatInfo = () => {
         </div>
     </div>
     `;
-};
+}

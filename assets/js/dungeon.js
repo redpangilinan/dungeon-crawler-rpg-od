@@ -33,6 +33,11 @@ let dungeon = {
 };
 
 // ===== Dungeon Setup =====
+// Enables start and pause on button click
+dungeonActivity.addEventListener('click', function () {
+    dungeonStartPause();
+});
+
 // Sets up the initial dungeon
 const initialDungeonLoad = () => {
     if (localStorage.getItem("dungeonData") !== null) {
@@ -51,12 +56,7 @@ const initialDungeonLoad = () => {
     dungeonTime.innerHTML = "00:00:00";
     dungeonTimer = setInterval(dungeonEvent, 1000);
     playTimer = setInterval(dungeonCounter, 1000);
-};
-
-// Enables start and pause on button click
-dungeonActivity.addEventListener('click', function () {
-    dungeonStartPause();
-});
+}
 
 // Start and Pause Functionality
 const dungeonStartPause = () => {
@@ -83,7 +83,7 @@ const dungeonCounter = () => {
     dungeon.statistics.runtime++;
     dungeonTime.innerHTML = new Date(dungeon.statistics.runtime * 1000).toISOString().slice(11, 19);
     saveData();
-};
+}
 
 // Loads the floor and room count
 const loadDungeonProgress = () => {
@@ -448,13 +448,13 @@ const updateDungeonLog = (choices) => {
     }
 
     dungeonLog.scrollTop = dungeonLog.scrollHeight;
-};
+}
 
 // Add a log to the dungeon backlog
 const addDungeonLog = (message, choices) => {
     dungeon.backlog.push(message);
     updateDungeonLog(choices);
-};
+}
 
 // Evaluate a dungeon difficulty
 const evaluateDungeon = () => {

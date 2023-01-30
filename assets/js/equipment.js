@@ -193,7 +193,7 @@ const createEquipment = () => {
         stats: equipment.stats
     }
     return itemShow;
-};
+}
 
 const equipmentIcon = (equipment) => {
     if (equipment == "Sword") {
@@ -225,7 +225,7 @@ const equipmentIcon = (equipment) => {
     } else if (equipment == "Horned Helm") {
         return '<i class="ra ra-helmet"></i>';
     }
-};
+}
 
 // Show full detail of the item
 const showItemInfo = (item, icon, type, i) => {
@@ -346,7 +346,7 @@ const showItemInfo = (item, icon, type, i) => {
         dimContainer.style.filter = "brightness(100%)";
         continueExploring();
     };
-};
+}
 
 // Show inventory
 const showInventory = () => {
@@ -374,7 +374,7 @@ const showInventory = () => {
         // Add the itemDiv to the inventory container
         playerInventoryList.appendChild(itemDiv);
     }
-};
+}
 
 // Show equipment
 const showEquipment = () => {
@@ -403,7 +403,7 @@ const showEquipment = () => {
         // Add the equipDiv to the inventory container
         playerEquipmentList.appendChild(equipDiv);
     }
-};
+}
 
 // Apply the equipment stats to the player
 const applyEquipmentStats = () => {
@@ -429,7 +429,7 @@ const applyEquipmentStats = () => {
         });
     }
     calculateStats();
-};
+}
 
 const unequipAll = () => {
     for (let i = player.equipped.length - 1; i >= 0; i--) {
@@ -439,7 +439,7 @@ const unequipAll = () => {
     }
     playerLoadStats();
     saveData();
-};
+}
 
 const sellAll = (rarity) => {
     let rarityCheck = false;
@@ -465,7 +465,7 @@ const sellAll = (rarity) => {
     } else {
         sfxDeny.play();
     }
-};
+}
 
 const createEquipmentPrint = (condition) => {
     let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
@@ -491,5 +491,4 @@ const createEquipmentPrint = (condition) => {
         addDungeonLog(`
         You got <span class="${item.rarity}">${item.rarity} ${item.category}</span>.<br>${panel}`);
     }
-
-};
+}
