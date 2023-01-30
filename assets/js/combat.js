@@ -76,7 +76,7 @@ const playerAttack = () => {
     let dmgRange = 0.9 + Math.random() * 0.2;
     damage = damage * dmgRange;
     // Check if the attack is a critical hit
-    if (Math.floor(Math.random() * 101) <= player.stats.critRate) {
+    if (Math.floor(Math.random() * 100) < player.stats.critRate) {
         crit = true;
         dmgtype = "crit damage";
         damage = Math.round(damage * (1 + (player.stats.critDmg / 100)));
