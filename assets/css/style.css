@@ -142,6 +142,22 @@ main {
     width: 100%;
 }
 
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.row span {
+    width: 1rem;
+    text-align: center;
+}
+
+.center-text {
+    text-align: center;
+}
+
 /* Combat Log */
 .logBox {
     margin: 0.5rem;
@@ -515,6 +531,11 @@ button:focus {
     font-family: Arial, Helvetica, sans-serif;
     width: 20rem;
     max-width: calc(100% - 2rem);
+}
+
+/* Stat Allocation */
+#allocate-stats {
+    width: 18rem;
 }
 
 /* Header */
