@@ -163,7 +163,7 @@ const setEnemyStats = (type, condition) => {
     if (type == "Offensive") {
         enemy.stats = {
             hp: 0,
-            hpMax: randomizeNum(180, 250),
+            hpMax: randomizeNum(300, 370),
             atk: randomizeNum(70, 100),
             def: randomizeNum(20, 50),
             atkSpd: randomizeDecimal(0.2, 0.4),
@@ -174,7 +174,7 @@ const setEnemyStats = (type, condition) => {
     } else if (type == "Defensive") {
         enemy.stats = {
             hp: 0,
-            hpMax: randomizeNum(250, 350),
+            hpMax: randomizeNum(400, 500),
             atk: randomizeNum(40, 70),
             def: randomizeNum(40, 70),
             atkSpd: randomizeDecimal(0.1, 0.3),
@@ -185,7 +185,7 @@ const setEnemyStats = (type, condition) => {
     } else if (type == "Balanced") {
         enemy.stats = {
             hp: 0,
-            hpMax: randomizeNum(200, 300),
+            hpMax: randomizeNum(320, 420),
             atk: randomizeNum(50, 80),
             def: randomizeNum(30, 60),
             atkSpd: randomizeDecimal(0.15, 0.35),
@@ -196,7 +196,7 @@ const setEnemyStats = (type, condition) => {
     } else if (type == "Quick") {
         enemy.stats = {
             hp: 0,
-            hpMax: randomizeNum(180, 250),
+            hpMax: randomizeNum(300, 370),
             atk: randomizeNum(50, 80),
             def: randomizeNum(30, 60),
             atkSpd: randomizeDecimal(0.35, 0.45),
@@ -207,7 +207,7 @@ const setEnemyStats = (type, condition) => {
     } else if (type == "Lethal") {
         enemy.stats = {
             hp: 0,
-            hpMax: randomizeNum(180, 250),
+            hpMax: randomizeNum(300, 370),
             atk: randomizeNum(70, 100),
             def: randomizeNum(20, 50),
             atkSpd: randomizeDecimal(0.15, 0.35),
@@ -245,7 +245,7 @@ const setEnemyStats = (type, condition) => {
     }
 
     if (condition == "guardian") {
-        enemy.stats.hpMax = enemy.stats.hpMax * 2;
+        enemy.stats.hpMax = enemy.stats.hpMax * 1.5;
         enemy.stats.atk = enemy.stats.atk * 1.3;
         enemy.stats.def = enemy.stats.def * 1.3;
         enemy.stats.critRate = enemy.stats.critRate * 1.1;
@@ -253,9 +253,9 @@ const setEnemyStats = (type, condition) => {
     }
 
     // Apply stat multipliers for every stat
-    enemy.stats.hpMax = enemy.stats.hpMax * dungeon.enemyMultipliers.hp;
-    enemy.stats.atk = enemy.stats.atk * dungeon.enemyMultipliers.atk;
-    enemy.stats.def = enemy.stats.def * dungeon.enemyMultipliers.def;
+    enemy.stats.hpMax = Math.round((enemy.stats.hpMax * (dungeon.progress.floor / 2)) * dungeon.enemyMultipliers.hp);
+    enemy.stats.atk = Math.round(enemy.stats.atk * dungeon.enemyMultipliers.atk);
+    enemy.stats.def = Math.round(enemy.stats.def * dungeon.enemyMultipliers.def);
     enemy.stats.atkSpd = enemy.stats.atkSpd * dungeon.enemyMultipliers.atkSpd;
     enemy.stats.vamp = enemy.stats.vamp * dungeon.enemyMultipliers.vamp;
     enemy.stats.critRate = enemy.stats.critRate * dungeon.enemyMultipliers.critRate;
@@ -276,7 +276,7 @@ const setEnemyStats = (type, condition) => {
         expYield.push(statExp);
     }
 
-    let expCalculation = (expYield.reduce((acc, cur) => acc + cur, 0)) / 15;
+    let expCalculation = (expYield.reduce((acc, cur) => acc + cur, 0)) / 16;
     enemy.rewards.exp = Math.round(expCalculation + expCalculation * (enemy.lvl * 0.1));
     if (enemy.rewards.exp > 1000000) {
         enemy.rewards.exp = 1000000 * randomizeDecimal(0.9, 1.1);
@@ -490,7 +490,7 @@ const setEnemyImg = () => {
             enemy.image.size = '50%';
             break;
     };
-};
+}
 
 const enemyLoadStats = () => {
     // Shows proper percentage for respective stats
@@ -505,4 +505,4 @@ const enemyLoadStats = () => {
     enemyHpElement.innerHTML = `&nbsp${nFormatter(enemy.stats.hp)}/${nFormatter(enemy.stats.hpMax)}<br>(${enemy.stats.hpPercent}%)`;
     enemyHpElement.style.width = `${enemy.stats.hpPercent}%`;
     enemyHpDamageElement.style.width = `${enemy.stats.hpPercent}%`;
-};
+}
