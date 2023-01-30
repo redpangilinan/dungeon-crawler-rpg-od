@@ -139,4 +139,5 @@ const setVolume = () => {
 
 document.querySelector("#title-screen").addEventListener("click", function () {
     setVolume();
+    sfxOpen.play();
 });
