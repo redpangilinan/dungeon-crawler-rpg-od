@@ -442,28 +442,44 @@ const unequipAll = () => {
 }
 
 const sellAll = (rarity) => {
-    let rarityCheck = false;
-    for (let i = 0; i < player.inventory.equipment.length; i++) {
-        const equipment = JSON.parse(player.inventory.equipment[i]);
-        if (equipment.rarity === rarity) {
-            rarityCheck = true;
-            break;
-        }
-    }
-    if (rarityCheck) {
-        sfxSell.play();
-        for (let i = 0; i < player.inventory.equipment.length; i++) {
-            const equipment = JSON.parse(player.inventory.equipment[i]);
-            if (equipment.rarity === rarity) {
+    if (rarity == "All") {
+        if (player.inventory.equipment.length !== 0) {
+            sfxSell.play();
+            for (let i = 0; i < player.inventory.equipment.length; i++) {
+                const equipment = JSON.parse(player.inventory.equipment[i]);
                 player.gold += equipment.value;
                 player.inventory.equipment.splice(i, 1);
                 i--;
             }
+            playerLoadStats();
+            saveData();
+        } else {
+            sfxDeny.play();
         }
-        playerLoadStats();
-        saveData();
     } else {
-        sfxDeny.play();
+        let rarityCheck = false;
+        for (let i = 0; i < player.inventory.equipment.length; i++) {
+            const equipment = JSON.parse(player.inventory.equipment[i]);
+            if (equipment.rarity === rarity) {
+                rarityCheck = true;
+                break;
+            }
+        }
+        if (rarityCheck) {
+            sfxSell.play();
+            for (let i = 0; i < player.inventory.equipment.length; i++) {
+                const equipment = JSON.parse(player.inventory.equipment[i]);
+                if (equipment.rarity === rarity) {
+                    player.gold += equipment.value;
+                    player.inventory.equipment.splice(i, 1);
+                    i--;
+                }
+            }
+            playerLoadStats();
+            saveData();
+        } else {
+            sfxDeny.play();
+        }
     }
 }
 

@@ -112,14 +112,26 @@ const openInventory = () => {
         let rarity = sellRarityElement.value;
 
         defaultModalElement.style.display = "flex";
-        defaultModalElement.innerHTML = `
-        <div class="content">
-            <p>Sell all <span class="${rarity}">${rarity}</span> equipment?</p>
-            <div class="button-container">
-                <button id="sell-confirm">Sell All</button>
-                <button id="sell-cancel">Cancel</button>
-            </div>
-        </div>`;
+        if (rarity == "All") {
+            defaultModalElement.innerHTML = `
+            <div class="content">
+                <p>Sell all of your equipment?</p>
+                <div class="button-container">
+                    <button id="sell-confirm">Sell All</button>
+                    <button id="sell-cancel">Cancel</button>
+                </div>
+            </div>`;
+        } else {
+            defaultModalElement.innerHTML = `
+            <div class="content">
+                <p>Sell all <span class="${rarity}">${rarity}</span> equipment?</p>
+                <div class="button-container">
+                    <button id="sell-confirm">Sell All</button>
+                    <button id="sell-cancel">Cancel</button>
+                </div>
+            </div>`;
+        }
+
         let confirm = document.querySelector('#sell-confirm');
         let cancel = document.querySelector('#sell-cancel');
         confirm.onclick = function () {
