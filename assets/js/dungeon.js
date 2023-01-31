@@ -101,7 +101,7 @@ const dungeonEvent = () => {
         dungeon.action++;
         let choices;
         let eventRoll;
-        let eventTypes = ["blessing", "curse", "treasure", "enemy", "enemy", "nothing", "nothing", "nothing", "nothing"];
+        let eventTypes = ["blessing", "curse", "treasure", "enemy", "enemy", "nothing", "nothing", "nothing", "nothing", "monarch"];
         if (dungeon.action > 2 && dungeon.action < 6) {
             eventTypes.push("nextroom");
         } else if (dungeon.action > 5) {
@@ -254,6 +254,25 @@ const dungeonEvent = () => {
                     nothingEvent();
                 }
                 break;
+            case "monarch":
+                eventRoll = randomizeNum(1, 7);
+                if (eventRoll == 1) {
+                    dungeon.status.event = true;
+                    choices = `
+                            <div class="decision-panel">
+                                <button id="choice1">Enter</button>
+                                <button id="choice2">Ignore</button>
+                            </div>`;
+                    addDungeonLog(`<span class="Heirloom">You found a mysterious chamber. It seems like there is something sleeping inside.</span>`, choices);
+                    document.querySelector("#choice1").onclick = function () {
+                        specialBossBattle();
+                    }
+                    document.querySelector("#choice2").onclick = function () {
+                        ignoreEvent();
+                    };
+                } else {
+                    nothingEvent();
+                }
         }
     }
 }
