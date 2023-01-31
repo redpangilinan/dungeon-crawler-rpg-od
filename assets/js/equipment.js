@@ -107,7 +107,7 @@ const createEquipment = () => {
         const minLvl = maxLvl - (dungeon.settings.enemyLvlGap - 1);
         equipment.lvl = randomizeNum(minLvl, maxLvl);
         let statMultiplier = (dungeon.settings.enemyScaling - 1) * equipment.lvl;
-        let hpScaling = (50 * randomizeDecimal(0.5, 1.5)) + ((50 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let hpScaling = (30 * randomizeDecimal(0.5, 1.5)) + ((30 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
         let atkDefScaling = (15 * randomizeDecimal(0.5, 1.5)) + ((15 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
         let cdAtkSpdScaling = (3.5 * randomizeDecimal(0.5, 1.5)) + ((3.5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
         let crVampScaling = (2 * randomizeDecimal(0.5, 1.5)) + ((2 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
