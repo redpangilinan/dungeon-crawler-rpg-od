@@ -118,7 +118,7 @@ const dungeonEvent = () => {
                         <button id="choice2">Ignore</button>
                     </div>`;
                 if (dungeon.progress.room == dungeon.progress.roomLimit) {
-                    addDungeonLog("You found the door to the boss room.", choices);
+                    addDungeonLog(`<span class="Heirloom">You found the door to the boss room.</span>`, choices);
                 } else {
                     addDungeonLog("You found a door.", choices);
                 }
@@ -205,7 +205,7 @@ const dungeonEvent = () => {
                             <button id="choice1">Offer</button>
                             <button id="choice2">Ignore</button>
                         </div>`;
-                    addDungeonLog(`You found a Statue of Blessing. Do you want to offer <i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(cost)} to gain blessings? (Blessing Lv.${player.blessing})`, choices);
+                    addDungeonLog(`<span class="Legendary">You found a Statue of Blessing. Do you want to offer <i class="fas fa-coins" style="color: #FFD700;"></i><span class="Common">${nFormatter(cost)}</span> to gain blessings? (Blessing Lv.${player.blessing})</span>`, choices);
                     document.querySelector("#choice1").onclick = function () {
                         if (player.gold < cost) {
                             sfxDeny.play();
@@ -235,7 +235,7 @@ const dungeonEvent = () => {
                                 <button id="choice1">Offer</button>
                                 <button id="choice2">Ignore</button>
                             </div>`;
-                    addDungeonLog(`You found a Cursed Totem. Do you want to offer <i class="fas fa-coins" style="color: #FFD700;"></i>${nFormatter(cost)}? This will strengthen the monsters but will also improve the loot quality. (Curse Lv.${curseLvl})`, choices);
+                    addDungeonLog(`<span class="Heirloom">You found a Cursed Totem. Do you want to offer <i class="fas fa-coins" style="color: #FFD700;"></i><span class="Common">${nFormatter(cost)}</span>? This will strengthen the monsters but will also improve the loot quality. (Curse Lv.${curseLvl})</span>`, choices);
                     document.querySelector("#choice1").onclick = function () {
                         if (player.gold < cost) {
                             sfxDeny.play();
@@ -284,6 +284,15 @@ const guardianBattle = () => {
     startCombat(bgmBattleGuardian);
     addCombatLog(`Floor Guardian ${enemy.name} is blocking your way.`);
     addDungeonLog("You moved to the next floor.");
+}
+
+// Guardian boss fight
+const specialBossBattle = () => {
+    generateRandomEnemy("sboss");
+    showCombatInfo();
+    startCombat(bgmBattleBoss);
+    addCombatLog(`Dungeon Monarch ${enemy.name} has awoken.`);
+    addDungeonLog(`Dungeon Monarch ${enemy.name} has awoken.`);
 }
 
 // Flee from the monster
@@ -358,35 +367,35 @@ const statBlessing = () => {
     let value;
     switch (buff) {
         case "hp":
-            value = 3;
+            value = 15;
             player.bonusStats.hp += value;
             break;
         case "atk":
-            value = 2;
+            value = 10;
             player.bonusStats.atk += value;
             break;
         case "def":
-            value = 3;
+            value = 10;
             player.bonusStats.def += value;
             break;
         case "atkSpd":
-            value = 1;
+            value = 2;
             player.bonusStats.atkSpd += value;
             break;
         case "vamp":
-            value = 1;
+            value = 2;
             player.bonusStats.vamp += value;
             break;
         case "critRate":
-            value = 0.5;
+            value = 1;
             player.bonusStats.critRate += value;
             break;
         case "critDmg":
-            value = 2;
+            value = 8;
             player.bonusStats.critDmg += value;
             break;
     }
-    addDungeonLog(`You gained ${value}% base ${buff.replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()} from the blessing. (Blessing Lv.${player.blessing} > Blessing Lv.${player.blessing + 1})`);
+    addDungeonLog(`You gained ${value}% bonus ${buff.replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()} from the blessing. (Blessing Lv.${player.blessing} > Blessing Lv.${player.blessing + 1})`);
     blessingUp();
     playerLoadStats();
     saveData();
