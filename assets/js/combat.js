@@ -113,7 +113,7 @@ const playerAttack = () => {
     dmgContainer.appendChild(dmgNumber);
     setTimeout(() => {
         dmgContainer.removeChild(dmgContainer.lastElementChild);
-    }, 650);
+    }, 380);
 }
 
 const enemyAttack = () => {
@@ -126,7 +126,7 @@ const enemyAttack = () => {
     let dmgRange = 0.9 + Math.random() * 0.2;
     damage = damage * dmgRange;
     // Check if the attack is a critical hit
-    if (Math.floor(Math.random() * 101) <= enemy.stats.critRate) {
+    if (Math.floor(Math.random() * 100) < enemy.stats.critRate) {
         dmgtype = "crit damage";
         damage = Math.round(damage * (1 + (enemy.stats.critDmg / 100)));
     } else {
