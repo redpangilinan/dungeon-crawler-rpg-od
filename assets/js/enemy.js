@@ -41,7 +41,9 @@ const generateRandomEnemy = (condition) => {
         // Skeleton
         'Skeleton Archer', 'Skeleton Swordsmaster', 'Skeleton Knight', 'Skeleton Mage', 'Skeleton Pirate', 'Skeleton Samurai', 'Skeleton Warrior',
         // Bosses
-        'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Cerberus Ptolemaios', 'Hellhound Inferni', 'Berthelot, the Undead King', 'Slime King', 'Zodiac Cancer', 'Alfadriel, the Light Titan', 'Tiamat, the Dragon Knight', 'Nameless Fallen King', 'Zodiac Aries', 'Llyrrad, the Ant Queen', 'Clockwork Spider', 'Aragorn, the Lethal Wolf'
+        'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Cerberus Ptolemaios', 'Hellhound Inferni', 'Berthelot, the Undead King', 'Slime King', 'Zodiac Cancer', 'Alfadriel, the Light Titan', 'Tiamat, the Dragon Knight', 'Nameless Fallen King', 'Zodiac Aries', 'Llyrrad, the Ant Queen', 'Clockwork Spider', 'Aragorn, the Lethal Wolf',
+        // Monarch
+        'Naizicher, the Spider Dragon', 'Ulliot, the Deathlord', 'Ifrit', 'Shiva', 'Behemoth', 'Blood Manipulation Feral', 'Thanatos', 'Darkness Angel Reaper', 'Zalaras, the Dragon Emperor'
     ];
     const enemyTypes = ['Offensive', 'Defensive', 'Balanced', 'Quick', 'Lethal'];
     let selectedEnemies = null;
@@ -54,6 +56,8 @@ const generateRandomEnemy = (condition) => {
     const minLvl = maxLvl - (dungeon.settings.enemyLvlGap - 1);
     if (condition == "guardian") {
         enemy.lvl = minLvl;
+    } else if (condition == "sboss") {
+        enemy.lvl = maxLvl;
     } else {
         enemy.lvl = randomizeNum(minLvl, maxLvl);
     }
@@ -65,6 +69,10 @@ const generateRandomEnemy = (condition) => {
             if (condition == "guardian") {
                 selectedEnemies = enemyNames.filter(name => [
                     'Zaart, the Dominator Goblin', 'Banshee, Skeleton Lord', 'Molten Spider', 'Berthelot, the Undead King'
+                ].includes(name));
+            } else if (condition == "sboss") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Behemoth', 'Zalaras, the Dragon Emperor'
                 ].includes(name));
             } else {
                 selectedEnemies = enemyNames.filter(name => [
@@ -85,6 +93,10 @@ const generateRandomEnemy = (condition) => {
                 selectedEnemies = enemyNames.filter(name => [
                     'Slime King', 'Zodiac Cancer', 'Alfadriel, the Light Titan'
                 ].includes(name));
+            } else if (condition == "sboss") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Ulliot, the Deathlord',
+                ].includes(name));
             } else {
                 selectedEnemies = enemyNames.filter(name => [
                     'Angel Slime', 'Knight Slime', 'Crusader Slime',
@@ -100,6 +112,10 @@ const generateRandomEnemy = (condition) => {
             if (condition == "guardian") {
                 selectedEnemies = enemyNames.filter(name => [
                     'Tiamat, the Dragon Knight', 'Nameless Fallen King', 'Zodiac Aries'
+                ].includes(name));
+            } else if (condition == "sboss") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Ifrit', 'Shiva', 'Thanatos'
                 ].includes(name));
             } else {
                 selectedEnemies = enemyNames.filter(name => [
@@ -119,6 +135,10 @@ const generateRandomEnemy = (condition) => {
                 selectedEnemies = enemyNames.filter(name => [
                     'Llyrrad, the Ant Queen', 'Clockwork Spider'
                 ].includes(name));
+            } else if (condition == "sboss") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Darkness Angel Reaper', 'Naizicher, the Spider Dragon'
+                ].includes(name));
             } else {
                 selectedEnemies = enemyNames.filter(name => [
                     'Goblin', 'Goblin Rogue', 'Goblin Archer',
@@ -136,6 +156,10 @@ const generateRandomEnemy = (condition) => {
             if (condition == "guardian") {
                 selectedEnemies = enemyNames.filter(name => [
                     'Aragorn, the Lethal Wolf', 'Cerberus Ptolemaios', 'Hellhound Inferni'
+                ].includes(name));
+            } else if (condition == "sboss") {
+                selectedEnemies = enemyNames.filter(name => [
+                    'Blood Manipulation Feral'
                 ].includes(name));
             } else {
                 selectedEnemies = enemyNames.filter(name => [
@@ -244,6 +268,7 @@ const setEnemyStats = (type, condition) => {
         }
     }
 
+    // Stat multiplier for floor guardians
     if (condition == "guardian") {
         enemy.stats.hpMax = enemy.stats.hpMax * 1.5;
         enemy.stats.atk = enemy.stats.atk * 1.3;
@@ -252,8 +277,21 @@ const setEnemyStats = (type, condition) => {
         enemy.stats.critDmg = enemy.stats.critDmg * 1.2;
     }
 
+    // Stat multiplier for monarchs
+    if (condition == "sboss") {
+        enemy.stats.hpMax = enemy.stats.hpMax * 6;
+        enemy.stats.atk = enemy.stats.atk * 2;
+        enemy.stats.def = enemy.stats.def * 2;
+        enemy.stats.critRate = enemy.stats.critRate * 1.1;
+        enemy.stats.critDmg = enemy.stats.critDmg * 1.3;
+    }
+
     // Apply stat multipliers for every stat
-    enemy.stats.hpMax = Math.round((enemy.stats.hpMax * (dungeon.progress.floor / 2)) * dungeon.enemyMultipliers.hp);
+    let floorMultiplier = (dungeon.progress.floor / 3);
+    if (floorMultiplier < 1) {
+        floorMultiplier = 1;
+    }
+    enemy.stats.hpMax = Math.round((enemy.stats.hpMax * floorMultiplier) * dungeon.enemyMultipliers.hp);
     enemy.stats.atk = Math.round(enemy.stats.atk * dungeon.enemyMultipliers.atk);
     enemy.stats.def = Math.round(enemy.stats.def * dungeon.enemyMultipliers.def);
     enemy.stats.atkSpd = enemy.stats.atkSpd * dungeon.enemyMultipliers.atkSpd;
@@ -276,7 +314,7 @@ const setEnemyStats = (type, condition) => {
         expYield.push(statExp);
     }
 
-    let expCalculation = (expYield.reduce((acc, cur) => acc + cur, 0)) / 16;
+    let expCalculation = (expYield.reduce((acc, cur) => acc + cur, 0)) / 20;
     enemy.rewards.exp = Math.round(expCalculation + expCalculation * (enemy.lvl * 0.1));
     if (enemy.rewards.exp > 1000000) {
         enemy.rewards.exp = 1000000 * randomizeDecimal(0.9, 1.1);
@@ -488,6 +526,44 @@ const setEnemyImg = () => {
         case 'Aragorn, the Lethal Wolf':
             enemy.image.name = 'wolf_boss';
             enemy.image.size = '50%';
+            break;
+
+        // Special Boss
+        case 'Naizicher, the Spider Dragon':
+            enemy.image.name = 'spider_dragon';
+            enemy.image.size = '70%';
+            break;
+        case 'Ulliot, the Deathlord':
+            enemy.image.name = 'skeleton_dragon';
+            enemy.image.size = '70%';
+            break;
+        case 'Ifrit':
+            enemy.image.name = 'firelord';
+            enemy.image.size = '70%';
+            break;
+        case 'Shiva':
+            enemy.image.name = 'icemaiden';
+            enemy.image.size = '70%';
+            break;
+        case 'Behemoth':
+            enemy.image.name = 'behemoth';
+            enemy.image.size = '70%';
+            break;
+        case 'Blood Manipulation Feral':
+            enemy.image.name = 'bm-feral';
+            enemy.image.size = '70%';
+            break;
+        case 'Thanatos':
+            enemy.image.name = 'thanatos';
+            enemy.image.size = '70%';
+            break;
+        case 'Darkness Angel Reaper':
+            enemy.image.name = 'da-reaper';
+            enemy.image.size = '70%';
+            break;
+        case 'Zalaras, the Dragon Emperor':
+            enemy.image.name = 'zalaras';
+            enemy.image.size = '70%';
             break;
     };
 }
