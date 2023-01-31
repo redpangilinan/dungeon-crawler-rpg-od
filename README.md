@@ -41,6 +41,7 @@ If you encounter any issues or have any questions or suggestions, please reach o
 
 ## Recent Changelog
 
+- v1.1.2: You can now sell everything in your inventory in a single click (1/31/2023)
 - v1.1.2: Added a special boss type called "Monarch" (1/31/2023)
 - v1.1.2: Implemented player stat allocation (1/31/2023)
 - v1.1.2: Bonus stats no longer scale with equipment (1/31/2023)
