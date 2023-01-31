@@ -35,6 +35,12 @@ const playerLvlUp = () => {
     player.lvl++;
     player.exp.lvlGained++;
     player.exp.expMax += expMaxIncrease;
+
+    // Increase player base hp per level
+    player.bonusStats.hp += 2;
+    player.bonusStats.atk += 1;
+    player.bonusStats.def += 1;
+    player.bonusStats.atkSpd += 0.25;
 }
 
 // Refresh the player stats
@@ -176,7 +182,7 @@ const lvlupPopup = () => {
         "atkSpd": 2,
         "vamp": 2,
         "critRate": 1,
-        "critDmg": 6
+        "critDmg": 8
     };
     generateLvlStats(2, percentages);
 }
