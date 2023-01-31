@@ -785,6 +785,7 @@ header button i {
     animation: dmg-numbers 0.7s;
     -webkit-animation: dmg-numbers 0.7s;
     position: absolute;
+    z-index: 1;
 }
 
 @keyframes dmg-numbers {
