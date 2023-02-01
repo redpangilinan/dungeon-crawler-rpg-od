@@ -85,16 +85,6 @@ const playerAttack = () => {
         damage = Math.round(damage);
     }
 
-    // Skill effects
-    if (player.skills.includes("Remnant Razor")) {
-        // Attacks deal extra 8% of enemies' current health on hit
-        damage += (8 * enemy.stats.hp) / 100;
-    }
-    if (player.skills.includes("Paladin's Heart")) {
-        // Attacks deal extra 10% of player's maximum health on hit
-        damage += (8 * enemy.stats.hp) / 100;
-    }
-
     // Lifesteal formula
     let lifesteal = Math.round(damage * (player.stats.vamp / 100));
 
@@ -149,11 +139,6 @@ const enemyAttack = () => {
 
     // Apply the calculations
     player.stats.hp -= damage;
-    // Aegis Thorns skill
-    if (player.skills.includes("Aegis Thorns")) {
-        // Enemies receive 15% of the damage they dealt
-        enemy.stats.hp -= (15 * damage) / 100;
-    }
     enemy.stats.hp += lifesteal;
     addCombatLog(`${enemy.name} dealt ` + nFormatter(damage) + ` ${dmgtype} to ${player.name}.`);
     hpValidation();
