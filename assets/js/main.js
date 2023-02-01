@@ -9,6 +9,9 @@ window.addEventListener("load", function () {
     // Title Screen Validation
     document.querySelector("#title-screen").addEventListener("click", function () {
         const player = JSON.parse(localStorage.getItem("playerData"));
+        if (player.skills = undefined) {
+            player.skills = []
+        }
         if (player.allocated) {
             enterDungeon();
         } else {
