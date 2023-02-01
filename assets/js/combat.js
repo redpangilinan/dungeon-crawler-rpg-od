@@ -71,7 +71,6 @@ const playerAttack = () => {
     // Calculates the damage and attacks the enemy
     let crit;
     let damage = player.stats.atk * (player.stats.atk / (player.stats.atk + enemy.stats.def));
-    let lifesteal = Math.round(player.stats.atk * (player.stats.vamp / 100));
     // Randomizes the damage by 90% - 110%
     let dmgRange = 0.9 + Math.random() * 0.2;
     damage = damage * dmgRange;
@@ -86,6 +85,20 @@ const playerAttack = () => {
         damage = Math.round(damage);
     }
 
+    // Skill effects
+    if (player.skills.includes("Remnant Razor")) {
+        // Attacks deal extra 8% of enemies' current health on hit
+        damage += (8 * enemy.stats.hp) / 100;
+    }
+    if (player.skills.includes("Paladin's Heart")) {
+        // Attacks deal extra 10% of player's maximum health on hit
+        damage += (8 * enemy.stats.hp) / 100;
+    }
+
+    // Lifesteal formula
+    let lifesteal = Math.round(damage * (player.stats.vamp / 100));
+
+    // Apply the calculations to combat
     enemy.stats.hp -= damage;
     player.stats.hp += lifesteal;
     addCombatLog(`${player.name} dealt ` + nFormatter(damage) + ` ${dmgtype} to ${enemy.name}.`);
@@ -113,7 +126,7 @@ const playerAttack = () => {
     dmgContainer.appendChild(dmgNumber);
     setTimeout(() => {
         dmgContainer.removeChild(dmgContainer.lastElementChild);
-    }, 380);
+    }, 370);
 }
 
 const enemyAttack = () => {
@@ -134,7 +147,13 @@ const enemyAttack = () => {
         damage = Math.round(damage);
     }
 
+    // Apply the calculations
     player.stats.hp -= damage;
+    // Aegis Thorns skill
+    if (player.skills.includes("Aegis Thorns")) {
+        // Enemies receive 15% of the damage they dealt
+        enemy.stats.hp -= (15 * damage) / 100;
+    }
     enemy.stats.hp += lifesteal;
     addCombatLog(`${enemy.name} dealt ` + nFormatter(damage) + ` ${dmgtype} to ${player.name}.`);
     hpValidation();
