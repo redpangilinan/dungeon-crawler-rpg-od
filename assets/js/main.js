@@ -9,9 +9,6 @@ window.addEventListener("load", function () {
     // Title Screen Validation
     document.querySelector("#title-screen").addEventListener("click", function () {
         const player = JSON.parse(localStorage.getItem("playerData"));
-        if (player.skills = undefined) {
-            player.skills = []
-        }
         if (player.allocated) {
             enterDungeon();
         } else {
@@ -471,6 +468,7 @@ const progressReset = () => {
         critRate: 0,
         critDmg: 0
     };
+    player.skills = [];
     dungeon.progress.floor = 1;
     dungeon.progress.room = 1;
     dungeon.statistics.kills = 0;
@@ -725,5 +723,11 @@ const allocationPopup = () => {
         defaultModalElement.style.display = "none";
         defaultModalElement.innerHTML = "";
         document.querySelector("#title-screen").style.filter = "brightness(100%)";
+    }
+}
+
+const objectValidation = () => {
+    if (player.skills == undefined) {
+        player.skills = [];
     }
 }
