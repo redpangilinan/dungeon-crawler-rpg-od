@@ -93,7 +93,7 @@ const playerAttack = () => {
     }
     if (player.skills.includes("Titan's Will")) {
         // Attacks deal extra 10% of your maximum health on hit
-        damage += Math.round((10 * player.stats.maxHp) / 100);
+        damage += Math.round((10 * player.stats.hpMax) / 100);
     }
     if (player.skills.includes("Devastator")) {
         // Deal 30% more damage but you lose 30% base attack speed
