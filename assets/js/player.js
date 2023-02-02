@@ -36,11 +36,13 @@ const playerLvlUp = () => {
     player.exp.lvlGained++;
     player.exp.expMax += expMaxIncrease;
 
-    // Increase player base hp per level
-    player.bonusStats.hp += 2;
-    player.bonusStats.atk += 1;
-    player.bonusStats.def += 1;
+    // Increase player bonus stats per level
+    player.bonusStats.hp += 4;
+    player.bonusStats.atk += 2;
+    player.bonusStats.def += 2;
     player.bonusStats.atkSpd += 0.25;
+    player.bonusStats.critRate += 0.1;
+    player.bonusStats.critDmg += 0.25;
 }
 
 // Refresh the player stats
@@ -85,14 +87,14 @@ const playerLoadStats = () => {
 
     // Player Bonus Stats
     document.querySelector("#bonus-stats").innerHTML = `
-        <h4>Bonus Stats</h4>
-        <p><i class="fas fa-heart"></i>HP+${player.bonusStats.hp}%</p>
-        <p><i class="ra ra-sword"></i>ATK+${player.bonusStats.atk}%</p>
-        <p><i class="ra ra-round-shield"></i>DEF+${player.bonusStats.def}%</p>
-        <p><i class="ra ra-plain-dagger"></i>ATK.SPD+${player.bonusStats.atkSpd}%</p>
-        <p><i class="ra ra-dripping-blade"></i>VAMP+${player.bonusStats.vamp}%</p>
-        <p><i class="ra ra-lightning-bolt"></i>C.RATE+${player.bonusStats.critRate}%</p>
-        <p><i class="ra ra-focused-lightning"></i>C.DMG+${player.bonusStats.critDmg}%</p>`;
+    <h4>Bonus Stats</h4>
+    <p><i class="fas fa-heart"></i>HP+${player.bonusStats.hp}%</p>
+    <p><i class="ra ra-sword"></i>ATK+${player.bonusStats.atk}%</p>
+    <p><i class="ra ra-round-shield"></i>DEF+${player.bonusStats.def}%</p>
+    <p><i class="ra ra-plain-dagger"></i>ATK.SPD+${player.bonusStats.atkSpd}%</p>
+    <p><i class="ra ra-dripping-blade"></i>VAMP+${player.bonusStats.vamp}%</p>
+    <p><i class="ra ra-lightning-bolt"></i>C.RATE+${player.bonusStats.critRate}%</p>
+    <p><i class="ra ra-focused-lightning"></i>C.DMG+${player.bonusStats.critDmg}%</p>`;
 }
 
 // Opens inventory
@@ -188,13 +190,13 @@ const lvlupPopup = () => {
     lvlupPanel.style.display = "flex";
     combatPanel.style.filter = "brightness(50%)";
     const percentages = {
-        "hp": 10,
-        "atk": 6,
-        "def": 6,
-        "atkSpd": 2,
+        "hp": 12,
+        "atk": 8,
+        "def": 8,
+        "atkSpd": 3,
         "vamp": 2,
         "critRate": 1,
-        "critDmg": 8
+        "critDmg": 6
     };
     generateLvlStats(2, percentages);
 }
@@ -243,7 +245,7 @@ const generateLvlStats = (rerolls, percentages) => {
             button.appendChild(h3);
 
             let p = document.createElement("p");
-            p.innerHTML = `Increase base ${selectedStats[i].replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()} by ${percentages[selectedStats[i]]}%.`;
+            p.innerHTML = `Increase bonus ${selectedStats[i].replace(/([A-Z])/g, ".$1").replace(/crit/g, "c").toUpperCase()} by ${percentages[selectedStats[i]]}%.`;
             button.appendChild(p);
 
             // Increase the selected stat for player
