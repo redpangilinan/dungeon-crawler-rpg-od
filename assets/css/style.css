@@ -158,6 +158,10 @@ main {
     text-align: center;
 }
 
+.pad {
+    padding: 0.3em;
+}
+
 /* Combat Log */
 .logBox {
     margin: 0.5rem;
@@ -545,6 +549,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0.3rem;
     padding: 0.3rem 0.5rem;
     margin: 0.5rem 0.5rem 0;
 }
