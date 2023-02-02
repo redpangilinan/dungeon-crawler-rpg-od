@@ -66,9 +66,11 @@ const hpValidation = () => {
 
 // ========== Attack Functions ==========
 const playerAttack = () => {
-    sfxAttack.play();
     if (!player.inCombat) {
         return;
+    }
+    if (player.inCombat) {
+        sfxAttack.play();
     }
 
     // Calculates the damage and attacks the enemy
@@ -161,9 +163,11 @@ const playerAttack = () => {
 }
 
 const enemyAttack = () => {
-    sfxAttack.play();
     if (!player.inCombat) {
         return;
+    }
+    if (player.inCombat) {
+        sfxAttack.play();
     }
 
     // Calculates the damage and attacks the player
