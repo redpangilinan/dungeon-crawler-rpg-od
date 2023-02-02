@@ -616,7 +616,6 @@ const allocationPopup = () => {
                     <option value="Remnant Razor">Remnant Razor</option>
                     <option value="Titan's Will">Titan's Will</option>
                     <option value="Devastator">Devastator</option>
-                    <option value="Blade Dance">Blade Dance</option>
                     <option value="Paladin's Heart">Paladin's Heart</option>
                     <option value="Aegis Thorns">Aegis Thorns</option>
                 </select>
