@@ -88,13 +88,13 @@ const playerLoadStats = () => {
     // Player Bonus Stats
     document.querySelector("#bonus-stats").innerHTML = `
     <h4>Bonus Stats</h4>
-    <p><i class="fas fa-heart"></i>HP+${player.bonusStats.hp}%</p>
-    <p><i class="ra ra-sword"></i>ATK+${player.bonusStats.atk}%</p>
-    <p><i class="ra ra-round-shield"></i>DEF+${player.bonusStats.def}%</p>
-    <p><i class="ra ra-plain-dagger"></i>ATK.SPD+${player.bonusStats.atkSpd}%</p>
-    <p><i class="ra ra-dripping-blade"></i>VAMP+${player.bonusStats.vamp}%</p>
-    <p><i class="ra ra-lightning-bolt"></i>C.RATE+${player.bonusStats.critRate}%</p>
-    <p><i class="ra ra-focused-lightning"></i>C.DMG+${player.bonusStats.critDmg}%</p>`;
+    <p><i class="fas fa-heart"></i>HP+${player.bonusStats.hp.toFixed(2).replace(rx, "$1")}%</p>
+    <p><i class="ra ra-sword"></i>ATK+${player.bonusStats.atk.toFixed(2).replace(rx, "$1")}%</p>
+    <p><i class="ra ra-round-shield"></i>DEF+${player.bonusStats.def.toFixed(2).replace(rx, "$1")}%</p>
+    <p><i class="ra ra-plain-dagger"></i>ATK.SPD+${player.bonusStats.atkSpd.toFixed(2).replace(rx, "$1")}%</p>
+    <p><i class="ra ra-dripping-blade"></i>VAMP+${player.bonusStats.vamp.toFixed(2).replace(rx, "$1")}%</p>
+    <p><i class="ra ra-lightning-bolt"></i>C.RATE+${player.bonusStats.critRate.toFixed(2).replace(rx, "$1")}%</p>
+    <p><i class="ra ra-focused-lightning"></i>C.DMG+${player.bonusStats.critDmg.toFixed(2).replace(rx, "$1")}%</p>`;
 }
 
 // Opens inventory
@@ -151,6 +151,8 @@ const openInventory = () => {
     };
     sellRarityElement.onclick = function () {
         sfxOpen.play();
+    };
+    sellRarityElement.onchange = function () {
         let rarity = sellRarityElement.value;
         sellRarityElement.className = rarity;
     };
