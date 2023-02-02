@@ -99,11 +99,18 @@ const playerAttack = () => {
         // Deal 30% more damage but you lose 30% base attack speed
         damage = Math.round(damage + ((30 * damage) / 100));
     }
-    if (player.skills.includes("Blade Dance")) {
-        // Gain increased attack speed after each hit
-        player.stats.atkSpd += 0.1;
+    if (player.skills.includes("Rampager")) {
+        // Increase base attack by 5 after each hit. Stack resets after battle.
+        player.baseStats.atk += 5;
         objectValidation();
-        player.tempStats.atkSpd += 0.1;
+        player.tempStats.atk += 5;
+        saveData();
+    }
+    if (player.skills.includes("Blade Dance")) {
+        // Gain increased attack speed after each hit. Stack resets after battle
+        player.baseStats.atkSpd += 0.01;
+        objectValidation();
+        player.tempStats.atkSpd += 0.01;
         saveData();
     }
 
@@ -117,6 +124,9 @@ const playerAttack = () => {
     hpValidation();
     playerLoadStats();
     enemyLoadStats();
+    if (!player.inCombat) {
+        return;
+    }
 
     // Damage effect
     let enemySprite = document.querySelector("#enemy-sprite");
@@ -139,6 +149,15 @@ const playerAttack = () => {
     setTimeout(() => {
         dmgContainer.removeChild(dmgContainer.lastElementChild);
     }, 370);
+
+    // Attack Timer
+    if (player.inCombat) {
+        setTimeout(() => {
+            if (player.inCombat) {
+                playerAttack();
+            }
+        }, (1000 / player.stats.atkSpd));
+    }
 }
 
 const enemyAttack = () => {
@@ -178,6 +197,9 @@ const enemyAttack = () => {
     hpValidation();
     playerLoadStats();
     enemyLoadStats();
+    if (!player.inCombat) {
+        return;
+    }
 
     // Damage effect
     let playerPanel = document.querySelector('#playerPanel');
@@ -185,6 +207,15 @@ const enemyAttack = () => {
     setTimeout(() => {
         playerPanel.classList.remove("animation-shake");
     }, 200);
+
+    // Attack Timer
+    if (player.inCombat) {
+        setTimeout(() => {
+            if (player.inCombat) {
+                enemyAttack();
+            }
+        }, (1000 / enemy.stats.atkSpd));
+    }
 }
 
 // ========== Combat Backlog ==========
@@ -234,6 +265,8 @@ const startCombat = (battleMusic) => {
     player.inCombat = true;
 
     // Starts the timer for player and enemy attacks along with combat timer
+    setTimeout(playerAttack, (1000 / player.stats.atkSpd));
+    setTimeout(enemyAttack, (1000 / enemy.stats.atkSpd));
     let dimDungeon = document.querySelector('#dungeon-main');
     dimDungeon.style.filter = "brightness(50%)";
 
@@ -243,8 +276,6 @@ const startCombat = (battleMusic) => {
     dungeon.status.event = true;
     combatPanel.style.display = "flex";
 
-    playerTimer = setInterval(playerAttack, (1000 / player.stats.atkSpd));
-    enemyTimer = setInterval(enemyAttack, (1000 / enemy.stats.atkSpd));
     combatTimer = setInterval(combatCounter, 1000);
 }
 
@@ -254,17 +285,23 @@ const endCombat = () => {
     bgmBattleBoss.stop();
     sfxCombatEnd.play();
     player.inCombat = false;
-    if (player.skills.includes("Blade Dance")) {
-        // Remove blade dance attack speed buff
+    // Skill validation
+    if (player.skills.includes("Rampager")) {
+        // Remove Rampager attack buff
         objectValidation();
-        player.stats.atkSpd -= player.tempStats.atkSpd;
+        player.baseStats.atk -= player.tempStats.atk;
+        player.tempStats.atk = 0;
+        saveData();
+    }
+    if (player.skills.includes("Blade Dance")) {
+        // Remove Blade Dance attack speed buff
+        objectValidation();
+        player.baseStats.atkSpd -= player.tempStats.atkSpd;
         player.tempStats.atkSpd = 0;
         saveData();
     }
 
     // Stops every timer in combat
-    clearInterval(playerTimer);
-    clearInterval(enemyTimer);
     clearInterval(combatTimer);
     combatSeconds = 0;
 }
