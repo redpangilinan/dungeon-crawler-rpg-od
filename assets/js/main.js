@@ -697,7 +697,7 @@ const allocationPopup = () => {
             skillDesc.innerHTML = "Attacks deal extra 8% of enemies' current health on hit.";
         }
         if (selectSkill.value == "Titan's Will") {
-            skillDesc.innerHTML = "Attacks deal extra 10% of your maximum health on hit.";
+            skillDesc.innerHTML = "Attacks deal extra 5% of your maximum health on hit.";
         }
         if (selectSkill.value == "Devastator") {
             skillDesc.innerHTML = "Deal 30% more damage but you lose 30% base attack speed.";
