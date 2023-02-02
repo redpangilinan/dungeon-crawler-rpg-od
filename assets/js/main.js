@@ -154,9 +154,9 @@ window.addEventListener("load", function () {
             </div>
             <button id="player-menu"><i class="fas fa-user"></i>${player.name}</button>
             <button id="stats">Current Run</button>
-            <button id="quit-run">Quit Run</button>
             <button id="volume-btn">Volume Settings</button>
             <button id="export-import">Export/Import Data</button>
+            <button id="quit-run">Abandon</button>
         </div>`;
 
         let close = document.querySelector('#close-menu');
@@ -206,9 +206,9 @@ window.addEventListener("load", function () {
                     <h3>Current Run</h3>
                     <p id="run-close"><i class="fa fa-xmark"></i></p>
                 </div>
-                <p>${player.name} Lv.${player.lvl}</p>
-                <p>Dungeon Threat: ${dungeon.grade}</p>
-                <p>Dungeon Rating: ${dungeon.rating}</p>
+                <p>${player.name} Lv.${player.lvl} (${player.skills})</p>
+                <p>Blessing Lvl.${player.blessing}</p>
+                <p>Curse Lvl.${Math.round((dungeon.settings.enemyScaling - 1) * 10)}</p>
                 <p>Kills: ${nFormatter(dungeon.statistics.kills)}</p>
                 <p>Runtime: ${runTime}</p>
             </div>`;
@@ -232,7 +232,7 @@ window.addEventListener("load", function () {
             <div class="content">
                 <p>Do you want to abandon this run?</p>
                 <div class="button-container">
-                    <button id="quit-run">Quit</button>
+                    <button id="quit-run">Abandon</button>
                     <button id="cancel-quit">Cancel</button>
                 </div>
             </div>`;
