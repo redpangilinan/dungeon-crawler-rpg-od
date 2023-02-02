@@ -85,6 +85,28 @@ const playerAttack = () => {
         damage = Math.round(damage);
     }
 
+    // Skill effects
+    objectValidation();
+    if (player.skills.includes("Remnant Razor")) {
+        // Attacks deal extra 8% of enemies' current health on hit
+        damage += Math.round((8 * enemy.stats.hp) / 100);
+    }
+    if (player.skills.includes("Titan's Will")) {
+        // Attacks deal extra 10% of your maximum health on hit
+        damage += Math.round((10 * player.stats.maxHp) / 100);
+    }
+    if (player.skills.includes("Devastator")) {
+        // Deal 30% more damage but you lose 30% base attack speed
+        damage = Math.round(damage + ((30 * damage) / 100));
+    }
+    if (player.skills.includes("Blade Dance")) {
+        // Gain increased attack speed after each hit
+        player.stats.atkSpd += 0.1;
+        objectValidation();
+        player.tempStats.atkSpd += 0.1;
+        saveData();
+    }
+
     // Lifesteal formula
     let lifesteal = Math.round(damage * (player.stats.vamp / 100));
 
@@ -137,8 +159,20 @@ const enemyAttack = () => {
         damage = Math.round(damage);
     }
 
+    // Skill effects
+    if (player.skills.includes("Paladin's Heart")) {
+        // You receive 25% less damage
+        damage = Math.round(damage - ((25 * damage) / 100));
+    }
+
     // Apply the calculations
     player.stats.hp -= damage;
+    // Aegis Thorns skill
+    objectValidation();
+    if (player.skills.includes("Aegis Thorns")) {
+        // Enemies receive 15% of the damage they dealt
+        enemy.stats.hp -= Math.round((15 * damage) / 100);
+    }
     enemy.stats.hp += lifesteal;
     addCombatLog(`${enemy.name} dealt ` + nFormatter(damage) + ` ${dmgtype} to ${player.name}.`);
     hpValidation();
@@ -220,6 +254,13 @@ const endCombat = () => {
     bgmBattleBoss.stop();
     sfxCombatEnd.play();
     player.inCombat = false;
+    if (player.skills.includes("Blade Dance")) {
+        // Remove blade dance attack speed buff
+        objectValidation();
+        player.stats.atkSpd -= player.tempStats.atkSpd;
+        player.tempStats.atkSpd = 0;
+        saveData();
+    }
 
     // Stops every timer in combat
     clearInterval(playerTimer);
