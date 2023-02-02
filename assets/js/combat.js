@@ -67,6 +67,9 @@ const hpValidation = () => {
 // ========== Attack Functions ==========
 const playerAttack = () => {
     sfxAttack.play();
+    if (!player.inCombat) {
+        return;
+    }
 
     // Calculates the damage and attacks the enemy
     let crit;
@@ -124,9 +127,6 @@ const playerAttack = () => {
     hpValidation();
     playerLoadStats();
     enemyLoadStats();
-    if (!player.inCombat) {
-        return;
-    }
 
     // Damage effect
     let enemySprite = document.querySelector("#enemy-sprite");
@@ -162,6 +162,9 @@ const playerAttack = () => {
 
 const enemyAttack = () => {
     sfxAttack.play();
+    if (!player.inCombat) {
+        return;
+    }
 
     // Calculates the damage and attacks the player
     let damage = enemy.stats.atk * (enemy.stats.atk / (enemy.stats.atk + player.stats.def));
@@ -197,9 +200,6 @@ const enemyAttack = () => {
     hpValidation();
     playerLoadStats();
     enemyLoadStats();
-    if (!player.inCombat) {
-        return;
-    }
 
     // Damage effect
     let playerPanel = document.querySelector('#playerPanel');
