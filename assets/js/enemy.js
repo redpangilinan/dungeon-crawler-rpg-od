@@ -469,7 +469,7 @@ const setEnemyImg = () => {
         // Bosses
         case 'Zaart, the Dominator Goblin':
             enemy.image.name = 'goblin_boss';
-            enemy.image.size = '50%';
+            enemy.image.size = '70%';
             break;
         case 'Banshee, Skeleton Lord':
             enemy.image.name = 'skeleton_boss';
