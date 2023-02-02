@@ -469,6 +469,7 @@ const progressReset = () => {
         critDmg: 0
     };
     player.skills = [];
+    player.inCombat = false;
     dungeon.progress.floor = 1;
     dungeon.progress.room = 1;
     dungeon.statistics.kills = 0;
@@ -609,6 +610,20 @@ const allocationPopup = () => {
                 <p id="alloPts">Stat Points: ${points}</p>
                 <button id="allocate-reset">Reset</button>
             </div>
+            <div class="row">
+                <p>Passive</p>
+                <select id="select-skill">
+                    <option value="Remnant Razor">Remnant Razor</option>
+                    <option value="Titan's Will">Titan's Will</option>
+                    <option value="Devastator">Devastator</option>
+                    <option value="Blade Dance">Blade Dance</option>
+                    <option value="Paladin's Heart">Paladin's Heart</option>
+                    <option value="Aegis Thorns">Aegis Thorns</option>
+                </select>
+            </div>
+            <div class="row primary-panel pad">
+                <p id="skill-desc">Attacks deal extra 8% of enemies' current health on hit.</p>
+            </div>
             <button id="allocate-confirm">Confirm</button>
         </div>`;
     }
@@ -672,6 +687,33 @@ const allocationPopup = () => {
         handleStatButtons("atkSpdMin")
     };
 
+    // Passive skills
+    let selectSkill = document.querySelector("#select-skill");
+    let skillDesc = document.querySelector("#skill-desc");
+    selectSkill.onclick = function () {
+        sfxConfirm.play();
+    }
+    selectSkill.onchange = function () {
+        if (selectSkill.value == "Remnant Razor") {
+            skillDesc.innerHTML = "Attacks deal extra 8% of enemies' current health on hit.";
+        }
+        if (selectSkill.value == "Titan's Will") {
+            skillDesc.innerHTML = "Attacks deal extra 10% of your maximum health on hit.";
+        }
+        if (selectSkill.value == "Devastator") {
+            skillDesc.innerHTML = "Deal 30% more damage but you lose 30% base attack speed.";
+        }
+        if (selectSkill.value == "Blade Dance") {
+            skillDesc.innerHTML = "Gain increased attack speed after each hit.";
+        }
+        if (selectSkill.value == "Paladin's Heart") {
+            skillDesc.innerHTML = "You receive 25% less damage permanently.";
+        }
+        if (selectSkill.value == "Aegis Thorns") {
+            skillDesc.innerHTML = "Enemies receive 15% of the damage they dealt.";
+        }
+    }
+
     // Operation Buttons
     let confirm = document.querySelector("#allocate-confirm");
     let reset = document.querySelector("#allocate-reset");
@@ -688,6 +730,30 @@ const allocationPopup = () => {
             critRate: 0,
             critDmg: 50
         }
+
+        // Set player skill
+        objectValidation();
+        if (selectSkill.value == "Remnant Razor") {
+            player.skills.push("Remnant Razor");
+        }
+        if (selectSkill.value == "Titan's Will") {
+            player.skills.push("Titan's Will");
+        }
+        if (selectSkill.value == "Devastator") {
+            player.skills.push("Devastator");
+            player.baseStats.atkSpd = player.baseStats.atkSpd - ((30 * player.baseStats.atkSpd) / 100);
+        }
+        if (selectSkill.value == "Blade Dance") {
+            player.skills.push("Blade Dance");
+        }
+        if (selectSkill.value == "Paladin's Heart") {
+            player.skills.push("Paladin's Heart");
+        }
+        if (selectSkill.value == "Aegis Thorns") {
+            player.skills.push("Aegis Thorns");
+        }
+
+        // Proceed to dungeon
         player.allocated = true;
         enterDungeon();
         player.stats.hp = player.stats.hpMax;
@@ -730,4 +796,9 @@ const objectValidation = () => {
     if (player.skills == undefined) {
         player.skills = [];
     }
+    if (player.tempStats == undefined) {
+        player.tempStats = {};
+        player.tempStats.atkSpd = 0;
+    }
+    saveData();
 }
