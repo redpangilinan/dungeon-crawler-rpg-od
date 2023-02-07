@@ -5,6 +5,7 @@ const createEquipment = () => {
         type: null,
         rarity: null,
         lvl: null,
+        tier: null,
         value: null,
         stats: [],
     };
@@ -80,7 +81,7 @@ const createEquipment = () => {
     // Generate and append random stats to the stats array
     const physicalStats = ["atk", "atkSpd", "vamp", "critRate", "critDmg"];
     const damageyStats = ["atk", "atk", "vamp", "critRate", "critDmg", "critDmg"];
-    const speedyStats = ["atkSpd", "atkSpd", "vamp", "critRate", "critRate", "critDmg"];
+    const speedyStats = ["atkSpd", "atkSpd", "atk", "vamp", "critRate", "critRate", "critDmg"];
     const defenseStats = ["hp", "hp", "def", "def", "atk"];
     const dmgDefStats = ["hp", "def", "atk", "atk", "critRate", "critDmg"];
     let statTypes;
@@ -100,17 +101,25 @@ const createEquipment = () => {
     let equipmentValue = 0;
     for (let i = 0; i < loopCount; i++) {
         let statType = statTypes[Math.floor(Math.random() * statTypes.length)];
-        let capped = false;
 
         // Stat scaling for equipment
         const maxLvl = dungeon.progress.floor * dungeon.settings.enemyLvlGap + (dungeon.settings.enemyBaseLvl - 1);
         const minLvl = maxLvl - (dungeon.settings.enemyLvlGap - 1);
+        // Set equipment level with Lv.100 cap
         equipment.lvl = randomizeNum(minLvl, maxLvl);
+        if (equipment.lvl > 100) {
+            equipment.lvl = 100;
+        }
+        // Set stat scaling and equipment tier Tier 10 cap
         let statMultiplier = (dungeon.settings.enemyScaling - 1) * equipment.lvl;
+        if (statMultiplier > 2) {
+            statMultiplier = 2;
+        }
+        equipment.tier = Math.round((dungeon.settings.enemyScaling - 1) * 10);
         let hpScaling = (30 * randomizeDecimal(0.5, 1.5)) + ((30 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
-        let atkDefScaling = (15 * randomizeDecimal(0.5, 1.5)) + ((15 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
-        let cdAtkSpdScaling = (3.5 * randomizeDecimal(0.5, 1.5)) + ((3.5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
-        let crVampScaling = (2 * randomizeDecimal(0.5, 1.5)) + ((2 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let atkDefScaling = (12 * randomizeDecimal(0.5, 1.5)) + ((12 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let cdAtkSpdScaling = (2.5 * randomizeDecimal(0.5, 1.5)) + ((2.5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let crVampScaling = (1.5 * randomizeDecimal(0.5, 1.5)) + ((1.5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
 
         // Set randomized numbers to respective stats and increment sell value
         if (statType === "hp") {
@@ -124,31 +133,43 @@ const createEquipment = () => {
             equipmentValue += statValue * 2.5;
         } else if (statType === "atkSpd") {
             statValue = randomizeDecimal(cdAtkSpdScaling * 0.5, cdAtkSpdScaling);
-            if (statValue > 41) {
-                statValue = 41 * randomizeDecimal(0.5, 1);
+            if (statValue > 15) {
+                statValue = 15 * randomizeDecimal(0.5, 1);
                 loopCount++;
-                capped = true;
             }
             equipmentValue += statValue * 8.33;
         } else if (statType === "vamp") {
             statValue = randomizeDecimal(crVampScaling * 0.5, crVampScaling);
-            if (statValue > 25) {
-                statValue = 25 * randomizeDecimal(0.5, 1);
+            if (statValue > 8) {
+                statValue = 8 * randomizeDecimal(0.5, 1);
                 loopCount++;
-                capped = true;
             }
             equipmentValue += statValue * 20.83;
         } else if (statType === "critRate") {
             statValue = randomizeDecimal(crVampScaling * 0.5, crVampScaling);
-            if (statValue > 30) {
-                statValue = 30 * randomizeDecimal(0.5, 1);
+            if (statValue > 10) {
+                statValue = 10 * randomizeDecimal(0.5, 1);
                 loopCount++;
-                capped = true;
             }
             equipmentValue += statValue * 20.83;
         } else if (statType === "critDmg") {
             statValue = randomizeDecimal(cdAtkSpdScaling * 0.5, cdAtkSpdScaling);
             equipmentValue += statValue * 8.33;
+        }
+
+        // Cap maximum stat rolls for equipment rarities
+        if (equipment.rarity == "Common" && loopCount > 3) {
+            loopCount--;
+        } else if (equipment.rarity == "Uncommon" && loopCount > 4) {
+            loopCount--;
+        } else if (equipment.rarity == "Rare" && loopCount > 5) {
+            loopCount--;
+        } else if (equipment.rarity == "Epic" && loopCount > 6) {
+            loopCount--;
+        } else if (equipment.rarity == "Legendary" && loopCount > 7) {
+            loopCount--;
+        } else if (equipment.rarity == "Heirloom" && loopCount > 9) {
+            loopCount--;
         }
 
         // Check if stat type already exists in stats array
@@ -165,9 +186,6 @@ const createEquipment = () => {
             for (let j = 0; j < equipment.stats.length; j++) {
                 if (Object.keys(equipment.stats[j])[0] == statType) {
                     equipment.stats[j][statType] += statValue;
-                    if (capped) {
-                        equipment.stats[j][statType] -= statValue;
-                    }
                     break;
                 }
             }
@@ -189,6 +207,7 @@ const createEquipment = () => {
         category: equipment.category,
         rarity: equipment.rarity,
         lvl: equipment.lvl,
+        tier: equipment.tier,
         icon: equipmentIcon(equipment.category),
         stats: equipment.stats
     }
@@ -235,11 +254,15 @@ const showItemInfo = (item, icon, type, i) => {
     let itemInfo = document.querySelector("#equipmentInfo");
     let rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
     let dimContainer = document.querySelector(`#inventory`);
+    if (item.tier == undefined) {
+        item.tier = 1;
+    }
     itemInfo.style.display = "flex";
     dimContainer.style.filter = "brightness(50%)";
     itemInfo.innerHTML = `
             <div class="content">
-                <h3 class="${item.rarity}">${icon}${item.rarity} ${item.category} Lv.${item.lvl}</h3>
+                <h3 class="${item.rarity}">${icon}${item.rarity} ${item.category}</h3>
+                <h5 class="lvltier ${item.rarity}"><b>Lv.${item.lvl} Tier ${item.tier}</b></h5>
                 <ul>
                 ${item.stats.map(stat => {
         if (Object.keys(stat)[0] === "critRate" || Object.keys(stat)[0] === "critDmg" || Object.keys(stat)[0] === "atkSpd" || Object.keys(stat)[0] === "vamp") {
@@ -488,7 +511,8 @@ const createEquipmentPrint = (condition) => {
     let item = createEquipment();
     let panel = `
         <div class="primary-panel" style="padding: 0.5rem; margin-top: 0.5rem;">
-                <h4 class="${item.rarity}">${item.icon}${item.rarity} ${item.category} Lv.${item.lvl}</h4>
+                <h4 class="${item.rarity}"><b>${item.icon}${item.rarity} ${item.category}</b></h4>
+                <h5 class="${item.rarity}"><b>Lv.${item.lvl} Tier ${item.tier}</b></h5>
                 <ul>
                 ${item.stats.map(stat => {
         if (Object.keys(stat)[0] === "critRate" || Object.keys(stat)[0] === "critDmg" || Object.keys(stat)[0] === "atkSpd" || Object.keys(stat)[0] === "vamp") {
