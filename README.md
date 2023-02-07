@@ -41,6 +41,9 @@ If you encounter any issues or have any questions or suggestions, please reach o
 
 ## Recent Changelog
 
+- v1.1.3: Capped equipment level to 100 maximum and tier to 10 maximum (2/7/2023)
+- v1.1.3: Added equipment tiers (2/7/2023)
+- v1.1.3: Nerfed vamp, atkSpd, critRate scaling and stat roll cap (2/7/2023)
 - v1.1.3: Implemented player passive skills (2/3/2023)
 - v1.1.3: Rebalanced player bonus stat growth, level up growth, and divine blessings (2/2/2023)
 - v1.1.2: You can now sell everything in your inventory in a single click (1/31/2023)
