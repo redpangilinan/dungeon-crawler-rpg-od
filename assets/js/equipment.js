@@ -111,15 +111,16 @@ const createEquipment = () => {
             equipment.lvl = 100;
         }
         // Set stat scaling and equipment tier Tier 10 cap
-        let statMultiplier = (dungeon.settings.enemyScaling - 1) * equipment.lvl;
-        if (statMultiplier > 2) {
-            statMultiplier = 2;
+        let enemyScaling = dungeon.settings.enemyScaling;
+        if (enemyScaling > 2) {
+            enemyScaling = 2;
         }
-        equipment.tier = Math.round((dungeon.settings.enemyScaling - 1) * 10);
+        let statMultiplier = (enemyScaling - 1) * equipment.lvl;
+        equipment.tier = Math.round((enemyScaling - 1) * 10);
         let hpScaling = (30 * randomizeDecimal(0.5, 1.5)) + ((30 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
-        let atkDefScaling = (15 * randomizeDecimal(0.5, 1.5)) + ((15 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
-        let cdAtkSpdScaling = (3.5 * randomizeDecimal(0.5, 1.5)) + ((3.5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
-        let crVampScaling = (2 * randomizeDecimal(0.5, 1.5)) + ((2 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let atkDefScaling = (12 * randomizeDecimal(0.5, 1.5)) + ((12 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let cdAtkSpdScaling = (2.5 * randomizeDecimal(0.5, 1.5)) + ((2.5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
+        let crVampScaling = (1.5 * randomizeDecimal(0.5, 1.5)) + ((1.5 * randomizeDecimal(0.5, 1.5)) * statMultiplier);
 
         // Set randomized numbers to respective stats and increment sell value
         if (statType === "hp") {
