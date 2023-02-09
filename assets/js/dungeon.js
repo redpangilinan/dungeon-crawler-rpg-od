@@ -386,7 +386,7 @@ const statBlessing = () => {
     let value;
     switch (buff) {
         case "hp":
-            value = 12;
+            value = 10;
             player.bonusStats.hp += value;
             break;
         case "atk":
@@ -402,7 +402,7 @@ const statBlessing = () => {
             player.bonusStats.atkSpd += value;
             break;
         case "vamp":
-            value = 2;
+            value = 0.5;
             player.bonusStats.vamp += value;
             break;
         case "critRate":

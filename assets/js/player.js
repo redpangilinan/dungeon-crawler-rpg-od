@@ -40,7 +40,7 @@ const playerLvlUp = () => {
     player.bonusStats.hp += 4;
     player.bonusStats.atk += 2;
     player.bonusStats.def += 2;
-    player.bonusStats.atkSpd += 0.25;
+    player.bonusStats.atkSpd += 0.15;
     player.bonusStats.critRate += 0.1;
     player.bonusStats.critDmg += 0.25;
 }
@@ -192,11 +192,11 @@ const lvlupPopup = () => {
     lvlupPanel.style.display = "flex";
     combatPanel.style.filter = "brightness(50%)";
     const percentages = {
-        "hp": 12,
+        "hp": 10,
         "atk": 8,
         "def": 8,
         "atkSpd": 3,
-        "vamp": 2,
+        "vamp": 0.5,
         "critRate": 1,
         "critDmg": 6
     };
