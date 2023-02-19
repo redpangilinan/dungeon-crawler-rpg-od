@@ -11,7 +11,7 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 
 - [Github](https://github.com/redpangilinan/dungeon-crawler-rpg-od)
 - [Itch.io](https://repulzor.itch.io/dungeon-crawler-od)
-- [Official Website](https://dungeoncrawler-od.netlify.app)
+- [Official Website](https://dungeoncrawler-od.vercel.app/)
 
 ## Gameplay Mechanics
 
