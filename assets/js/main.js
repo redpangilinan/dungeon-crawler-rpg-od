@@ -16,6 +16,11 @@ window.addEventListener("load", function () {
         }
     });
 
+    // Prevent double-click zooming on mobile devices
+    document.ondblclick = function (e) {
+        e.preventDefault();
+    }
+
     // Submit Name
     document.querySelector("#name-submit").addEventListener("submit", function (e) {
         e.preventDefault();
