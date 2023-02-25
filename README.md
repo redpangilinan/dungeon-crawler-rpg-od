@@ -5,7 +5,7 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 
 ## How to play
 
-- Just visit the [Official Website](https://dungeoncrawler-od.netlify.app/) and play on the get go.
+- Just visit the [Official Website](https://dungeoncrawler-od.vercel.app/) and play on the get go.
 
 ## Links
 
