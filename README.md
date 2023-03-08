@@ -6,7 +6,7 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 
 ## Notice
 
-- I had to disable the background music for web because it's eating way too much bandwidth and I can't pay for it. If you want the full experience with music, consider downloading the game.
+I had to disable the background music for web because it's eating way too much bandwidth and I can't pay for it. If you want the full experience with music, consider downloading the game.
 
 ## How to play
 
