@@ -42,29 +42,17 @@ If you encounter any issues or have any questions or suggestions, please reach o
 
 ## Recent Changelog
 
+- v1.1.3: Disabled bgm because it's eating too much bandwidth (3/9/2023)
 - v1.1.3: Capped equipment level to 100 maximum and tier to 10 maximum (2/7/2023)
 - v1.1.3: Added equipment tiers (2/7/2023)
 - v1.1.3: Nerfed vamp, atkSpd, critRate scaling and stat roll cap (2/7/2023)
 - v1.1.3: Implemented player passive skills (2/3/2023)
 - v1.1.3: Rebalanced player bonus stat growth, level up growth, and divine blessings (2/2/2023)
-- v1.1.2: You can now sell everything in your inventory in a single click (1/31/2023)
-- v1.1.2: Added a special boss type called "Monarch" (1/31/2023)
-- v1.1.2: Implemented player stat allocation (1/31/2023)
-- v1.1.2: Bonus stats no longer scale with equipment (1/31/2023)
-- v1.1.2: Massively buffed enemy hp scaling (1/31/2023)
-- v1.1.2: Added a new dungeon event called Cursed Totem to increase enemy scaling and improve loot quality (1/30/2023)
-- v1.1.2: Added damage popup numbers (1/29/2023)
-- v1.1.2: Added health bar effects and animations (1/29/2023)
-- v1.1.2: Nerfed level up and blessing bonus stats (1/29/2023)
 
 ## Future updates
 
-- Adjustable dungeon difficulty
 - More dungeon events
-- More menu options that shows stats about the current run and player statistics
-- Add more monsters and bosses
 - Equipment locking system
-- Create desktop and mobile version
 
 ## Credits
 
