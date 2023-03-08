@@ -4,6 +4,10 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 <br><br><a href='https://ko-fi.com/W7W4I2XU6' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=8F4LBS6QB4PVC)
 
+## Notice
+
+- I had to disable the background music for web because it's eating way too much bandwidth and I can't pay for it. If you want the full experience with music, consider downloading the game.
+
 ## How to play
 
 - Just visit the [Official Website](https://dungeoncrawler-od.vercel.app/) and play on the get go.
