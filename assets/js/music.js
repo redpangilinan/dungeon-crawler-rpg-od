@@ -37,27 +37,23 @@ let sfxBuff;
 const setVolume = () => {
     // ===== BGM =====
     bgmDungeon = new Howl({
-        src: ['./assets/bgm/dungeon.wav'],
-        volume: volume.bgm * volume.master,
-        loop: true
+        src: ['./assets/sfx/attack.wav'],
+        volume: volume.sfx * volume.master
     });
 
     bgmBattleMain = new Howl({
-        src: ['./assets/bgm/battle_main.wav'],
-        volume: volume.bgm * volume.master,
-        loop: true
+        src: ['./assets/sfx/attack.wav'],
+        volume: volume.sfx * volume.master
     });
 
     bgmBattleBoss = new Howl({
-        src: ['./assets/bgm/battle_boss.mp3'],
-        volume: volume.bgm * volume.master,
-        loop: true
+        src: ['./assets/sfx/attack.wav'],
+        volume: volume.sfx * volume.master
     });
 
     bgmBattleGuardian = new Howl({
-        src: ['./assets/bgm/battle_guardian.wav'],
-        volume: volume.bgm * volume.master,
-        loop: true
+        src: ['./assets/sfx/attack.wav'],
+        volume: volume.sfx * volume.master
     });
 
     // ===== SFX =====
