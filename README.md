@@ -6,11 +6,7 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 
 ## Notice
 
-I had to disable the background music for web because it's eating way too much bandwidth and I can't pay for it. If you want the full experience with music, consider downloading the game.
-
-## How to play
-
-- Just visit the [Official Website](https://dungeoncrawler-od.vercel.app/) and play on the get go.
+The website link has been moved to [Itch.io]([https://github.com/redpangilinan/dungeon-crawler-rpg-od](https://repulzor.itch.io/dungeon-crawler-od)).
 
 ## Links
 
@@ -40,7 +36,7 @@ I had to disable the background music for web because it's eating way too much b
 
 If you encounter any issues or have any questions or suggestions, please reach out to me!
 
-- Discord - Bernkastel#6861
+- Discord - brnkastl
 - [Twitter](https://twitter.com/_rdev7)
 - [Facebook](https://www.facebook.com/redpangilinan715)
 
@@ -52,11 +48,6 @@ If you encounter any issues or have any questions or suggestions, please reach o
 - v1.1.3: Nerfed vamp, atkSpd, critRate scaling and stat roll cap (2/7/2023)
 - v1.1.3: Implemented player passive skills (2/3/2023)
 - v1.1.3: Rebalanced player bonus stat growth, level up growth, and divine blessings (2/2/2023)
-
-## Future updates
-
-- More dungeon events
-- Equipment locking system
 
 ## Credits
 
