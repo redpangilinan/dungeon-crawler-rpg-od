@@ -12,7 +12,6 @@ The website link has been moved to [Itch.io](https://repulzor.itch.io/dungeon-cr
 
 - [Github](https://github.com/redpangilinan/dungeon-crawler-rpg-od)
 - [Itch.io](https://repulzor.itch.io/dungeon-crawler-od)
-- [Official Website](https://dungeoncrawler-od.vercel.app/)
 
 ## Gameplay Mechanics
 
