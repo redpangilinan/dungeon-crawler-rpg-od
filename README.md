@@ -6,7 +6,7 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 
 ## Notice
 
-The website link has been moved to [Itch.io]([https://github.com/redpangilinan/dungeon-crawler-rpg-od](https://repulzor.itch.io/dungeon-crawler-od)).
+The website link has been moved to [Itch.io](https://repulzor.itch.io/dungeon-crawler-od).
 
 ## Links
 
