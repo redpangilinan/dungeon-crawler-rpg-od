@@ -4,15 +4,6 @@ Quickly and easily access a thrilling dungeon-crawling experience at any time. W
 <br><br><a href='https://ko-fi.com/W7W4I2XU6' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=8F4LBS6QB4PVC)
 
-## Notice
-
-The website link has been moved to [Itch.io](https://repulzor.itch.io/dungeon-crawler-od).
-
-## Links
-
-- [Github](https://github.com/redpangilinan/dungeon-crawler-rpg-od)
-- [Itch.io](https://repulzor.itch.io/dungeon-crawler-od)
-
 ## Gameplay Mechanics
 
 - Roguelite gameplay where the progress is reset when the player dies, but equipment is carried over.
@@ -30,23 +21,6 @@ The website link has been moved to [Itch.io](https://repulzor.itch.io/dungeon-cr
 - VAMP (Vampirism) - Heals for a percentage of the damage dealt.
 - C.RATE (Crit Rate) - Chance to land a critical hit.
 - C.DMG (Crit Damage) - Amount of bonus damage dealt upon landing a critical hit.
-
-## Support
-
-If you encounter any issues or have any questions or suggestions, please reach out to me!
-
-- Discord - brnkastl
-- [Twitter](https://twitter.com/_rdev7)
-- [Facebook](https://www.facebook.com/redpangilinan715)
-
-## Recent Changelog
-
-- v1.1.3: Disabled bgm because it's eating too much bandwidth (3/9/2023)
-- v1.1.3: Capped equipment level to 100 maximum and tier to 10 maximum (2/7/2023)
-- v1.1.3: Added equipment tiers (2/7/2023)
-- v1.1.3: Nerfed vamp, atkSpd, critRate scaling and stat roll cap (2/7/2023)
-- v1.1.3: Implemented player passive skills (2/3/2023)
-- v1.1.3: Rebalanced player bonus stat growth, level up growth, and divine blessings (2/2/2023)
 
 ## Credits
 
